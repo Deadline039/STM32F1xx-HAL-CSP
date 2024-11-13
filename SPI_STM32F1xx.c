@@ -74,6 +74,8 @@ uint8_t spi1_init(uint32_t mode, spi_clk_mode_t clk_mode, uint32_t data_size,
     spi1_handle.Init.DataSize = data_size;
     spi1_handle.Init.FirstBit = first_bit;
 
+    SPI1_AFIO_REMAP();
+
     CSP_GPIO_CLK_ENABLE(SPI1_SCK_PORT);
     gpio_init_struct.Pin = SPI1_SCK_PIN;
     HAL_GPIO_Init(CSP_GPIO_PORT(SPI1_SCK_PORT), &gpio_init_struct);
@@ -597,6 +599,8 @@ uint8_t spi3_init(uint32_t mode, spi_clk_mode_t clk_mode, uint32_t data_size,
     spi3_handle.Init.CLKPolarity = clk_mode & (1U << 1);
     spi3_handle.Init.DataSize = data_size;
     spi3_handle.Init.FirstBit = first_bit;
+
+    SPI3_AFIO_REMAP();
 
     CSP_GPIO_CLK_ENABLE(SPI3_SCK_PORT);
     gpio_init_struct.Pin = SPI3_SCK_PIN;

@@ -125,6 +125,8 @@ uint8_t usart1_init(uint32_t baud_rate) {
     GPIO_InitTypeDef gpio_init_struct = {.Pull = GPIO_PULLUP,
                                          .Speed = GPIO_SPEED_FREQ_HIGH};
     usart1_handle.Init.BaudRate = baud_rate;
+
+    USART1_AFIO_REMAP();
 #if USART1_TX_ENABLE
     usart1_handle.Init.Mode |= UART_MODE_TX;
 
@@ -425,6 +427,8 @@ uint8_t usart2_init(uint32_t baud_rate) {
     GPIO_InitTypeDef gpio_init_struct = {.Pull = GPIO_PULLUP,
                                          .Speed = GPIO_SPEED_FREQ_HIGH};
     usart2_handle.Init.BaudRate = baud_rate;
+
+    USART2_AFIO_REMAP();
 #if USART2_TX_ENABLE
     usart2_handle.Init.Mode |= UART_MODE_TX;
 
@@ -722,6 +726,8 @@ uint8_t usart3_init(uint32_t baud_rate) {
 
                                          .Mode = GPIO_MODE_AF_PP};
     usart3_handle.Init.BaudRate = baud_rate;
+
+    USART3_AFIO_REMAP();
 #if USART3_TX_ENABLE
     usart3_handle.Init.Mode |= UART_MODE_TX;
 

@@ -75,6 +75,8 @@ uint8_t i2c1_init(uint32_t clock_speed, uint32_t address,
     i2c1_handle.Init.AddressingMode = address_mode;
     i2c1_handle.Init.OwnAddress1 = address;
 
+    I2C1_AFIO_REMAP();
+
     CSP_GPIO_CLK_ENABLE(I2C1_SCL_PORT);
     gpio_init_struct.Pin = I2C1_SCL_PIN;
     HAL_GPIO_Init(CSP_GPIO_PORT(I2C1_SCL_PORT), &gpio_init_struct);
