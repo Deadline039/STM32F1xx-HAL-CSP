@@ -9,8 +9,6 @@
 #ifndef __SPI_STM32F1xx_H
 #define __SPI_STM32F1xx_H
 
-#include "CSP_Config.h"
-
 /* clang-format off */
 
 #ifdef __cplusplus
