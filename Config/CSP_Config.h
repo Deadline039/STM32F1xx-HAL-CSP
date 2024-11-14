@@ -887,7 +887,7 @@
 // </e>
 
 // <e> CAN1 (Controller Area Network 1)
-#define CAN1_ENABLE             1
+#define CAN1_ENABLE             0
 
 //   <o> CAN1_RX Pin <0=>PA11 <1=>PB8 <2=>PD0
 #define CAN1_RX_PORT_ID         0
@@ -919,7 +919,7 @@
 #endif
 
 //   <e> Enable CAN Transmit Interrupt
-#define CAN1_ENABLE_TX_IT    1
+#define CAN1_ENABLE_TX_IT    0
 //     <o> CAN Transmit Interrupt Priority <0-15>
 //     <i> The Interrupt Priority of CAN Transmit
 #define CAN1_TX_IT_PRIORITY  2
@@ -929,7 +929,7 @@
 //   </e>
 
 //   <e> Enable CAN Receive FIFO0 Interrupt
-#define CAN1_ENABLE_RX0_IT   1
+#define CAN1_ENABLE_RX0_IT   0
 //     <o> CAN Receive FIFO0 Interrupt Priority <0-15>
 //     <i> The Interrupt Priority of CAN Receive FIFO0
 #define CAN1_RX0_IT_PRIORITY 2
@@ -939,7 +939,7 @@
 //   </e>
 
 //   <e> Enable CAN Receive FIFO1 Interrupt
-#define CAN1_ENABLE_RX1_IT   1
+#define CAN1_ENABLE_RX1_IT   0
 //     <o> CAN Receive FIFO1 Interrupt Priority <0-15>
 //     <i> The Interrupt Priority of CAN Receive FIFO1
 #define CAN1_RX1_IT_PRIORITY 2
@@ -949,7 +949,7 @@
 //   </e>
 
 //   <e> Enable CAN Stauts Change or Error (SCE) Interrupt
-#define CAN1_ENABLE_SCE_IT   1
+#define CAN1_ENABLE_SCE_IT   0
 //     <o> CAN SCE Interrupt Priority <0-15>
 //     <i> The Interrupt Priority of CAN Receive FIFO0
 #define CAN1_SCE_IT_PRIORITY 2
