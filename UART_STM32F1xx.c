@@ -294,8 +294,6 @@ uint8_t usart1_deinit(void) {
         return UART_NO_INIT;
     }
 
-    HAL_StatusTypeDef res = HAL_OK;
-
     __HAL_RCC_USART1_CLK_DISABLE();
 
 #if USART1_TX_ENABLE
@@ -590,8 +588,6 @@ uint8_t usart2_deinit(void) {
     if (__HAL_RCC_USART2_IS_CLK_DISABLED()) {
         return UART_NO_INIT;
     }
-
-    HAL_StatusTypeDef res = HAL_OK;
 
     __HAL_RCC_USART2_CLK_DISABLE();
 
@@ -894,8 +890,6 @@ uint8_t usart3_deinit(void) {
         return UART_NO_INIT;
     }
 
-    HAL_StatusTypeDef res = HAL_OK;
-
     __HAL_RCC_USART3_CLK_DISABLE();
 
 #if USART3_TX_ENABLE
@@ -1175,8 +1169,6 @@ uint8_t uart4_deinit(void) {
         return UART_NO_INIT;
     }
 
-    HAL_StatusTypeDef res = HAL_OK;
-
     __HAL_RCC_UART4_CLK_DISABLE();
 
 #if UART4_TX_ENABLE
@@ -1324,8 +1316,6 @@ uint8_t uart5_deinit(void) {
     if (__HAL_RCC_UART5_IS_CLK_DISABLED()) {
         return UART_NO_INIT;
     }
-
-    HAL_StatusTypeDef res = HAL_OK;
 
     __HAL_RCC_UART5_CLK_DISABLE();
 
