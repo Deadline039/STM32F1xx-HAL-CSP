@@ -202,18 +202,6 @@ uint8_t usart1_init(uint32_t baud_rate) {
     HAL_NVIC_EnableIRQ(
         CSP_DMA_CHANNEL_IRQn(USART1_RX_DMA_NUMBER, USART1_RX_DMA_CHANNEL));
 
-    __HAL_UART_ENABLE_IT(&usart1_handle, UART_IT_IDLE);
-    __HAL_UART_CLEAR_IDLEFLAG(&usart1_handle);
-
-    HAL_UART_Receive_DMA(&usart1_handle, usart1_rx_fifo.recv_buf,
-                         usart1_rx_fifo.buf_size);
-
-#if USE_HAL_UART_REGISTER_CALLBACKS
-    HAL_UART_RegisterCallback(&usart1_handle, HAL_UART_RX_HALFCOMPLETE_CB_ID,
-                              uart_dmarx_halfdone_callback);
-    HAL_UART_RegisterCallback(&usart1_handle, HAL_UART_RX_COMPLETE_CB_ID,
-                              uart_dmarx_done_callback);
-#endif /* USE_HAL_UART_REGISTER_CALLBACKS */
 #endif /* USART1_RX_DMA */
 
 #if USART1_TX_DMA
@@ -240,6 +228,20 @@ uint8_t usart1_init(uint32_t baud_rate) {
         return UART_INIT_FAIL;
     }
 
+#if USART1_RX_DMA
+    __HAL_UART_ENABLE_IT(&usart1_handle, UART_IT_IDLE);
+    __HAL_UART_CLEAR_IDLEFLAG(&usart1_handle);
+
+    HAL_UART_Receive_DMA(&usart1_handle, usart1_rx_fifo.recv_buf,
+                         usart1_rx_fifo.buf_size);
+
+#if USE_HAL_UART_REGISTER_CALLBACKS
+    HAL_UART_RegisterCallback(&usart1_handle, HAL_UART_RX_HALFCOMPLETE_CB_ID,
+                              uart_dmarx_halfdone_callback);
+    HAL_UART_RegisterCallback(&usart1_handle, HAL_UART_RX_COMPLETE_CB_ID,
+                              uart_dmarx_done_callback);
+#endif /* USE_HAL_UART_REGISTER_CALLBACKS */
+#endif /* USART1_RX_DMA */
     return UART_INIT_OK;
 }
 
@@ -498,18 +500,6 @@ uint8_t usart2_init(uint32_t baud_rate) {
     HAL_NVIC_EnableIRQ(
         CSP_DMA_CHANNEL_IRQn(USART2_RX_DMA_NUMBER, USART2_RX_DMA_CHANNEL));
 
-    __HAL_UART_ENABLE_IT(&usart2_handle, UART_IT_IDLE);
-    __HAL_UART_CLEAR_IDLEFLAG(&usart2_handle);
-
-    HAL_UART_Receive_DMA(&usart2_handle, usart2_rx_fifo.recv_buf,
-                         usart2_rx_fifo.buf_size);
-
-#if USE_HAL_UART_REGISTER_CALLBACKS
-    HAL_UART_RegisterCallback(&usart2_handle, HAL_UART_RX_HALFCOMPLETE_CB_ID,
-                              uart_dmarx_halfdone_callback);
-    HAL_UART_RegisterCallback(&usart2_handle, HAL_UART_RX_COMPLETE_CB_ID,
-                              uart_dmarx_done_callback);
-#endif /* USE_HAL_UART_REGISTER_CALLBACKS */
 #endif /* USART2_RX_DMA */
 
 #if USART2_TX_DMA
@@ -536,6 +526,20 @@ uint8_t usart2_init(uint32_t baud_rate) {
         return UART_INIT_FAIL;
     }
 
+#if USART2_RX_DMA
+    __HAL_UART_ENABLE_IT(&usart2_handle, UART_IT_IDLE);
+    __HAL_UART_CLEAR_IDLEFLAG(&usart2_handle);
+
+    HAL_UART_Receive_DMA(&usart2_handle, usart2_rx_fifo.recv_buf,
+                         usart2_rx_fifo.buf_size);
+
+#if USE_HAL_UART_REGISTER_CALLBACKS
+    HAL_UART_RegisterCallback(&usart2_handle, HAL_UART_RX_HALFCOMPLETE_CB_ID,
+                              uart_dmarx_halfdone_callback);
+    HAL_UART_RegisterCallback(&usart2_handle, HAL_UART_RX_COMPLETE_CB_ID,
+                              uart_dmarx_done_callback);
+#endif /* USE_HAL_UART_REGISTER_CALLBACKS */
+#endif /* USART2_RX_DMA */
     return UART_INIT_OK;
 }
 
@@ -798,19 +802,6 @@ uint8_t usart3_init(uint32_t baud_rate) {
         USART3_RX_DMA_IT_PRIORITY, USART3_RX_DMA_IT_SUB);
     HAL_NVIC_EnableIRQ(
         CSP_DMA_CHANNEL_IRQn(USART3_RX_DMA_NUMBER, USART3_RX_DMA_CHANNEL));
-
-    __HAL_UART_ENABLE_IT(&usart3_handle, UART_IT_IDLE);
-    __HAL_UART_CLEAR_IDLEFLAG(&usart3_handle);
-
-    HAL_UART_Receive_DMA(&usart3_handle, usart3_rx_fifo.recv_buf,
-                         usart3_rx_fifo.buf_size);
-
-#if USE_HAL_UART_REGISTER_CALLBACKS
-    HAL_UART_RegisterCallback(&usart3_handle, HAL_UART_RX_HALFCOMPLETE_CB_ID,
-                              uart_dmarx_halfdone_callback);
-    HAL_UART_RegisterCallback(&usart3_handle, HAL_UART_RX_COMPLETE_CB_ID,
-                              uart_dmarx_done_callback);
-#endif /* USE_HAL_UART_REGISTER_CALLBACKS */
 #endif /* USART3_RX_DMA */
 
 #if USART3_TX_DMA
@@ -837,6 +828,20 @@ uint8_t usart3_init(uint32_t baud_rate) {
         return UART_INIT_FAIL;
     }
 
+#if USART3_RX_DMA
+    __HAL_UART_ENABLE_IT(&usart3_handle, UART_IT_IDLE);
+    __HAL_UART_CLEAR_IDLEFLAG(&usart3_handle);
+
+    HAL_UART_Receive_DMA(&usart3_handle, usart3_rx_fifo.recv_buf,
+                         usart3_rx_fifo.buf_size);
+
+#if USE_HAL_UART_REGISTER_CALLBACKS
+    HAL_UART_RegisterCallback(&usart3_handle, HAL_UART_RX_HALFCOMPLETE_CB_ID,
+                              uart_dmarx_halfdone_callback);
+    HAL_UART_RegisterCallback(&usart3_handle, HAL_UART_RX_COMPLETE_CB_ID,
+                              uart_dmarx_done_callback);
+#endif /* USE_HAL_UART_REGISTER_CALLBACKS */
+#endif /* USART3_RX_DMA */
     return UART_INIT_OK;
 }
 
@@ -1078,18 +1083,6 @@ uint8_t uart4_init(uint32_t baud_rate) {
     HAL_NVIC_EnableIRQ(
         CSP_DMA_CHANNEL_IRQn(UART4_RX_DMA_NUMBER, UART4_RX_DMA_CHANNEL));
 
-    __HAL_UART_ENABLE_IT(&uart4_handle, UART_IT_IDLE);
-    __HAL_UART_CLEAR_IDLEFLAG(&uart4_handle);
-
-    HAL_UART_Receive_DMA(&uart4_handle, uart4_rx_fifo.recv_buf,
-                         uart4_rx_fifo.buf_size);
-
-#if USE_HAL_UART_REGISTER_CALLBACKS
-    HAL_UART_RegisterCallback(&uart4_handle, HAL_UART_RX_HALFCOMPLETE_CB_ID,
-                              uart_dmarx_halfdone_callback);
-    HAL_UART_RegisterCallback(&uart4_handle, HAL_UART_RX_COMPLETE_CB_ID,
-                              uart_dmarx_done_callback);
-#endif /* USE_HAL_UART_REGISTER_CALLBACKS */
 #endif /* UART4_RX_DMA */
 
 #if UART4_TX_DMA
@@ -1116,6 +1109,20 @@ uint8_t uart4_init(uint32_t baud_rate) {
         return UART_INIT_FAIL;
     }
 
+#if UART4_RX_DMA
+    __HAL_UART_ENABLE_IT(&uart4_handle, UART_IT_IDLE);
+    __HAL_UART_CLEAR_IDLEFLAG(&uart4_handle);
+
+    HAL_UART_Receive_DMA(&uart4_handle, uart4_rx_fifo.recv_buf,
+                         uart4_rx_fifo.buf_size);
+
+#if USE_HAL_UART_REGISTER_CALLBACKS
+    HAL_UART_RegisterCallback(&uart4_handle, HAL_UART_RX_HALFCOMPLETE_CB_ID,
+                              uart_dmarx_halfdone_callback);
+    HAL_UART_RegisterCallback(&uart4_handle, HAL_UART_RX_COMPLETE_CB_ID,
+                              uart_dmarx_done_callback);
+#endif /* USE_HAL_UART_REGISTER_CALLBACKS */
+#endif /* UART4_RX_DMA */
     return UART_INIT_OK;
 }
 
