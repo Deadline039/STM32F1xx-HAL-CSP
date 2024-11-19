@@ -29,7 +29,7 @@ typedef struct {
     uint8_t *send_buf; /*!< Send data buf.                                  */
     uint32_t head_ptr; /*!< Pointer of send buf to control the length of DMA
                             transfer.                                       */
-    size_t buf_size;   /*!< The size of buffer. Prevent overflow.          */
+    size_t buf_size;   /*!< The size of buffer. Prevent overflow.           */
 } uart_tx_buf_t;
 
 /**
@@ -112,12 +112,12 @@ static uart_tx_buf_t usart1_tx_buf = {.buf_size = USART1_TX_DMA_BUF_SIZE};
  *
  * @param baud_rate Baud rate.
  * @return USART1 init status.
- * @retval 0-`UART_INIT_OK`:       Success.
- * @retval 1-`UART_INIT_FAIL`:     UART init failed.
- * @retval 2-`UART_INIT_DMA_FAIL`: UART DMA init failed.
- * @retval 3-`UART_INIT_MEM_FAIL`: UART buffer memory init failed (It will
- *                                 dynamic allocate memroy when using DMA).
- * @retval 4-`UART_INITED`:        This uart is inited.
+ * @retval - 0: `UART_INIT_OK`:       Success.
+ * @retval - 1: `UART_INIT_FAIL`:     UART init failed.
+ * @retval - 2: `UART_INIT_DMA_FAIL`: UART DMA init failed.
+ * @retval - 3: `UART_INIT_MEM_FAIL`: UART buffer memory init failed (It will
+ *                                    dynamic allocate memroy when using DMA).
+ * @retval - 4: `UART_INITED`:        This uart is inited.
  */
 uint8_t usart1_init(uint32_t baud_rate) {
     if (__HAL_RCC_USART1_IS_CLK_ENABLED()) {
@@ -286,10 +286,10 @@ void USART1_TX_DMA_IRQHandler(void) {
  * @brief USART1 deinitialization.
  *
  * @return UART deinit status.
- * @retval 0-`UART_DEINIT_OK`:       Success.
- * @retval 1-`UART_DEINIT_FAIL`:     UART deinit failed.
- * @retval 2-`UART_DEINIT_DMA_FAIL`: UART DMA deinit failed.
- * @retval 3-`UART_NO_INIT`:         UART is not init.
+ * @retval - 0: `UART_DEINIT_OK`:       Success.
+ * @retval - 1: `UART_DEINIT_FAIL`:     UART deinit failed.
+ * @retval - 2: `UART_DEINIT_DMA_FAIL`: UART DMA deinit failed.
+ * @retval - 3: `UART_NO_INIT`:         UART is not init.
  */
 uint8_t usart1_deinit(void) {
     if (__HAL_RCC_USART1_IS_CLK_DISABLED()) {
@@ -414,12 +414,12 @@ static uart_tx_buf_t usart2_tx_buf = {.buf_size = USART2_TX_DMA_BUF_SIZE};
  *
  * @param baud_rate Baud rate.
  * @return USART2 init status.
- * @retval 0-`UART_INIT_OK`:       Success.
- * @retval 1-`UART_INIT_FAIL`:     UART init failed.
- * @retval 2-`UART_INIT_DMA_FAIL`: UART DMA init failed.
- * @retval 3-`UART_INIT_MEM_FAIL`: UART buffer memory init failed (It will
- *                                 dynamic allocate memroy when using DMA).
- * @retval 4-`UART_INITED`:        This uart is inited.
+ * @retval - 0: `UART_INIT_OK`:       Success.
+ * @retval - 1: `UART_INIT_FAIL`:     UART init failed.
+ * @retval - 2: `UART_INIT_DMA_FAIL`: UART DMA init failed.
+ * @retval - 3: `UART_INIT_MEM_FAIL`: UART buffer memory init failed (It will
+ *                                    dynamic allocate memroy when using DMA).
+ * @retval - 4: `UART_INITED`:        This uart is inited.
  */
 uint8_t usart2_init(uint32_t baud_rate) {
     if (__HAL_RCC_USART2_IS_CLK_ENABLED()) {
@@ -584,10 +584,10 @@ void USART2_TX_DMA_IRQHandler(void) {
  * @brief USART2 deinitialization.
  *
  * @return UART deinit status.
- * @retval 0-`UART_DEINIT_OK`:       Success.
- * @retval 1-`UART_DEINIT_FAIL`:     UART deinit failed.
- * @retval 2-`UART_DEINIT_DMA_FAIL`: UART DMA deinit failed.
- * @retval 3-`UART_NO_INIT`:         UART is not init.
+ * @retval - 0: `UART_DEINIT_OK`:       Success.
+ * @retval - 1: `UART_DEINIT_FAIL`:     UART deinit failed.
+ * @retval - 2: `UART_DEINIT_DMA_FAIL`: UART DMA deinit failed.
+ * @retval - 3: `UART_NO_INIT`:         UART is not init.
 uint8_t usart2_deinit(void) {
     if (__HAL_RCC_USART2_IS_CLK_DISABLED()) {
         return UART_NO_INIT;
@@ -711,12 +711,12 @@ static uart_tx_buf_t usart3_tx_buf = {.buf_size = USART3_TX_DMA_BUF_SIZE};
  *
  * @param baud_rate Baud rate.
  * @return USART3 init status.
- * @retval 0-`UART_INIT_OK`:       Success.
- * @retval 1-`UART_INIT_FAIL`:     UART init failed.
- * @retval 2-`UART_INIT_DMA_FAIL`: UART DMA init failed.
- * @retval 3-`UART_INIT_MEM_FAIL`: UART buffer memory init failed (It will
- *                                 dynamic allocate memroy when using DMA).
- * @retval 4-`UART_INITED`:        This uart is inited.
+ * @retval - 0: `UART_INIT_OK`:       Success.
+ * @retval - 1: `UART_INIT_FAIL`:     UART init failed.
+ * @retval - 2: `UART_INIT_DMA_FAIL`: UART DMA init failed.
+ * @retval - 3: `UART_INIT_MEM_FAIL`: UART buffer memory init failed (It will
+ *                                    dynamic allocate memroy when using DMA).
+ * @retval - 4: `UART_INITED`:        This uart is inited.
  */
 uint8_t usart3_init(uint32_t baud_rate) {
     if (__HAL_RCC_USART3_IS_CLK_ENABLED()) {
@@ -886,10 +886,10 @@ void USART3_TX_DMA_IRQHandler(void) {
  * @brief USART3 deinitialization.
  *
  * @return UART deinit status.
- * @retval 0-`UART_DEINIT_OK`:       Success.
- * @retval 1-`UART_DEINIT_FAIL`:     UART deinit failed.
- * @retval 2-`UART_DEINIT_DMA_FAIL`: UART DMA deinit failed.
- * @retval 3-`UART_NO_INIT`:         UART is not init.
+ * @retval - 0: `UART_DEINIT_OK`:       Success.
+ * @retval - 1: `UART_DEINIT_FAIL`:     UART deinit failed.
+ * @retval - 2: `UART_DEINIT_DMA_FAIL`: UART DMA deinit failed.
+ * @retval - 3: `UART_NO_INIT`:         UART is not init.
 uint8_t usart3_deinit(void) {
     if (__HAL_RCC_USART3_IS_CLK_DISABLED()) {
         return UART_NO_INIT;
@@ -1013,12 +1013,12 @@ static uart_tx_buf_t uart4_tx_buf = {.buf_size = UART4_TX_DMA_BUF_SIZE};
  *
  * @param baud_rate Baud rate.
  * @return UART4 init status.
- * @retval 0-`UART_INIT_OK`:       Success.
- * @retval 1-`UART_INIT_FAIL`:     UART init failed.
- * @retval 2-`UART_INIT_DMA_FAIL`: UART DMA init failed.
- * @retval 3-`UART_INIT_MEM_FAIL`: UART buffer memory init failed (It will
- *                                 dynamic allocate memroy when using DMA).
- * @retval 4-`UART_INITED`:        This uart is inited.
+ * @retval - 0: `UART_INIT_OK`:       Success.
+ * @retval - 1: `UART_INIT_FAIL`:     UART init failed.
+ * @retval - 2: `UART_INIT_DMA_FAIL`: UART DMA init failed.
+ * @retval - 3: `UART_INIT_MEM_FAIL`: UART buffer memory init failed (It will
+ *                                    dynamic allocate memroy when using DMA).
+ * @retval - 4: `UART_INITED`:        This uart is inited.
  */
 uint8_t uart4_init(uint32_t baud_rate) {
     if (__HAL_RCC_UART4_IS_CLK_ENABLED()) {
@@ -1167,10 +1167,10 @@ void UART4_TX_DMA_IRQHandler(void) {
  * @brief UART4 deinitialization.
  *
  * @return UART deinit status.
- * @retval 0-`UART_DEINIT_OK`:       Success.
- * @retval 1-`UART_DEINIT_FAIL`:     UART deinit failed.
- * @retval 2-`UART_DEINIT_DMA_FAIL`: UART DMA deinit failed.
- * @retval 3-`UART_NO_INIT`:         UART is not init.
+ * @retval - 0: `UART_DEINIT_OK`:       Success.
+ * @retval - 1: `UART_DEINIT_FAIL`:     UART deinit failed.
+ * @retval - 2: `UART_DEINIT_DMA_FAIL`: UART DMA deinit failed.
+ * @retval - 3: `UART_NO_INIT`:         UART is not init.
 uint8_t uart4_deinit(void) {
     if (__HAL_RCC_UART4_IS_CLK_DISABLED()) {
         return UART_NO_INIT;
@@ -1252,12 +1252,9 @@ UART_HandleTypeDef uart5_handle = {.Instance = UART5,
  *
  * @param baud_rate Baud rate.
  * @return UART5 init status.
- * @retval 0-`UART_INIT_OK`:       Success.
- * @retval 1-`UART_INIT_FAIL`:     UART init failed.
- * @retval 2-`UART_INIT_DMA_FAIL`: UART DMA init failed.
- * @retval 3-`UART_INIT_MEM_FAIL`: UART buffer memory init failed (It will
- *                                 dynamic allocate memroy when using DMA).
- * @retval 4-`UART_INITED`:        This uart is inited.
+ * @retval - 0: `UART_INIT_OK`:       Success.
+ * @retval - 1: `UART_INIT_FAIL`:     UART init failed.
+ * @retval - 4: `UART_INITED`:        This uart is inited.
  */
 uint8_t uart5_init(uint32_t baud_rate) {
     if (__HAL_RCC_UART5_IS_CLK_ENABLED()) {
@@ -1314,10 +1311,10 @@ void UART5_IRQHandler(void) {
  * @brief UART5 deinitialization.
  *
  * @return UART deinit status.
- * @retval 0-`UART_DEINIT_OK`:       Success.
- * @retval 1-`UART_DEINIT_FAIL`:     UART deinit failed.
- * @retval 2-`UART_DEINIT_DMA_FAIL`: UART DMA deinit failed.
- * @retval 3-`UART_NO_INIT`:         UART is not init.
+ * @retval - 0: `UART_DEINIT_OK`:       Success.
+ * @retval - 1: `UART_DEINIT_FAIL`:     UART deinit failed.
+ * @retval - 2: `UART_DEINIT_DMA_FAIL`: UART DMA deinit failed.
+ * @retval - 3: `UART_NO_INIT`:         UART is not init.
  */
 uint8_t uart5_deinit(void) {
     if (__HAL_RCC_UART5_IS_CLK_DISABLED()) {
@@ -1644,10 +1641,11 @@ uint32_t uart_dmarx_read(UART_HandleTypeDef *huart, void *buf,
  * @param huart The handle of UART
  * @param buf_size New buf size
  * @param fifo_size New fifo size
- * @return 0: Succeess
- *         1: This uart not enable DMA Rx.
- *         2: This UART is enabled.
- *         3: Parameter Error, size can't be 0.
+ * @return Resize message:
+ * @retval - 0: Succeess
+ * @retval - 1: This uart not enable DMA Rx.
+ * @retval - 2: This UART is enabled.
+ * @retval - 3: Parameter Error, size can't be 0.
  * @warning Must be disabled the UART before resize!
  *          You should call `u(s)artx_deinit()` before call this function,
  *          than call `u(s)artx_init()` to using new size.
@@ -1859,11 +1857,12 @@ uint32_t uart_dmatx_send(UART_HandleTypeDef *huart) {
  *
  * @param huart The handle of UART
  * @param size New size
- * @return 0: Succeess
- *         1: This uart not enable DMA Tx.
- *         2: No free memory to allocate.
- *         3: This uart is busy now.
- *         4: Parameter error, size can't be 0.
+ * @return Resize message: 
+ * @retval - 0: Succeess
+ * @retval - 1: This uart not enable DMA Tx.
+ * @retval - 2: No free memory to allocate.
+ * @retval - 3: This uart is busy now.
+ * @retval - 4: Parameter error, size can't be 0.
  */
 uint8_t uart_dmatx_resize_buf(UART_HandleTypeDef *huart, uint32_t size) {
     if (size == 0) {
