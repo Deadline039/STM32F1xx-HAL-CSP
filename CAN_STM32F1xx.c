@@ -39,12 +39,10 @@ CAN_HandleTypeDef can1_handle = {.Instance = CAN1,
  * @retval - 1: `CAN_INIT_RATE_ERR`:     Can not satisfied this baudrate in this
  *                                       condition.
  * @retval - 2: `CAN_INIT_FILTER_FAIL`:  CAN Filter init failed.
- * @retval - 3: `CAN_INIT_MEM_FAIL`:     CAN receive table memory allocate
- * failed.
- * @retval - 4: `CAN_INIT_FAIL`:         CAN hardware init failed.
- * @retval - 5: `CAN_INIT_START_FAIL`:   CAN start failed.
- * @retval - 6: `CAN_INIT_NOTIFY_FAIL`:  Enable CAN receive notify failed.
- * @retval - 7: `CAN_INITED`:            This can is inited.
+ * @retval - 3: `CAN_INIT_FAIL`:         CAN hardware init failed.
+ * @retval - 4: `CAN_INIT_START_FAIL`:   CAN start failed.
+ * @retval - 5: `CAN_INIT_NOTIFY_FAIL`:  Enable CAN receive notify failed.
+ * @retval - 6: `CAN_INITED`:            This can is inited.
  */
 uint8_t can1_init(uint32_t baud_rate, uint32_t prop_delay) {
     if (__HAL_RCC_CAN1_IS_CLK_ENABLED()) {
@@ -211,15 +209,13 @@ CAN_HandleTypeDef can2_handle = {.Instance = CAN2,
  * @retval - 1: `CAN_INIT_RATE_ERR`:     Can not satisfied this baudrate in this
  *                                       condition.
  * @retval - 2: `CAN_INIT_FILTER_FAIL`:  CAN Filter init failed.
- * @retval - 3: `CAN_INIT_MEM_FAIL`:     CAN receive table memory allocate
- * failed.
- * @retval - 4: `CAN_INIT_FAIL`:         CAN hardware init failed.
- * @retval - 5: `CAN_INIT_START_FAIL`:   CAN start failed.
- * @retval - 6: `CAN_INIT_NOTIFY_FAIL`:  Enable CAN receive notify failed.
- * @retval - 7: `CAN_INITED`:            This can is inited.
+ * @retval - 3: `CAN_INIT_FAIL`:         CAN hardware init failed.
+ * @retval - 4: `CAN_INIT_START_FAIL`:   CAN start failed.
+ * @retval - 5: `CAN_INIT_NOTIFY_FAIL`:  Enable CAN receive notify failed.
+ * @retval - 6: `CAN_INITED`:            This can is inited.
  */
 uint8_t can2_init(uint32_t baud_rate, uint32_t prop_delay) {
-    if (__HAL_RCC_CAN2_IS_CLK_ENABLED()) {
+    if (HAL_CAN_GetState(&can2_handle) != HAL_CAN_STATE_RESET) {
         return CAN_INITED;
     }
 
@@ -352,179 +348,6 @@ uint8_t can2_deinit(void) {
 }
 
 #endif /* CAN2_ENABLE */
-
-/**
- * @}
- */
-
-/*****************************************************************************
- * @defgroup CAN3 Functions.
- * @{
- */
-
-#if CAN3_ENABLE
-
-CAN_HandleTypeDef can3_handle = {.Instance = CAN3,
-                                 .Init = {.Mode = CAN_MODE_NORMAL,
-                                          .TimeTriggeredMode = DISABLE,
-                                          .AutoBusOff = DISABLE,
-                                          .AutoWakeUp = DISABLE,
-                                          .AutoRetransmission = ENABLE,
-                                          .ReceiveFifoLocked = DISABLE,
-                                          .TransmitFifoPriority = DISABLE}};
-
-/**
- * @brief CAN3 initialization
- *
- * @param baud_rate Baud rate. Unit: Kbps.
- * @param prop_delay The propagation delay of bus, include cable and can
- *                   transceiver. Unit: ns.
- * @return CAN init status.
- * @retval - 0: `CAN_INIT_OK`:           Success.
- * @retval - 1: `CAN_INIT_RATE_ERR`:     Can not satisfied this baudrate in this
- *                                       condition.
- * @retval - 2: `CAN_INIT_FILTER_FAIL`:  CAN Filter init failed.
- * @retval - 3: `CAN_INIT_MEM_FAIL`:     CAN receive table memory allocate
- * failed.
- * @retval - 4: `CAN_INIT_FAIL`:         CAN hardware init failed.
- * @retval - 5: `CAN_INIT_START_FAIL`:   CAN start failed.
- * @retval - 6: `CAN_INIT_NOTIFY_FAIL`:  Enable CAN receive notify failed.
- * @retval - 7: `CAN_INITED`:            This can is inited.
- */
-uint8_t can3_init(uint32_t baud_rate, uint32_t prop_delay) {
-    if (__HAL_RCC_CAN3_IS_CLK_ENABLED()) {
-        return CAN_INITED;
-    }
-
-    uint32_t prescale, tbs1, tbs2, tsjw;
-    if (can_rate_calc(baud_rate * 1000, prop_delay, HAL_RCC_GetPCLK1Freq(),
-                      &prescale, &tsjw, &tbs1, &tbs2) == 1) {
-        return CAN_INIT_RATE_ERR;
-    }
-
-    can3_handle.Init.Prescaler = prescale;
-    can3_handle.Init.TimeSeg1 = (tbs1 - 1) << CAN_BTR_TS1_Pos;
-    can3_handle.Init.TimeSeg2 = (tbs2 - 1) << CAN_BTR_TS2_Pos;
-    can3_handle.Init.SyncJumpWidth = (tsjw - 1) << CAN_BTR_SJW_Pos;
-
-    if (HAL_CAN_Init(&can3_handle) != HAL_OK) {
-        return CAN_INIT_FAIL;
-    }
-
-    CAN_FilterTypeDef can_filter_config;
-
-    can_filter_config.FilterBank = 0;
-    can_filter_config.FilterMode = CAN_FILTERMODE_IDMASK;
-    can_filter_config.FilterScale = CAN_FILTERSCALE_32BIT;
-    can_filter_config.FilterIdHigh = 0x0000;
-    can_filter_config.FilterIdLow = 0x0000;
-    can_filter_config.FilterMaskIdHigh = 0x0000;
-    can_filter_config.FilterMaskIdLow = 0x0000;
-    can_filter_config.FilterActivation = CAN_FILTER_ENABLE;
-    can_filter_config.SlaveStartFilterBank = 0;
-
-#if CAN3_ENABLE_RX0_IT
-    can_filter_config.FilterFIFOAssignment = CAN_FILTER_FIFO0;
-    if (HAL_CAN_ConfigFilter(&can3_handle, &can_filter_config) != HAL_OK) {
-        return CAN_INIT_FILTER_FAIL;
-    }
-    if (HAL_CAN_ActivateNotification(&can3_handle,
-                                     CAN_IT_RX_FIFO0_MSG_PENDING) != HAL_OK) {
-        return CAN_INIT_NOTIFY_FAIL;
-    }
-#endif /* CAN3_ENABLE_RX0_IT */
-
-#if CAN3_ENABLE_RX1_IT
-    can_filter_config.FilterFIFOAssignment = CAN_FILTER_FIFO1;
-    if (HAL_CAN_ConfigFilter(&can3_handle, &can_filter_config) != HAL_OK) {
-        return CAN_INIT_FILTER_FAIL;
-    }
-    if (HAL_CAN_ActivateNotification(&can3_handle,
-                                     CAN_IT_RX_FIFO1_MSG_PENDING) != HAL_OK) {
-        return CAN_INIT_NOTIFY_FAIL;
-    }
-#endif /* CAN3_ENABLE_RX1_IT */
-
-    if (HAL_CAN_Start(&can3_handle) != HAL_OK) {
-        return CAN_INIT_START_FAIL;
-    }
-
-    return CAN_INIT_OK;
-}
-
-#if CAN3_ENABLE_TX_IT
-
-/**
- * @brief CAN3 TX ISR.
- *
- */
-void CAN3_TX_IRQHandler(void) {
-    HAL_CAN_IRQHandler(&can3_handle);
-}
-
-#endif /* CAN3_ENABLE_TX_IT */
-
-#if CAN3_ENABLE_RX0_IT
-
-/**
- * @brief CAN3 RX FIFO0 ISR.
- *
- */
-void CAN3_RX0_IRQHandler(void) {
-    HAL_CAN_IRQHandler(&can3_handle);
-}
-
-#endif /* CAN3_ENABLE_RX0_IT */
-
-#if CAN3_ENABLE_RX1_IT
-
-/**
- * @brief CAN3 RX FIFO1 ISR.
- *
- */
-void CAN3_RX1_IRQHandler(void) {
-    HAL_CAN_IRQHandler(&can3_handle);
-}
-
-#endif /* CAN3_ENABLE_RX1_IT */
-
-#if CAN3_ENABLE_SCE_IT
-
-/**
- * @brief CAN3 SCE ISR.
- *
- */
-void CAN3_SCE_IRQHandler(void) {
-    HAL_CAN_IRQHandler(&can3_handle);
-}
-
-#endif /* CAN3_ENABLE_SCE_IT */
-
-/**
- * @brief CAN3 deinitialization.
- *
- * @return Deinit status.
- * @retval - 0: `CAN_DEINIT_OK`:   Success.
- * @retval - 1: `CAN_DEINIT_FAIL`: CAN hardware deinit failed.
- * @retval - 2: `CAN_NO_INIT`:     This can is no init.
- */
-uint8_t can3_deinit(void) {
-    if (__HAL_RCC_CAN3_CLK_DISABLE()) {
-        return CAN_NO_INIT;
-    }
-
-    if (HAL_CAN_Stop(&can3_handle) != HAL_OK) {
-        return CAN_DEINIT_FAIL;
-    }
-
-    if (HAL_CAN_DeInit(&can3_handle) != HAL_OK) {
-        return CAN_DEINIT_FAIL;
-    }
-
-    return CAN_DEINIT_OK;
-}
-
-#endif /* CAN3_ENABLE */
 
 /**
  * @}
@@ -783,12 +606,12 @@ uint8_t can_rate_calc(uint32_t baud_rate, uint32_t prop_delay,
     *tseg1 += prop_seg;
 
     if (*tseg2 > 8) {
-        /* STM32F4 CAN BS2 range: 1-8 */
+        /* STM32F1 CAN BS2 range: 1-8 */
         *tseg2 = 8;
         *tseg1 = tq_remain - *tseg2;
     }
     if (*tseg1 > 16) {
-        /* STM32F4 CAN BS1 range: 1-16 */
+        /* STM32F1 CAN BS1 range: 1-16 */
         return 1;
     }
 

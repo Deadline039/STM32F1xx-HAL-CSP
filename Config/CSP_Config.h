@@ -1030,7 +1030,7 @@
 // </e>
 
 // <e> RTC (Real Time Clock)
-#define RTC_ENABLE            1
+#define RTC_ENABLE            0
 
 //   <e> RTC Global Interrupt
 #define RTC_IT_ENABLE         0
