@@ -373,6 +373,7 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef *hcan) {
                                          .Speed = GPIO_SPEED_FREQ_HIGH};
 #if CAN1_ENABLE
     __HAL_RCC_CAN1_CLK_ENABLE();
+    CAN1_AFIO_REMAP();
 
     CSP_GPIO_CLK_ENABLE(CAN1_TX_PORT);
     gpio_init_struct.Pin = CAN1_TX_PIN;
@@ -407,8 +408,8 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef *hcan) {
 #endif /* CAN1_ENABLE */
 
 #if CAN2_ENABLE
-    gpio_init_struct.Alternate = GPIO_AF9_CAN2;
     __HAL_RCC_CAN2_CLK_ENABLE();
+    CAN2_AFIO_REMAP();
 
     CSP_GPIO_CLK_ENABLE(CAN2_TX_PORT);
     gpio_init_struct.Pin = CAN2_TX_PIN;

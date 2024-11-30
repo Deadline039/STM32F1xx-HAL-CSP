@@ -889,33 +889,32 @@
 // <e> CAN1 (Controller Area Network 1)
 #define CAN1_ENABLE             0
 
-//   <o> CAN1_RX Pin <0=>PA11 <1=>PB8 <2=>PD0
-#define CAN1_RX_PORT_ID         0
-#if (CAN1_RX_PORT_ID == 0)
-#define CAN1_RX_PORT A
-#define CAN1_RX_PIN  GPIO_PIN_11
-#elif (CAN1_RX_PORT_ID == 1)
-#define CAN1_RX_PORT B
-#define CAN1_RX_PIN  GPIO_PIN_8
-#elif (CAN1_RX_PORT_ID == 2)
-#define CAN1_RX_PORT D
-#else
-#error "Invalid CAN1_RX Pin Configuration!"
-#endif
+//   <o> CAN1 IO Remap
+//        <1=>Remap1 (RX/PA11, TX/PA12)
+//        <2=>Remap2 (RX/PB8,  TX/PB9)
+//        <3=>Remap3 (RX/PD0,  TX/PB1)
+#define CAN1_IO_REMAP           1
 
-//   <o> CAN1_TX Pin <0=>PA12 <1=>PB9 <2=>PD1
-#define CAN1_TX_PORT_ID 0
-#if (CAN1_TX_PORT_ID == 0)
-#define CAN1_TX_PORT A
-#define CAN1_TX_PIN  GPIO_PIN_12
-#elif (CAN1_TX_PORT_ID == 1)
-#define CAN1_TX_PORT B
-#define CAN1_TX_PIN  GPIO_PIN_9
-#elif (CAN1_TX_PORT_ID == 2)
-#define CAN1_TX_PORT D
-#define CAN1_TX_PIN  GPIO_PIN_1
+#if (CAN1_IO_REMAP == 1)
+#define CAN1_AFIO_REMAP() __HAL_AFIO_REMAP_CAN1_1()
+#define CAN1_RX_PORT      A
+#define CAN1_RX_PIN       GPIO_PIN_11
+#define CAN1_TX_PORT      A
+#define CAN1_TX_PIN       GPIO_PIN_12
+#elif (CAN1_IO_REMAP == 2)
+#define CAN1_AFIO_REMAP() __HAL_AFIO_REMAP_CAN1_2()
+#define CAN1_RX_PORT      B
+#define CAN1_RX_PIN       GPIO_PIN_8
+#define CAN1_TX_PORT      B
+#define CAN1_TX_PIN       GPIO_PIN_9
+#elif (CAN1_IO_REMAP == 3)
+#define CAN1_AFIO_REMAP() __HAL_AFIO_REMAP_CAN1_3()
+#define CAN1_RX_PORT      D
+#define CAN1_RX_PIN       GPIO_PIN_0
+#define CAN1_TX_PORT      D
+#define CAN1_TX_PIN       GPIO_PIN_1
 #else
-#error "Invalid CAN1_TX Pin Configuration!"
+#error "Invalid CAN1 IO Remap Configuration! "
 #endif
 
 //   <e> Enable CAN Transmit Interrupt
@@ -960,72 +959,73 @@
 
 // </e>
 
+#if defined(CAN2)
+
 // <e> CAN2 (Controller Area Network 2)
-#define CAN2_ENABLE          0
+#define CAN2_ENABLE   0
 
-//   <o> CAN2_RX Pin <0=>PB5 <1=>PB12
-#define CAN2_RX_PORT_ID      0
-#if (CAN2_RX_PORT_ID == 0)
-#define CAN2_RX_PORT B
-#define CAN2_RX_PIN  GPIO_PIN_5
-#elif (CAN2_RX_PORT_ID == 1)
-#define CAN2_RX_PORT B
-#define CAN2_RX_PIN  GPIO_PIN_12
-#else
-#error "Invalid CAN2_RX Pin Configuration!"
-#endif
+//   <o> CAN2 IO Remap
+//        <0=>No Remap (RX/PB5,  TX/PB6)
+//        <1=>Remap    (RX/PB12, TX/PB13)
+#define CAN2_IO_REMAP 0
 
-//   <o> CAN2_TX Pin <0=>PB6 <1=>PB13
-#define CAN2_TX_PORT_ID 0
-#if (CAN2_TX_PORT_ID == 0)
-#define CAN2_TX_PORT B
-#define CAN2_TX_PIN  GPIO_PIN_6
-#elif (CAN2_TX_PORT_ID == 1)
-#define CAN2_TX_PORT B
-#define CAN2_TX_PIN  GPIO_PIN_13
+#if (CAN2_IO_REMAP == 0)
+#define CAN2_AFIO_REMAP() __HAL_AFIO_REMAP_CAN2_DISABLE()
+#define CAN2_RX_PORT      B
+#define CAN2_RX_PIN       GPIO_PIN_5
+#define CAN2_TX_PORT      B
+#define CAN2_TX_PIN       GPIO_PIN_6
+#elif (CAN2_IO_REMAP == 1)
+#define CAN2_AFIO_REMAP() __HAL_AFIO_REMAP_CAN2_ENABLE()
+#define CAN2_RX_PORT      A
+#define CAN2_RX_PIN       GPIO_PIN_12
+#define CAN2_TX_PORT      A
+#define CAN2_TX_PIN       GPIO_PIN_13
 #else
-#error "Invalid CAN2_TX Pin Configuration!"
+#error "Invalid CAN2 IO Remap Configuration! "
 #endif
 
 //   <e> Enable CAN Transmit Interrupt
-#define CAN2_ENABLE_TX_IT     0
+#define CAN2_ENABLE_TX_IT    0
 //     <o> CAN Transmit Interrupt Priority <0-15>
 //     <i> The Interrupt Priority of CAN Transmit
-#define CAN2_TX_IT_PRIORITY   2
+#define CAN2_TX_IT_PRIORITY  2
 //     <o> CAN Transmit Interrupt SubPriority <0-15>
 //     <i> The Interrupt SubPriority of CAN Transmit
-#define CAN2_TX_IT_SUB        3
+#define CAN2_TX_IT_SUB       3
 //   </e>
 
 //   <e> Enable CAN Receive FIFO0 Interrupt
-#define CAN2_ENABLE_RX0_IT    0
+#define CAN2_ENABLE_RX0_IT   0
 //     <o> CAN Receive FIFO0 Interrupt Priority <0-15>
 //     <i> The Interrupt Priority of CAN Receive FIFO0
-#define CAN2_RX0_IT_PRIORITY  2
+#define CAN2_RX0_IT_PRIORITY 2
 //     <o> CAN Receive FIFO0 Interrupt SubPriority <0-15>
 //     <i> The Interrupt SubPriority of CAN Receive FIFO0
-#define CAN2_RX0_IT_SUB       3
+#define CAN2_RX0_IT_SUB      3
 //   </e>
 
 //   <e> Enable CAN Receive FIFO1 Interrupt
-#define CAN2_ENABLE_RX1_IT    0
+#define CAN2_ENABLE_RX1_IT   0
 //     <o> CAN Receive FIFO1 Interrupt Priority <0-15>
 //     <i> The Interrupt Priority of CAN Receive FIFO1
-#define CAN2_RX1_IT_PRIORITY  2
+#define CAN2_RX1_IT_PRIORITY 2
 //     <o> CAN Receive FIFO1 Interrupt SubPriority <0-15>
 //     <i> The Interrupt SubPriority of CAN Receive FIFO1
-#define CAN2_RX1_IT_SUB       3
+#define CAN2_RX1_IT_SUB      3
 //   </e>
 
 //   <e> Enable CAN Stauts Change or Error (SCE) Interrupt
-#define CAN2_ENABLE_SCE_IT    0
+#define CAN2_ENABLE_SCE_IT   0
 //     <o> CAN SCE Interrupt Priority <0-15>
 //     <i> The Interrupt Priority of CAN Receive FIFO0
-#define CAN2_SCE_IT_PRIORITY  2
+#define CAN2_SCE_IT_PRIORITY 2
 //     <o> CAN SCE Interrupt SubPriority <0-15>
 //     <i> The Interrupt SubPriority of CAN Receive FIFO0
-#define CAN2_SCE_IT_SUB       3
+#define CAN2_SCE_IT_SUB      3
 //   </e>
+
+#endif
 
 // </e>
 
