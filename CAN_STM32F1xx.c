@@ -39,7 +39,8 @@ CAN_HandleTypeDef can1_handle = {.Instance = CAN1,
  * @retval - 1: `CAN_INIT_RATE_ERR`:     Can not satisfied this baudrate in this
  *                                       condition.
  * @retval - 2: `CAN_INIT_FILTER_FAIL`:  CAN Filter init failed.
- * @retval - 3: `CAN_INIT_MEM_FAIL`:     CAN receive table memory allocate failed.
+ * @retval - 3: `CAN_INIT_MEM_FAIL`:     CAN receive table memory allocate
+ * failed.
  * @retval - 4: `CAN_INIT_FAIL`:         CAN hardware init failed.
  * @retval - 5: `CAN_INIT_START_FAIL`:   CAN start failed.
  * @retval - 6: `CAN_INIT_NOTIFY_FAIL`:  Enable CAN receive notify failed.
@@ -210,7 +211,8 @@ CAN_HandleTypeDef can2_handle = {.Instance = CAN2,
  * @retval - 1: `CAN_INIT_RATE_ERR`:     Can not satisfied this baudrate in this
  *                                       condition.
  * @retval - 2: `CAN_INIT_FILTER_FAIL`:  CAN Filter init failed.
- * @retval - 3: `CAN_INIT_MEM_FAIL`:     CAN receive table memory allocate failed.
+ * @retval - 3: `CAN_INIT_MEM_FAIL`:     CAN receive table memory allocate
+ * failed.
  * @retval - 4: `CAN_INIT_FAIL`:         CAN hardware init failed.
  * @retval - 5: `CAN_INIT_START_FAIL`:   CAN start failed.
  * @retval - 6: `CAN_INIT_NOTIFY_FAIL`:  Enable CAN receive notify failed.
@@ -382,7 +384,8 @@ CAN_HandleTypeDef can3_handle = {.Instance = CAN3,
  * @retval - 1: `CAN_INIT_RATE_ERR`:     Can not satisfied this baudrate in this
  *                                       condition.
  * @retval - 2: `CAN_INIT_FILTER_FAIL`:  CAN Filter init failed.
- * @retval - 3: `CAN_INIT_MEM_FAIL`:     CAN receive table memory allocate failed.
+ * @retval - 3: `CAN_INIT_MEM_FAIL`:     CAN receive table memory allocate
+ * failed.
  * @retval - 4: `CAN_INIT_FAIL`:         CAN hardware init failed.
  * @retval - 5: `CAN_INIT_START_FAIL`:   CAN start failed.
  * @retval - 6: `CAN_INIT_NOTIFY_FAIL`:  Enable CAN receive notify failed.
@@ -812,8 +815,8 @@ uint8_t can_rate_calc(uint32_t baud_rate, uint32_t prop_delay,
  * @retval - 3: Parameter invalid.
  * @retval - 4: This CAN is not initialized.
  */
-uint8_t can_send_mesage(can_selected_t can_selected, uint32_t can_ide,
-                        uint32_t id, uint8_t len, uint8_t *msg) {
+uint8_t can_send_message(can_selected_t can_selected, uint32_t can_ide,
+                         uint32_t id, uint8_t len, uint8_t *msg) {
     CAN_HandleTypeDef *can_handle;
     switch (can_selected) {
 

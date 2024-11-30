@@ -988,43 +988,68 @@
 #endif
 
 //   <e> Enable CAN Transmit Interrupt
-#define CAN2_ENABLE_TX_IT    0
+#define CAN2_ENABLE_TX_IT     0
 //     <o> CAN Transmit Interrupt Priority <0-15>
 //     <i> The Interrupt Priority of CAN Transmit
-#define CAN2_TX_IT_PRIORITY  2
+#define CAN2_TX_IT_PRIORITY   2
 //     <o> CAN Transmit Interrupt SubPriority <0-15>
 //     <i> The Interrupt SubPriority of CAN Transmit
-#define CAN2_TX_IT_SUB       3
+#define CAN2_TX_IT_SUB        3
 //   </e>
 
 //   <e> Enable CAN Receive FIFO0 Interrupt
-#define CAN2_ENABLE_RX0_IT   0
+#define CAN2_ENABLE_RX0_IT    0
 //     <o> CAN Receive FIFO0 Interrupt Priority <0-15>
 //     <i> The Interrupt Priority of CAN Receive FIFO0
-#define CAN2_RX0_IT_PRIORITY 2
+#define CAN2_RX0_IT_PRIORITY  2
 //     <o> CAN Receive FIFO0 Interrupt SubPriority <0-15>
 //     <i> The Interrupt SubPriority of CAN Receive FIFO0
-#define CAN2_RX0_IT_SUB      3
+#define CAN2_RX0_IT_SUB       3
 //   </e>
 
 //   <e> Enable CAN Receive FIFO1 Interrupt
-#define CAN2_ENABLE_RX1_IT   0
+#define CAN2_ENABLE_RX1_IT    0
 //     <o> CAN Receive FIFO1 Interrupt Priority <0-15>
 //     <i> The Interrupt Priority of CAN Receive FIFO1
-#define CAN2_RX1_IT_PRIORITY 2
+#define CAN2_RX1_IT_PRIORITY  2
 //     <o> CAN Receive FIFO1 Interrupt SubPriority <0-15>
 //     <i> The Interrupt SubPriority of CAN Receive FIFO1
-#define CAN2_RX1_IT_SUB      3
+#define CAN2_RX1_IT_SUB       3
 //   </e>
 
 //   <e> Enable CAN Stauts Change or Error (SCE) Interrupt
-#define CAN2_ENABLE_SCE_IT   0
+#define CAN2_ENABLE_SCE_IT    0
 //     <o> CAN SCE Interrupt Priority <0-15>
 //     <i> The Interrupt Priority of CAN Receive FIFO0
-#define CAN2_SCE_IT_PRIORITY 2
+#define CAN2_SCE_IT_PRIORITY  2
 //     <o> CAN SCE Interrupt SubPriority <0-15>
 //     <i> The Interrupt SubPriority of CAN Receive FIFO0
-#define CAN2_SCE_IT_SUB      3
+#define CAN2_SCE_IT_SUB       3
+//   </e>
+
+// </e>
+
+// <e> RTC (Real Time Clock)
+#define RTC_ENABLE            1
+
+//   <e> RTC Global Interrupt
+#define RTC_IT_ENABLE         0
+//      <o> RTC Global Interrupt Priority <0-15>
+//      <i> The Interrupt Priority of RTC Global
+#define RTC_IT_PRIORITY       2
+//      <o> RTC Global Interrupt SubPriority <0-15>
+//      <i> The Interrupt SubPriority of RTC Global
+#define RTC_IT_SUB            3
+//   </e>
+
+//   <e> RTC Alarm Interrupt
+#define RTC_ALARM_IT_ENABLE   0
+//      <o> RTC Alarm  Interrupt Priority <0-15>
+//      <i> The Interrupt Priority of RTC Alarm
+#define RTC_ALARM_IT_PRIORITY 2
+//      <o> RTC Alarm Interrupt SubPriority <0-15>
+//      <i> The Interrupt SubPriority of RTC Alarm
+#define RTC_ALARM_IT_SUB      3
 //   </e>
 
 // </e>
@@ -1088,6 +1113,10 @@ extern "C" {
 #if (CAN1_ENABLE || CAN2_ENABLE)
 #include "../CAN_STM32F1xx.h"
 #endif /* (CAN1_ENABLE || CAN2_ENABLE) */
+
+#if (RTC_ENABLE)
+#include "../RTC_STM32F1xx.h"
+#endif /* RTC_ENABLE */
 
 #ifdef __cplusplus
 }
