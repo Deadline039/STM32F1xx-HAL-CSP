@@ -77,9 +77,9 @@
 #define USART1_IT_SUB             3
 
 //   <e> DMA Rx
-//     <o1> Number <2=>1
+//     <o1> Number <1=>1
 //     <i>  Selects DMA Number (only DMA1 can be used)
-//     <o2> Channel <4=>5
+//     <o2> Channel <5=>5
 //     <i>  Selects DMA Channel (only Channel 5 can be used)
 //     <o3> Priority <0=>Low <1=>Medium <2=>High <3=>Very High
 //     <i>  Selects DMA Priority
@@ -92,9 +92,9 @@
 //     <o7> The size of Receive FIFO [byte] (Must be power of 2)
 //     <i>  Using FIFO and Buf to implement high reliable USART Receive
 //   </e>
-#define USART1_RX_DMA             1
-#define USART1_RX_DMA_NUMBER      2
-#define USART1_RX_DMA_CHANNEL     4
+#define USART1_RX_DMA             0
+#define USART1_RX_DMA_NUMBER      1
+#define USART1_RX_DMA_CHANNEL     5
 #define USART1_RX_DMA_PRIORITY    1
 #define USART1_RX_DMA_IT_PRIORITY 2
 #define USART1_RX_DMA_IT_SUB      2
@@ -115,7 +115,7 @@
 //     <o6> The size of Send buf [byte]
 //     <i>  Write data to Send buf, and sending with thread safety
 //   </e>
-#define USART1_TX_DMA             1
+#define USART1_TX_DMA             0
 #define USART1_TX_DMA_NUMBER      1
 #define USART1_TX_DMA_CHANNEL     4
 #define USART1_TX_DMA_PRIORITY    0
@@ -190,7 +190,7 @@
 #define USART2_IT_SUB             3
 
 //   <e> DMA Rx
-//     <o1> Number <2=>1
+//     <o1> Number <1=>1
 //     <i>  Selects DMA Number (only DMA1 can be used)
 //     <o2> Channel <6=>6
 //     <i>  Selects DMA Channel (only Channel 6 can be used)
@@ -206,7 +206,7 @@
 //     <i>  Using FIFO and Buf to implement high reliable USART Receive
 //   </e>
 #define USART2_RX_DMA             0
-#define USART2_RX_DMA_NUMBER      2
+#define USART2_RX_DMA_NUMBER      1
 #define USART2_RX_DMA_CHANNEL     6
 #define USART2_RX_DMA_PRIORITY    1
 #define USART2_RX_DMA_IT_PRIORITY 2
