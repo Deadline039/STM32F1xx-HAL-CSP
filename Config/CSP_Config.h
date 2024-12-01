@@ -1029,6 +1029,158 @@
 
 // </e>
 
+// <e> ETH (Ethernet Interface)
+#define ETH_ENABLE   0
+
+//   <o> ETH IO Remap
+//   <0=>No remap (RX_DV-CRS_DV/PA7, RXD0/PC4, RXD1/PC5,  RXD2/PB0, RXD3/PB1)
+//   <1=>Remap    (RX_DV-CRS_DV/PD8, RXD0/PD9, RXD1/PD10, RXD2/PD11,RXD3/PD12)
+#define ETH_IO_REMAP 0
+
+//   <q> MII (Media Independent Interface)
+//   <i> TX/PC3,     TXD0/PB12,  TXD1/PB13, TXD2/PC2, TXD3/PB8,
+//   <i> TX_EN/PB11, RX_CLK/PA1, RX_ER/PB10, CRS/PA0, COL/PA3
+#define ETH_MII      0
+
+#if ETH_MII
+
+#define ETH_MII_TX_CLK_PORT C
+#define ETH_MII_TX_CLK_PIN  GPIO_PIN_3
+
+#define ETH_MII_TXD0_PORT   B
+#define ETH_MII_TXD0_PIN    GPIO_PIN_12
+
+#define ETH_MII_TXD1_PORT   B
+#define ETH_MII_TXD1_PIN    GPIO_PIN_13
+
+#define ETH_MII_TXD2_PORT   C
+#define ETH_MII_TXD2_PIN    GPIO_PIN_2
+
+#define ETH_MII_TXD3_PORT   B
+#define ETH_MII_TXD3_PIN    GPIO_PIN_8
+
+#define ETH_MII_TX_EN_PORT  B
+#define ETH_MII_TX_EN_PIN   GPIO_PIN_11
+
+#define ETH_MII_RX_CLK_PORT A
+#define ETH_MII_RX_CLK_PIN  GPIO_PIN_1
+
+#define ETH_MII_RX_ER_PORT  B
+#define ETH_MII_RX_ER_PIN   GPIO_PIN_10
+
+#define ETH_MII_CRS_PORT    A
+#define ETH_MII_CRS_PIN     GPIO_PIN_0
+
+#define ETH_MII_COL_PORT    A
+#define ETH_MII_COL_PIN     GPIO_PIN_3
+
+#if (ETH_IO_REMAP == 0)
+#define ETH_MII_AFIO_REMAP() __HAL_AFIO_REMAP_ETH_DISABLE()
+#define ETH_MII_RX_DV_PORT   A
+#define ETH_MII_RX_DV_PIN    GPIO_PIN_7
+
+#define ETH_MII_RXD0_PORT    C
+#define ETH_MII_RXD0_PIN     GPIO_PIN_4
+
+#define ETH_MII_RXD1_PORT    C
+#define ETH_MII_RXD1_PIN     GPIO_PIN_5
+
+#define ETH_MII_RXD2_PORT    B
+#define ETH_MII_RXD2_PIN     GPIO_PIN_0
+
+#define ETH_MII_RXD3_PORT    B
+#define ETH_MII_RXD3_PIN     GPIO_PIN_1
+#elif (ETH_IO_REMAP == 1)
+#define ETH_MII_AFIO_REMAP() __HAL_AFIO_REMAP_ETH_ENABLE()
+#define ETH_MII_RX_DV_PORT   D
+#define ETH_MII_RX_DV_PIN    GPIO_PIN_8
+
+#define ETH_MII_RXD0_PORT    D
+#define ETH_MII_RXD0_PIN     GPIO_PIN_9
+
+#define ETH_MII_RXD1_PORT    D
+#define ETH_MII_RXD1_PIN     GPIO_PIN_10
+
+#define ETH_MII_RXD2_PORT    D
+#define ETH_MII_RXD2_PIN     GPIO_PIN_11
+
+#define ETH_MII_RXD3_PORT    D
+#define ETH_MII_RXD3_PIN     GPIO_PIN_12
+#endif
+#endif
+
+//   <q> RMII (Reduced Media Independent Interface)
+//   <i> TXD0/PB12,  TXD1/PB13, TX_EN/PB11, REF_CLK/PA1
+#define ETH_RMII 1
+
+#if ETH_RMII
+#define ETH_RMII_TXD0_PORT    B
+#define ETH_RMII_TXD0_PIN     GPIO_PIN_12
+
+#define ETH_RMII_TXD1_PORT    B
+#define ETH_RMII_TXD1_PIN     GPIO_PIN_13
+
+#define ETH_RMII_TX_EN_PORT   B
+#define ETH_RMII_TX_EN_PIN    GPIO_PIN_11
+
+#define ETH_RMII_REF_CLK_PORT A
+#define ETH_RMII_REF_CLK_PIN  GPIO_PIN_1
+
+#if (ETH_IO_REMAP == 0)
+#define ETH_RMII_AFIO_REMAP() __HAL_AFIO_REMAP_ETH_DISABLE()
+#define ETH_RMII_CRS_DV_PORT  A
+#define ETH_RMII_CRS_DV_PIN   GPIO_PIN_7
+
+#define ETH_RMII_RXD0_PORT    C
+#define ETH_RMII_RXD0_PIN     GPIO_PIN_4
+
+#define ETH_RMII_RXD1_PORT    C
+#define ETH_RMII_RXD1_PIN     GPIO_PIN_5
+
+#elif (ETH_IO_REMAP == 1)
+#define ETH_RMII_AFIO_REMAP() __HAL_AFIO_REMAP_ETH_ENABLE()
+#define ETH_RMII_CRS_DV_PORT  D
+#define ETH_RMII_CRS_DV_PIN   GPIO_PIN_8
+
+#define ETH_RMII_RXD0_PORT    D
+#define ETH_RMII_RXD0_PIN     GPIO_PIN_9
+
+#define ETH_RMII_RXD1_PORT    D
+#define ETH_RMII_RXD1_PIN     GPIO_PIN_10
+#endif
+#endif
+
+//   <o> ETH Interrupt Priority <0-15>
+//   <i> The Interrupt Priority of ETH
+#define ETH_IT_PRIORITY     2
+//   <o> ETH Interrupt SubPriority <0-15>
+//   <i> The Interrupt SubPriority of ETH
+#define ETH_IT_SUB          3
+
+//   <h> Management Data Interface
+//     <o> ETH_MDC Pin <0=>PC1
+#define ETH_MDI_MDC_PORT_ID 0
+#if (ETH_MDI_MDC_PORT_ID == 0)
+#define ETH_MDI_MDC_PORT C
+#define ETH_MDI_MDC_PIN  GPIO_PIN_1
+#else
+#error "Invalid ETH_MDC Pin Configuration!"
+#endif
+//     <o> ETH_MDIO Pin <0=>PA2
+#define ETH_MDI_MDIO_PORT_ID 0
+#if (ETH_MDI_MDIO_PORT_ID == 0)
+#define ETH_MDI_MDIO_PORT A
+#define ETH_MDI_MDIO_PIN  GPIO_PIN_2
+#else
+#error "Invalid ETH_MDIO Pin Configuration!"
+#endif
+//   </h>
+
+//   <o> Reference 25MHz Clock generation on MCO pin <0=>Disabled <1=>Enabled
+#define ETH_REF_CLOCK_ID      1
+
+// </e>
+
 // <e> RTC (Real Time Clock)
 #define RTC_ENABLE            0
 
@@ -1117,6 +1269,10 @@ extern "C" {
 #if (RTC_ENABLE)
 #include "../RTC_STM32F1xx.h"
 #endif /* RTC_ENABLE */
+
+#if (ETH_ENABLE)
+#include "../ETH_STM32F1xx.h"
+#endif /* ETH_ENABLE */
 
 #ifdef __cplusplus
 }
