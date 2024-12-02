@@ -588,7 +588,8 @@ void USART2_TX_DMA_IRQHandler(void) {
  * @retval - 1: `UART_DEINIT_FAIL`:     UART deinit failed.
  * @retval - 2: `UART_DEINIT_DMA_FAIL`: UART DMA deinit failed.
  * @retval - 3: `UART_NO_INIT`:         UART is not init.
-uint8_t usart2_deinit(void) {
+ */
+uint8_t usart1_deinit(void) {
     if (__HAL_RCC_USART2_IS_CLK_DISABLED()) {
         return UART_NO_INIT;
     }
@@ -890,6 +891,7 @@ void USART3_TX_DMA_IRQHandler(void) {
  * @retval - 1: `UART_DEINIT_FAIL`:     UART deinit failed.
  * @retval - 2: `UART_DEINIT_DMA_FAIL`: UART DMA deinit failed.
  * @retval - 3: `UART_NO_INIT`:         UART is not init.
+ */
 uint8_t usart3_deinit(void) {
     if (__HAL_RCC_USART3_IS_CLK_DISABLED()) {
         return UART_NO_INIT;
@@ -1171,6 +1173,7 @@ void UART4_TX_DMA_IRQHandler(void) {
  * @retval - 1: `UART_DEINIT_FAIL`:     UART deinit failed.
  * @retval - 2: `UART_DEINIT_DMA_FAIL`: UART DMA deinit failed.
  * @retval - 3: `UART_NO_INIT`:         UART is not init.
+ */
 uint8_t uart4_deinit(void) {
     if (__HAL_RCC_UART4_IS_CLK_DISABLED()) {
         return UART_NO_INIT;
