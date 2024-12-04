@@ -126,17 +126,17 @@
 // </e>
 
 // <e> USART2 (Universal synchronous asynchronous receiver transmitter)
-#define USART2_ENABLE             0
+#define USART2_ENABLE             1
 
 //   <o> USART2 IO Remap
 //        <0=>No remap (TX/PA2, RX/PA3, CTS/PA0, RTS/PA1)
 //        <1=>Remap    (TX/PD5, RX/PD6, CTS/PD3, RTS/PD4)
-#define USART2_IO_REMAP           0
+#define USART2_IO_REMAP           1
 
 //   <q> Enable USART2 TX
-#define USART2_TX_ENABLE          0
+#define USART2_TX_ENABLE          1
 //   <q> Enable USART2 RX
-#define USART2_RX_ENABLE          0
+#define USART2_RX_ENABLE          1
 //   <q> Enable USART2 CTS
 #define USART2_CTS_ENABLE         0
 //   <q> Enable USART2 RTS
@@ -248,9 +248,9 @@
 #define USART3_IO_REMAP           1
 
 //   <q> Enable USART3 TX
-#define USART3_TX_ENABLE          0
+#define USART3_TX_ENABLE          1
 //   <q> Enable USART3 RX
-#define USART3_RX_ENABLE          0
+#define USART3_RX_ENABLE          1
 //   <q> Enable USART3 CTS
 #define USART3_CTS_ENABLE         0
 //   <q> Enable USART3 RTS
@@ -374,9 +374,9 @@
 #define UART4_ENABLE              0
 
 //   <q> Enable UART4 TX (PC10)
-#define UART4_TX_ENABLE           0
+#define UART4_TX_ENABLE           1
 //   <q> Enable UART4 RX (PC11)
-#define UART4_RX_ENABLE           0
+#define UART4_RX_ENABLE           1
 
 #if UART4_TX_ENABLE
 #define UART4_TX_PORT C
@@ -447,9 +447,9 @@
 #define UART5_ENABLE             0
 
 //   <q> Enable UART5 TX (PC12)
-#define UART5_TX_ENABLE          0
+#define UART5_TX_ENABLE          1
 //   <q> Enable UART5 RX (PD2)
-#define UART5_RX_ENABLE          0
+#define UART5_RX_ENABLE          1
 
 #if UART5_TX_ENABLE
 #define UART5_TX_PORT C
@@ -470,7 +470,7 @@
 // </e>
 
 // <e> I2C1 (Inter-integrated Circuit Interface 1)
-#define I2C1_ENABLE       0
+#define I2C1_ENABLE       1
 
 //   <o> I2C1 IO Remap
 //        <0=>No remap   (SCL/PB6, SDA/PB7)
@@ -515,7 +515,7 @@
 //     <o5> DMA Rx Interrupt SubPriority <0-15>
 //     <i>  The Interrupt SubPriority of DMA Rx
 //   </e>
-#define I2C1_RX_DMA             0
+#define I2C1_RX_DMA             1
 #define I2C1_RX_DMA_NUMBER      1
 #define I2C1_RX_DMA_CHANNEL     7
 #define I2C1_RX_DMA_PRIORITY    0
@@ -534,7 +534,7 @@
 //     <o5> DMA Tx Interrupt SubPriority <0-15>
 //     <i>  The Interrupt SubPriority of DMA Tx
 //   </e>
-#define I2C1_TX_DMA             0
+#define I2C1_TX_DMA             1
 #define I2C1_TX_DMA_NUMBER      1
 #define I2C1_TX_DMA_CHANNEL     6
 #define I2C1_TX_DMA_PRIORITY    0
@@ -545,7 +545,7 @@
 
 // <e> I2C2 (Inter-integrated Circuit Interface 2)
 // <i> SCL/PB10, SDA/PB11
-#define I2C2_ENABLE             0
+#define I2C2_ENABLE             1
 
 //   <e> I2C2 Interrupt
 //   <i> Must be enabled when using DMA.
@@ -1182,7 +1182,7 @@
 // </e>
 
 // <e> RTC (Real Time Clock)
-#define RTC_ENABLE            0
+#define RTC_ENABLE            1
 
 //   <e> RTC Global Interrupt
 #define RTC_IT_ENABLE         0
