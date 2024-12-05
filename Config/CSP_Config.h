@@ -547,6 +547,11 @@
 // <i> SCL/PB10, SDA/PB11
 #define I2C2_ENABLE             1
 
+#define I2C2_SCL_PORT     B
+#define I2C2_SCL_PIN      GPIO_PIN_10
+#define I2C2_SDA_PORT     B
+#define I2C2_SDA_PIN      GPIO_PIN_11
+
 //   <e> I2C2 Interrupt
 //   <i> Must be enabled when using DMA.
 #define I2C2_IT_ENABLE          0
