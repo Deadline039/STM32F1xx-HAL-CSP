@@ -372,11 +372,14 @@
 
 // <e> UART4 (Universal asynchronous receiver transmitter)
 #define UART4_ENABLE              0
+#ifndef DMA2_Channel5_IRQn
+#define DMA2_Channel5_IRQn DMA2_Channel4_5_IRQn
+#endif // !DMA2_Channel5_IRQn
 
 //   <q> Enable UART4 TX (PC10)
-#define UART4_TX_ENABLE           1
+#define UART4_TX_ENABLE 1
 //   <q> Enable UART4 RX (PC11)
-#define UART4_RX_ENABLE           1
+#define UART4_RX_ENABLE 1
 
 #if UART4_TX_ENABLE
 #define UART4_TX_PORT C
@@ -547,10 +550,10 @@
 // <i> SCL/PB10, SDA/PB11
 #define I2C2_ENABLE             1
 
-#define I2C2_SCL_PORT     B
-#define I2C2_SCL_PIN      GPIO_PIN_10
-#define I2C2_SDA_PORT     B
-#define I2C2_SDA_PIN      GPIO_PIN_11
+#define I2C2_SCL_PORT           B
+#define I2C2_SCL_PIN            GPIO_PIN_10
+#define I2C2_SDA_PORT           B
+#define I2C2_SDA_PIN            GPIO_PIN_11
 
 //   <e> I2C2 Interrupt
 //   <i> Must be enabled when using DMA.
@@ -604,7 +607,7 @@
 // </e>
 
 // <e> SPI1 (Serial Peripheral Interface 1)
-#define SPI1_ENABLE             0
+#define SPI1_ENABLE             1
 
 //   <o> SPI1 IO Remap
 //        <0=>No remap   (NSS/PA4,  SCK/PA5, MISO/PA6, MOSI/PA7)
@@ -614,9 +617,9 @@
 //   <q> Enable SPI1 NSS
 #define SPI1_NSS_ENABLE         0
 //   <q> Enable SPI1 MISO
-#define SPI1_MISO_ENABLE        0
+#define SPI1_MISO_ENABLE        1
 //   <q> Enable SPI1 MOSI
-#define SPI1_MOSI_ENABLE        0
+#define SPI1_MOSI_ENABLE        1
 
 #if (SPI1_IO_REMAP == 0)
 #define SPI1_AFIO_REMAP() __HAL_AFIO_REMAP_SPI1_DISABLE()
@@ -707,14 +710,14 @@
 
 // <e> SPI2 (Serial Peripheral Interface 2)
 // <i> SCK/PB13
-#define SPI2_ENABLE             0
+#define SPI2_ENABLE             1
 
 //   <q> Enable SPI2 NSS  (PB12)
-#define SPI2_NSS_ENABLE         0
+#define SPI2_NSS_ENABLE         1
 //   <q> Enable SPI2 MISO (PB14)
-#define SPI2_MISO_ENABLE        0
+#define SPI2_MISO_ENABLE        1
 //   <q> Enable SPI2 MOSI (PB15)
-#define SPI2_MOSI_ENABLE        0
+#define SPI2_MOSI_ENABLE        1
 
 #define SPI2_SCK_PORT           B
 #define SPI2_SCK_PIN            13
@@ -775,10 +778,6 @@
 //     <i>  The Interrupt Priority of DMA Tx
 //     <o5> DMA Tx Interrupt SubPriority <0-15>
 //     <i>  The Interrupt SubPriority of DMA Tx
-//     <o4> DMA Tx Interrupt Priority <0-15>
-//     <i>  The Interrupt Priority of DMA Tx
-//     <o5> DMA Tx Interrupt SubPriority <0-15>
-//     <i>  The Interrupt SubPriority of DMA Tx
 //   </e>
 #define SPI2_TX_DMA             0
 #define SPI2_TX_DMA_NUMBER      1
@@ -798,16 +797,20 @@
 #define SPI3_IO_REMAP           0
 
 //   <q> Enable SPI3 NSS
-#define SPI3_NSS_ENABLE         0
+#define SPI3_NSS_ENABLE         1
 //   <q> Enable SPI3 MISO
-#define SPI3_MISO_ENABLE        0
+#define SPI3_MISO_ENABLE        1
 //   <q> Enable SPI3 MOSI
-#define SPI3_MOSI_ENABLE        0
+#define SPI3_MOSI_ENABLE        1
 
 #if (SPI3_IO_REMAP == 0)
+#ifdef AFIO_MAPR_SPI3_REMAP
 #define SPI3_AFIO_REMAP() __HAL_AFIO_REMAP_SPI3_ENABLE()
-#define SPI3_SCK_PORT     B
-#define SPI3_SCK_PIN      3
+#else
+#define SPI3_AFIO_REMAP()
+#endif // AFIO_MAPR_SPI3_REMAP
+#define SPI3_SCK_PORT B
+#define SPI3_SCK_PIN  3
 #if SPI3_NSS_ENABLE
 #define SPI3_NSS_PORT A
 #define SPI3_NSS_PIN  15
@@ -821,9 +824,13 @@
 #define SPI3_MOSI_PIN  5
 #endif
 #elif (SPI3_IO_REMAP == 1)
-#define SPI3_AFIO_REMAP() __HAL_AFIO_REMAP_SPI3_DISABLE()
-#define SPI3_SCK_PORT     C
-#define SPI3_SCK_PIN      10
+#ifdef AFIO_MAPR_SPI3_REMAP
+#define SPI3_AFIO_REMAP() __HAL_AFIO_REMAP_SPI3_ENABLE()
+#else
+#define SPI3_AFIO_REMAP()
+#endif // AFIO_MAPR_SPI3_REMAP
+#define SPI3_SCK_PORT C
+#define SPI3_SCK_PIN  10
 #if SPI3_NSS_ENABLE
 #define SPI3_NSS_PORT A
 #define SPI3_NSS_PIN  4
@@ -863,7 +870,7 @@
 //     <o5> DMA Rx Interrupt SubPriority <0-15>
 //     <i>  The Interrupt SubPriority of DMA Rx
 //   </e>
-#define SPI3_RX_DMA             0
+#define SPI3_RX_DMA             1
 #define SPI3_RX_DMA_NUMBER      2
 #define SPI3_RX_DMA_CHANNEL     1
 #define SPI3_RX_DMA_PRIORITY    0
@@ -882,7 +889,7 @@
 //     <o5> DMA Tx Interrupt SubPriority <0-15>
 //     <i>  The Interrupt SubPriority of DMA Tx
 //   </e>
-#define SPI3_TX_DMA             0
+#define SPI3_TX_DMA             1
 #define SPI3_TX_DMA_NUMBER      2
 #define SPI3_TX_DMA_CHANNEL     2
 #define SPI3_TX_DMA_PRIORITY    0

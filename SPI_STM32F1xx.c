@@ -29,7 +29,7 @@ SPI_HandleTypeDef spi1_handle = {
 #if SPI1_RX_DMA
 static DMA_HandleTypeDef spi1_dmarx_handle = {
     .Instance = CSP_DMA_CHANNEL(SPI1_RX_DMA_NUMBER, SPI1_RX_DMA_CHANNEL),
-    .Init = {.FIFOMode = DMA_FIFOMODE_DISABLE,
+    .Init = {
              .Direction = DMA_PERIPH_TO_MEMORY,
              .PeriphInc = DMA_PINC_DISABLE,
              .MemInc = DMA_MINC_ENABLE,
@@ -40,7 +40,7 @@ static DMA_HandleTypeDef spi1_dmarx_handle = {
 #if SPI1_TX_DMA
 static DMA_HandleTypeDef spi1_dmatx_handle = {
     .Instance = CSP_DMA_CHANNEL(SPI1_TX_DMA_NUMBER, SPI1_TX_DMA_CHANNEL),
-    .Init = {.FIFOMode = DMA_FIFOMODE_DISABLE,
+    .Init = {
              .Direction = DMA_MEMORY_TO_PERIPH,
              .PeriphInc = DMA_PINC_DISABLE,
              .MemInc = DMA_MINC_ENABLE,
@@ -68,8 +68,10 @@ uint8_t spi1_init(uint32_t mode, spi_clk_mode_t clk_mode, uint32_t data_size,
         return SPI_INITED;
     }
 
-    GPIO_InitTypeDef gpio_init_struct = {.Pull = GPIO_PULLUP,
-                                         .Speed = GPIO_SPEED_FREQ_HIGH};
+    GPIO_InitTypeDef gpio_init_struct = {.Mode = GPIO_MODE_AF_PP,
+                                         .Pull = GPIO_PULLUP,
+                                         .Speed = GPIO_SPEED_FREQ_HIGH
+                                         };
     spi1_handle.Init.Mode = mode;
     spi1_handle.Init.CLKPhase = clk_mode & (1U << 0);
     spi1_handle.Init.CLKPolarity = clk_mode & (1U << 1);
@@ -293,7 +295,7 @@ SPI_HandleTypeDef spi2_handle = {
 #if SPI2_RX_DMA
 static DMA_HandleTypeDef spi2_dmarx_handle = {
     .Instance = CSP_DMA_CHANNEL(SPI2_RX_DMA_NUMBER, SPI2_RX_DMA_CHANNEL),
-    .Init = {.FIFOMode = DMA_FIFOMODE_DISABLE,
+    .Init = {
              .Direction = DMA_PERIPH_TO_MEMORY,
              .PeriphInc = DMA_PINC_DISABLE,
              .MemInc = DMA_MINC_ENABLE,
@@ -304,7 +306,7 @@ static DMA_HandleTypeDef spi2_dmarx_handle = {
 #if SPI2_TX_DMA
 static DMA_HandleTypeDef spi2_dmatx_handle = {
     .Instance = CSP_DMA_CHANNEL(SPI2_TX_DMA_NUMBER, SPI2_TX_DMA_CHANNEL),
-    .Init = {.FIFOMode = DMA_FIFOMODE_DISABLE,
+    .Init = {
              .Direction = DMA_MEMORY_TO_PERIPH,
              .PeriphInc = DMA_PINC_DISABLE,
              .MemInc = DMA_MINC_ENABLE,
@@ -332,7 +334,8 @@ uint8_t spi2_init(uint32_t mode, spi_clk_mode_t clk_mode, uint32_t data_size,
         return SPI_INITED;
     }
 
-    GPIO_InitTypeDef gpio_init_struct = {.Pull = GPIO_PULLUP,
+    GPIO_InitTypeDef gpio_init_struct = {.Mode = GPIO_MODE_AF_PP,
+                                         .Pull = GPIO_PULLUP,
                                          .Speed = GPIO_SPEED_FREQ_HIGH};
     spi2_handle.Init.Mode = mode;
     spi2_handle.Init.CLKPhase = clk_mode & (1U << 0);
@@ -555,8 +558,7 @@ SPI_HandleTypeDef spi3_handle = {
 #if SPI3_RX_DMA
 static DMA_HandleTypeDef spi3_dmarx_handle = {
     .Instance = CSP_DMA_CHANNEL(SPI3_RX_DMA_NUMBER, SPI3_RX_DMA_CHANNEL),
-    .Init = {.FIFOMode = DMA_FIFOMODE_DISABLE,
-             .Direction = DMA_PERIPH_TO_MEMORY,
+    .Init = {.Direction = DMA_PERIPH_TO_MEMORY,
              .PeriphInc = DMA_PINC_DISABLE,
              .MemInc = DMA_MINC_ENABLE,
              .Mode = DMA_NORMAL,
@@ -566,8 +568,7 @@ static DMA_HandleTypeDef spi3_dmarx_handle = {
 #if SPI3_TX_DMA
 static DMA_HandleTypeDef spi3_dmatx_handle = {
     .Instance = CSP_DMA_CHANNEL(SPI3_TX_DMA_NUMBER, SPI3_TX_DMA_CHANNEL),
-    .Init = {.FIFOMode = DMA_FIFOMODE_DISABLE,
-             .Direction = DMA_MEMORY_TO_PERIPH,
+    .Init = {.Direction = DMA_MEMORY_TO_PERIPH,
              .PeriphInc = DMA_PINC_DISABLE,
              .MemInc = DMA_MINC_ENABLE,
              .Mode = DMA_NORMAL,
@@ -594,7 +595,8 @@ uint8_t spi3_init(uint32_t mode, spi_clk_mode_t clk_mode, uint32_t data_size,
         return SPI_INITED;
     }
 
-    GPIO_InitTypeDef gpio_init_struct = {.Pull = GPIO_PULLUP,
+    GPIO_InitTypeDef gpio_init_struct = {.Mode = GPIO_MODE_AF_PP,
+                                         .Pull = GPIO_PULLUP,
                                          .Speed = GPIO_SPEED_FREQ_HIGH};
     spi3_handle.Init.Mode = mode;
     spi3_handle.Init.CLKPhase = clk_mode & (1U << 0);
@@ -606,27 +608,23 @@ uint8_t spi3_init(uint32_t mode, spi_clk_mode_t clk_mode, uint32_t data_size,
 
     CSP_GPIO_CLK_ENABLE(SPI3_SCK_PORT);
     gpio_init_struct.Pin = SPI3_SCK_PIN;
-    gpio_init_struct.Alternate = SPI3_SCK_GPIO_AF;
     HAL_GPIO_Init(CSP_GPIO_PORT(SPI3_SCK_PORT), &gpio_init_struct);
 
 #if SPI3_MISO_ENABLE
     CSP_GPIO_CLK_ENABLE(SPI3_MISO_PORT);
     gpio_init_struct.Pin = SPI3_MISO_PIN;
-    gpio_init_struct.Alternate = GPIO_AF5_SPI3;
     HAL_GPIO_Init(CSP_GPIO_PORT(SPI3_MISO_PORT), &gpio_init_struct);
 #endif /* SPI3_MISO_ENABLE */
 
 #if SPI3_MOSI_ENABLE
     CSP_GPIO_CLK_ENABLE(SPI3_MOSI_PORT);
     gpio_init_struct.Pin = SPI3_MOSI_PIN;
-    gpio_init_struct.Alternate = SPI3_MOSI_GPIO_AF;
     HAL_GPIO_Init(CSP_GPIO_PORT(SPI3_MOSI_PORT), &gpio_init_struct);
 #endif /* SPI3_MOSI_ENABLE */
 
 #if SPI3_NSS_ENABLE
     CSP_GPIO_CLK_ENABLE(SPI3_NSS_PORT);
     gpio_init_struct.Pin = SPI3_NSS_PIN;
-    gpio_init_struct.Alternate = GPIO_AF5_SPI3;
     HAL_GPIO_Init(CSP_GPIO_PORT(SPI3_NSS_PORT), &gpio_init_struct);
     if (mode == SPI_MODE_MASTER) {
         spi3_handle.Init.NSS = SPI_NSS_HARD_OUTPUT;
@@ -800,799 +798,6 @@ uint8_t spi3_deinit(void) {
 
 #endif /* SPI3_ENABLE */
 
-/**
- * @}
- */
-
-/*****************************************************************************
- * @defgroup SPI4 Functions.
- * @{
- */
-
-#if SPI4_ENABLE
-
-SPI_HandleTypeDef spi4_handle = {
-    .Instance = SPI4,
-    .Init = {.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8,
-             .Direction = SPI_DIRECTION_2LINES,
-             .TIMode = SPI_TIMODE_DISABLE,
-             .CRCCalculation = SPI_CRCCALCULATION_DISABLE,
-             .CRCPolynomial = 7,
-             .NSS = SPI_NSS_SOFT}};
-
-#if SPI4_RX_DMA
-static DMA_HandleTypeDef spi4_dmarx_handle = {
-    .Instance = CSP_DMA_CHANNEL(SPI4_RX_DMA_NUMBER, SPI4_RX_DMA_CHANNEL),
-    .Init = {.FIFOMode = DMA_FIFOMODE_DISABLE,
-             .Direction = DMA_PERIPH_TO_MEMORY,
-             .PeriphInc = DMA_PINC_DISABLE,
-             .MemInc = DMA_MINC_ENABLE,
-             .Mode = DMA_NORMAL,
-             .Priority = CSP_DMA_PRIORITY(SPI4_RX_DMA_PRIORITY)}};
-#endif /* SPI4_RX_DMA */
-
-#if SPI4_TX_DMA
-static DMA_HandleTypeDef spi4_dmatx_handle = {
-    .Instance = CSP_DMA_CHANNEL(SPI4_TX_DMA_NUMBER, SPI4_TX_DMA_CHANNEL),
-    .Init = {.FIFOMode = DMA_FIFOMODE_DISABLE,
-             .Direction = DMA_MEMORY_TO_PERIPH,
-             .PeriphInc = DMA_PINC_DISABLE,
-             .MemInc = DMA_MINC_ENABLE,
-             .Mode = DMA_NORMAL,
-             .Priority = CSP_DMA_PRIORITY(SPI4_TX_DMA_PRIORITY)}};
-#endif /* SPI4_TX_DMA */
-
-/**
- * @brief SPI4 initialization.
- *
- * @param mode SPI mode. `SPI_MODE_MASTER` or `SPI_MODE_SLAVE`
- * @param clk_mode Clock mode.
- * @param data_size Data size. `SPI_DATASIZE_8BIT` or `SPI_DATASIZE_16BIT`
- * @param first_bit `SPI_FIRSTBIT_MSB` or `SPI_FIRSTBIT_LSB`
- * @return SPI init status.
- * @retval - 0: `SPI_INIT_OK`:       Success.
- * @retval - 1: `SPI_INIT_FAIL`:     SPI init failed.
- * @retval - 2: `SPI_INIT_DMA_FAIL`: SPI DMA init failed.
- * @retval - 3: `SPI_INITED`:        SPI is inited.
- */
-uint8_t spi4_init(uint32_t mode, spi_clk_mode_t clk_mode, uint32_t data_size,
-                  uint32_t first_bit) {
-
-    if (__HAL_RCC_SPI4_IS_CLK_ENABLED()) {
-        return SPI_INITED;
-    }
-
-    GPIO_InitTypeDef gpio_init_struct = {.Pull = GPIO_PULLUP,
-                                         .Speed = GPIO_SPEED_FREQ_HIGH};
-    spi4_handle.Init.Mode = mode;
-    spi4_handle.Init.CLKPhase = clk_mode & (1U << 0);
-    spi4_handle.Init.CLKPolarity = clk_mode & (1U << 1);
-    spi4_handle.Init.DataSize = data_size;
-    spi4_handle.Init.FirstBit = first_bit;
-
-    CSP_GPIO_CLK_ENABLE(SPI4_SCK_PORT);
-    gpio_init_struct.Pin = SPI4_SCK_PIN;
-    gpio_init_struct.Alternate = SPI4_SCK_GPIO_AF;
-    HAL_GPIO_Init(CSP_GPIO_PORT(SPI4_SCK_PORT), &gpio_init_struct);
-
-#if SPI4_MISO_ENABLE
-    CSP_GPIO_CLK_ENABLE(SPI4_MISO_PORT);
-    gpio_init_struct.Pin = SPI4_MISO_PIN;
-    gpio_init_struct.Alternate = SPI4_MISO_GPIO_AF;
-    HAL_GPIO_Init(CSP_GPIO_PORT(SPI4_MISO_PORT), &gpio_init_struct);
-#endif /* SPI4_MISO_ENABLE */
-
-#if SPI4_MOSI_ENABLE
-    CSP_GPIO_CLK_ENABLE(SPI4_MOSI_PORT);
-    gpio_init_struct.Pin = SPI4_MOSI_PIN;
-    gpio_init_struct.Alternate = GPIO_AF5_SPI4;
-    HAL_GPIO_Init(CSP_GPIO_PORT(SPI4_MOSI_PORT), &gpio_init_struct);
-#endif /* SPI4_MOSI_ENABLE */
-
-#if SPI4_NSS_ENABLE
-    CSP_GPIO_CLK_ENABLE(SPI4_NSS_PORT);
-    gpio_init_struct.Pin = SPI4_NSS_PIN;
-    gpio_init_struct.Alternate = SPI4_NSS_GPIO_AF;
-    HAL_GPIO_Init(CSP_GPIO_PORT(SPI4_NSS_PORT), &gpio_init_struct);
-    if (mode == SPI_MODE_MASTER) {
-        spi4_handle.Init.NSS = SPI_NSS_HARD_OUTPUT;
-    } else if (mode == SPI_MODE_SLAVE) {
-        spi4_handle.Init.NSS = SPI_NSS_HARD_INPUT;
-    }
-#endif /* SPI4_NSS_ENABLE */
-
-    __HAL_RCC_SPI4_CLK_ENABLE();
-
-#if SPI4_RX_DMA
-    if (data_size == SPI_DATASIZE_8BIT) {
-        spi4_dmarx_handle.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-        spi4_dmarx_handle.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    } else if (data_size == SPI_DATASIZE_16BIT) {
-        spi4_dmarx_handle.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
-        spi4_dmarx_handle.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
-    }
-
-    CSP_DMA_CLK_ENABLE(SPI4_RX_DMA_NUMBER);
-
-    if (HAL_DMA_Init(&spi4_dmarx_handle) != HAL_OK) {
-        return SPI_INIT_DMA_FAIL;
-    }
-
-    __HAL_LINKDMA(&spi4_handle, hdmarx, spi4_dmarx_handle);
-
-    HAL_NVIC_SetPriority(
-        CSP_DMA_CHANNEL_IRQn(SPI4_RX_DMA_NUMBER, SPI4_RX_DMA_CHANNEL),
-        SPI4_RX_DMA_IT_PRIORITY, SPI4_RX_DMA_IT_SUB);
-    HAL_NVIC_EnableIRQ(
-        CSP_DMA_CHANNEL_IRQn(SPI4_RX_DMA_NUMBER, SPI4_RX_DMA_CHANNEL));
-
-#endif /* SPI4_RX_DMA */
-
-#if SPI4_TX_DMA
-    if (data_size == SPI_DATASIZE_8BIT) {
-        spi4_dmatx_handle.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-        spi4_dmatx_handle.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    } else if (data_size == SPI_DATASIZE_16BIT) {
-        spi4_dmatx_handle.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
-        spi4_dmatx_handle.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
-    }
-
-    CSP_DMA_CLK_ENABLE(SPI4_TX_DMA_NUMBER);
-
-    if (HAL_DMA_Init(&spi4_dmatx_handle) != HAL_OK) {
-        return SPI_INIT_DMA_FAIL;
-    }
-
-    __HAL_LINKDMA(&spi4_handle, hdmatx, spi4_dmatx_handle);
-
-    HAL_NVIC_SetPriority(
-        CSP_DMA_CHANNEL_IRQn(SPI4_TX_DMA_NUMBER, SPI4_TX_DMA_CHANNEL),
-        SPI4_TX_DMA_IT_PRIORITY, SPI4_TX_DMA_IT_SUB);
-    HAL_NVIC_EnableIRQ(
-        CSP_DMA_CHANNEL_IRQn(SPI4_TX_DMA_NUMBER, SPI4_TX_DMA_CHANNEL));
-
-#endif /* SPI4_TX_DMA */
-
-#if SPI4_IT_ENABLE
-    HAL_NVIC_SetPriority(SPI4_IRQn, SPI4_IT_PRIORITY, SPI4_IT_SUB);
-    HAL_NVIC_EnableIRQ(SPI4_IRQn);
-#endif /* SPI4_IT_ENABLE */
-
-    if (HAL_SPI_Init(&spi4_handle) != HAL_OK) {
-        return SPI_INIT_FAIL;
-    }
-
-    return SPI_INIT_OK;
-}
-
-#if SPI4_IT_ENABLE
-
-/**
- * @brief SPI4 ISR
- *
- */
-void SPI4_IRQHandler(void) {
-    HAL_SPI_IRQHandler(&spi4_handle);
-}
-
-#endif /* SPI4_IT_ENABLE */
-
-#if SPI4_RX_DMA
-
-/**
- * @brief SPI4 RX DMA ISR
- *
- */
-void SPI4_RX_DMA_IRQHandler(void) {
-    HAL_DMA_IRQHandler(&spi4_dmarx_handle);
-}
-
-#endif /* SPI4_RX_DMA */
-
-#if SPI4_TX_DMA
-
-/**
- * @brief SPI4 TX DMA ISR
- *
- */
-void SPI4_TX_DMA_IRQHandler(void) {
-    HAL_DMA_IRQHandler(&spi4_dmatx_handle);
-}
-
-#endif /* SPI4_TX_DMA */
-
-/**
- * @brief SPI4 deinitialization.
- *
- * @return SPI deinit status.
- * @retval - 0: `SPI_DEINIT_OK`:       Success.
- * @retval - 1: `SPI_DEINIT_FAIL`:     SPI deinit failed.
- * @retval - 2: `SPI_DEINIT_DMA_FAIL`: SPI DMA deinit failed.
- * @retval - 3: `SPI_NO_INIT`:         SPI is not init.
- */
-uint8_t spi4_deinit(void) {
-    if (__HAL_RCC_SPI4_IS_CLK_DISABLED()) {
-        return SPI_NO_INIT;
-    }
-
-    __HAL_RCC_SPI4_CLK_DISABLE();
-
-    HAL_GPIO_DeInit(CSP_GPIO_PORT(SPI4_SCK_PORT), SPI4_SCK_PIN);
-
-#if SPI4_MISO_ENABLE
-    HAL_GPIO_DeInit(CSP_GPIO_PORT(SPI4_MISO_PORT), SPI4_MOSI_PIN);
-#endif /* SPI4_MISO_ENABLE */
-
-#if SPI4_MOSI_ENABLE
-    HAL_GPIO_DeInit(CSP_GPIO_PORT(SPI4_MOSI_PORT), SPI4_MOSI_PIN);
-#endif /* SPI4_MOSI_ENABLE */
-
-#if SPI4_NSS_ENABLE
-    HAL_GPIO_DeInit(CSP_GPIO_PORT(SPI4_NSS_PORT), SPI4_NSS_PIN);
-#endif /* SPI4_NSS_ENABLE */
-
-#if SPI4_RX_DMA
-    HAL_DMA_Abort(&spi4_dmarx_handle);
-
-    if (HAL_DMA_DeInit(&spi4_dmarx_handle) != HAL_OK) {
-        return SPI_DEINIT_DMA_FAIL;
-    }
-
-    HAL_NVIC_DisableIRQ(
-        CSP_DMA_CHANNEL_IRQn(SPI4_RX_DMA_NUMBER, SPI4_RX_DMA_CHANNEL));
-    spi4_handle.hdmarx = NULL;
-#endif /* SPI4_RX_DMA */
-
-#if SPI4_TX_DMA
-    if (HAL_DMA_DeInit(&spi4_dmatx_handle) != HAL_OK) {
-        return SPI_DEINIT_DMA_FAIL;
-    }
-
-    HAL_NVIC_DisableIRQ(
-        CSP_DMA_CHANNEL_IRQn(SPI4_RX_DMA_NUMBER, SPI4_RX_DMA_CHANNEL));
-    spi4_handle.hdmatx = NULL;
-#endif /* SPI4_TX_DMA */
-
-#if SPI4_IT_ENABLE
-    HAL_NVIC_DisableIRQ(SPI4_IRQn);
-#endif /* SPI4_IT_ENABLE */
-
-    if (HAL_SPI_DeInit(&spi4_handle) != HAL_OK) {
-        return SPI_DEINIT_FAIL;
-    }
-
-    return SPI_DEINIT_OK;
-}
-
-#endif /* SPI4_ENABLE */
-
-/**
- * @}
- */
-
-/*****************************************************************************
- * @defgroup SPI5 Functions.
- * @{
- */
-
-#if SPI5_ENABLE
-
-SPI_HandleTypeDef spi5_handle = {
-    .Instance = SPI5,
-    .Init = {.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8,
-             .Direction = SPI_DIRECTION_2LINES,
-             .TIMode = SPI_TIMODE_DISABLE,
-             .CRCCalculation = SPI_CRCCALCULATION_DISABLE,
-             .CRCPolynomial = 7,
-             .NSS = SPI_NSS_SOFT}};
-
-#if SPI5_RX_DMA
-static DMA_HandleTypeDef spi5_dmarx_handle = {
-    .Instance = CSP_DMA_CHANNEL(SPI5_RX_DMA_NUMBER, SPI5_RX_DMA_CHANNEL),
-    .Init = {.FIFOMode = DMA_FIFOMODE_DISABLE,
-             .Direction = DMA_PERIPH_TO_MEMORY,
-             .PeriphInc = DMA_PINC_DISABLE,
-             .MemInc = DMA_MINC_ENABLE,
-             .Mode = DMA_NORMAL,
-             .Priority = CSP_DMA_PRIORITY(SPI5_RX_DMA_PRIORITY)}};
-#endif /* SPI5_RX_DMA */
-
-#if SPI5_TX_DMA
-static DMA_HandleTypeDef spi5_dmatx_handle = {
-    .Instance = CSP_DMA_CHANNEL(SPI5_TX_DMA_NUMBER, SPI5_TX_DMA_CHANNEL),
-    .Init = {.FIFOMode = DMA_FIFOMODE_DISABLE,
-             .Direction = DMA_MEMORY_TO_PERIPH,
-             .PeriphInc = DMA_PINC_DISABLE,
-             .MemInc = DMA_MINC_ENABLE,
-             .Mode = DMA_NORMAL,
-             .Priority = CSP_DMA_PRIORITY(SPI5_TX_DMA_PRIORITY)}};
-#endif /* SPI5_TX_DMA */
-
-/**
- * @brief SPI5 initialization.
- *
- * @param mode SPI mode. `SPI_MODE_MASTER` or `SPI_MODE_SLAVE`
- * @param clk_mode Clock mode.
- * @param data_size Data size. `SPI_DATASIZE_8BIT` or `SPI_DATASIZE_16BIT`
- * @param first_bit `SPI_FIRSTBIT_MSB` or `SPI_FIRSTBIT_LSB`
- * @return SPI init status.
- * @retval - 0: `SPI_INIT_OK`:       Success.
- * @retval - 1: `SPI_INIT_FAIL`:     SPI init failed.
- * @retval - 2: `SPI_INIT_DMA_FAIL`: SPI DMA init failed.
- * @retval - 3: `SPI_INITED`:        SPI is inited.
- */
-uint8_t spi5_init(uint32_t mode, spi_clk_mode_t clk_mode, uint32_t data_size,
-                  uint32_t first_bit) {
-
-    if (__HAL_RCC_SPI5_IS_CLK_ENABLED()) {
-        return SPI_INITED;
-    }
-
-    GPIO_InitTypeDef gpio_init_struct = {.Pull = GPIO_PULLUP,
-                                         .Speed = GPIO_SPEED_FREQ_HIGH};
-    spi5_handle.Init.Mode = mode;
-    spi5_handle.Init.CLKPhase = clk_mode & (1U << 0);
-    spi5_handle.Init.CLKPolarity = clk_mode & (1U << 1);
-    spi5_handle.Init.DataSize = data_size;
-    spi5_handle.Init.FirstBit = first_bit;
-
-    CSP_GPIO_CLK_ENABLE(SPI5_SCK_PORT);
-    gpio_init_struct.Pin = SPI5_SCK_PIN;
-    gpio_init_struct.Alternate = SPI5_SCK_GPIO_AF;
-    HAL_GPIO_Init(CSP_GPIO_PORT(SPI5_SCK_PORT), &gpio_init_struct);
-
-#if SPI5_MISO_ENABLE
-    CSP_GPIO_CLK_ENABLE(SPI5_MISO_PORT);
-    gpio_init_struct.Pin = SPI5_MISO_PIN;
-    gpio_init_struct.Alternate = SPI5_MISO_GPIO_AF;
-    HAL_GPIO_Init(CSP_GPIO_PORT(SPI5_MISO_PORT), &gpio_init_struct);
-#endif /* SPI5_MISO_ENABLE */
-
-#if SPI5_MOSI_ENABLE
-    CSP_GPIO_CLK_ENABLE(SPI5_MOSI_PORT);
-    gpio_init_struct.Pin = SPI5_MOSI_PIN;
-    gpio_init_struct.Alternate = SPI5_MOSI_GPIO_AF;
-    HAL_GPIO_Init(CSP_GPIO_PORT(SPI5_MOSI_PORT), &gpio_init_struct);
-#endif /* SPI5_MOSI_ENABLE */
-
-#if SPI5_NSS_ENABLE
-    CSP_GPIO_CLK_ENABLE(SPI5_NSS_PORT);
-    gpio_init_struct.Pin = SPI5_NSS_PIN;
-    gpio_init_struct.Alternate = SPI5_NSS_GPIO_AF;
-    HAL_GPIO_Init(CSP_GPIO_PORT(SPI5_NSS_PORT), &gpio_init_struct);
-    if (mode == SPI_MODE_MASTER) {
-        spi5_handle.Init.NSS = SPI_NSS_HARD_OUTPUT;
-    } else if (mode == SPI_MODE_SLAVE) {
-        spi5_handle.Init.NSS = SPI_NSS_HARD_INPUT;
-    }
-#endif /* SPI5_NSS_ENABLE */
-
-    __HAL_RCC_SPI5_CLK_ENABLE();
-
-#if SPI5_RX_DMA
-    if (data_size == SPI_DATASIZE_8BIT) {
-        spi5_dmarx_handle.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-        spi5_dmarx_handle.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    } else if (data_size == SPI_DATASIZE_16BIT) {
-        spi5_dmarx_handle.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
-        spi5_dmarx_handle.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
-    }
-
-    CSP_DMA_CLK_ENABLE(SPI5_RX_DMA_NUMBER);
-
-    if (HAL_DMA_Init(&spi5_dmarx_handle) != HAL_OK) {
-        return SPI_INIT_DMA_FAIL;
-    }
-
-    __HAL_LINKDMA(&spi5_handle, hdmarx, spi5_dmarx_handle);
-
-    HAL_NVIC_SetPriority(
-        CSP_DMA_CHANNEL_IRQn(SPI5_RX_DMA_NUMBER, SPI5_RX_DMA_CHANNEL),
-        SPI5_RX_DMA_IT_PRIORITY, SPI5_RX_DMA_IT_SUB);
-    HAL_NVIC_EnableIRQ(
-        CSP_DMA_CHANNEL_IRQn(SPI5_RX_DMA_NUMBER, SPI5_RX_DMA_CHANNEL));
-
-#endif /* SPI5_RX_DMA */
-
-#if SPI5_TX_DMA
-    if (data_size == SPI_DATASIZE_8BIT) {
-        spi5_dmatx_handle.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-        spi5_dmatx_handle.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    } else if (data_size == SPI_DATASIZE_16BIT) {
-        spi5_dmatx_handle.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
-        spi5_dmatx_handle.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
-    }
-
-    CSP_DMA_CLK_ENABLE(SPI5_TX_DMA_NUMBER);
-
-    if (HAL_DMA_Init(&spi5_dmatx_handle) != HAL_OK) {
-        return SPI_INIT_DMA_FAIL;
-    }
-
-    __HAL_LINKDMA(&spi5_handle, hdmatx, spi5_dmatx_handle);
-
-    HAL_NVIC_SetPriority(
-        CSP_DMA_CHANNEL_IRQn(SPI5_TX_DMA_NUMBER, SPI5_TX_DMA_CHANNEL),
-        SPI5_TX_DMA_IT_PRIORITY, SPI5_TX_DMA_IT_SUB);
-    HAL_NVIC_EnableIRQ(
-        CSP_DMA_CHANNEL_IRQn(SPI5_TX_DMA_NUMBER, SPI5_TX_DMA_CHANNEL));
-
-#endif /* SPI5_TX_DMA */
-
-#if SPI5_IT_ENABLE
-    HAL_NVIC_SetPriority(SPI5_IRQn, SPI5_IT_PRIORITY, SPI5_IT_SUB);
-    HAL_NVIC_EnableIRQ(SPI5_IRQn);
-#endif /* SPI5_IT_ENABLE */
-
-    if (HAL_SPI_Init(&spi5_handle) != HAL_OK) {
-        return SPI_INIT_FAIL;
-    }
-
-    return SPI_INIT_OK;
-}
-
-#if SPI5_IT_ENABLE
-
-/**
- * @brief SPI5 ISR
- *
- */
-void SPI5_IRQHandler(void) {
-    HAL_SPI_IRQHandler(&spi5_handle);
-}
-
-#endif /* SPI5_IT_ENABLE */
-
-#if SPI5_RX_DMA
-
-/**
- * @brief SPI5 RX DMA ISR
- *
- */
-void SPI5_RX_DMA_IRQHandler(void) {
-    HAL_DMA_IRQHandler(&spi5_dmarx_handle);
-}
-
-#endif /* SPI5_RX_DMA */
-
-#if SPI5_TX_DMA
-
-/**
- * @brief SPI5 TX DMA ISR
- *
- */
-void SPI5_TX_DMA_IRQHandler(void) {
-    HAL_DMA_IRQHandler(&spi5_dmatx_handle);
-}
-
-#endif /* SPI5_TX_DMA */
-
-/**
- * @brief SPI5 deinitialization.
- *
- * @return SPI deinit status.
- * @retval - 0: `SPI_DEINIT_OK`:       Success.
- * @retval - 1: `SPI_DEINIT_FAIL`:     SPI deinit failed.
- * @retval - 2: `SPI_DEINIT_DMA_FAIL`: SPI DMA deinit failed.
- * @retval - 3: `SPI_NO_INIT`:         SPI is not init.
- */
-uint8_t spi5_deinit(void) {
-    if (__HAL_RCC_SPI5_IS_CLK_DISABLED()) {
-        return SPI_NO_INIT;
-    }
-
-    __HAL_RCC_SPI5_CLK_DISABLE();
-
-    HAL_GPIO_DeInit(CSP_GPIO_PORT(SPI5_SCK_PORT), SPI5_SCK_PIN);
-
-#if SPI5_MISO_ENABLE
-    HAL_GPIO_DeInit(CSP_GPIO_PORT(SPI5_MISO_PORT), SPI5_MOSI_PIN);
-#endif /* SPI5_MISO_ENABLE */
-
-#if SPI5_MOSI_ENABLE
-    HAL_GPIO_DeInit(CSP_GPIO_PORT(SPI5_MOSI_PORT), SPI5_MOSI_PIN);
-#endif /* SPI5_MOSI_ENABLE */
-
-#if SPI5_NSS_ENABLE
-    HAL_GPIO_DeInit(CSP_GPIO_PORT(SPI5_NSS_PORT), SPI5_NSS_PIN);
-#endif /* SPI5_NSS_ENABLE */
-
-#if SPI5_RX_DMA
-    HAL_DMA_Abort(&spi5_dmarx_handle);
-
-    if (HAL_DMA_DeInit(&spi5_dmarx_handle) != HAL_OK) {
-        return SPI_DEINIT_DMA_FAIL;
-    }
-
-    HAL_NVIC_DisableIRQ(
-        CSP_DMA_CHANNEL_IRQn(SPI5_RX_DMA_NUMBER, SPI5_RX_DMA_CHANNEL));
-    spi5_handle.hdmarx = NULL;
-#endif /* SPI5_RX_DMA */
-
-#if SPI5_TX_DMA
-    if (HAL_DMA_DeInit(&spi5_dmatx_handle) != HAL_OK) {
-        return SPI_DEINIT_DMA_FAIL;
-    }
-
-    HAL_NVIC_DisableIRQ(
-        CSP_DMA_CHANNEL_IRQn(SPI5_RX_DMA_NUMBER, SPI5_RX_DMA_CHANNEL));
-    spi5_handle.hdmatx = NULL;
-#endif /* SPI5_TX_DMA */
-
-#if SPI5_IT_ENABLE
-    HAL_NVIC_DisableIRQ(SPI5_IRQn);
-#endif /* SPI5_IT_ENABLE */
-
-    if (HAL_SPI_DeInit(&spi5_handle) != HAL_OK) {
-        return SPI_DEINIT_FAIL;
-    }
-
-    return SPI_DEINIT_OK;
-}
-
-#endif /* SPI5_ENABLE */
-
-/**
- * @}
- */
-
-/*****************************************************************************
- * @defgroup SPI6 Functions.
- * @{
- */
-
-#if SPI6_ENABLE
-
-SPI_HandleTypeDef spi6_handle = {
-    .Instance = SPI6,
-    .Init = {.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8,
-             .Direction = SPI_DIRECTION_2LINES,
-             .TIMode = SPI_TIMODE_DISABLE,
-             .CRCCalculation = SPI_CRCCALCULATION_DISABLE,
-             .CRCPolynomial = 7,
-             .NSS = SPI_NSS_SOFT}};
-
-#if SPI6_RX_DMA
-static DMA_HandleTypeDef spi6_dmarx_handle = {
-    .Instance = CSP_DMA_CHANNEL(SPI6_RX_DMA_NUMBER, SPI6_RX_DMA_CHANNEL),
-    .Init = {.FIFOMode = DMA_FIFOMODE_DISABLE,
-             .Direction = DMA_PERIPH_TO_MEMORY,
-             .PeriphInc = DMA_PINC_DISABLE,
-             .MemInc = DMA_MINC_ENABLE,
-             .Mode = DMA_NORMAL,
-             .Priority = CSP_DMA_PRIORITY(SPI6_RX_DMA_PRIORITY)}};
-#endif /* SPI6_RX_DMA */
-
-#if SPI6_TX_DMA
-static DMA_HandleTypeDef spi6_dmatx_handle = {
-    .Instance = CSP_DMA_CHANNEL(SPI6_TX_DMA_NUMBER, SPI6_TX_DMA_CHANNEL),
-    .Init = {.FIFOMode = DMA_FIFOMODE_DISABLE,
-             .Direction = DMA_MEMORY_TO_PERIPH,
-             .PeriphInc = DMA_PINC_DISABLE,
-             .MemInc = DMA_MINC_ENABLE,
-             .Mode = DMA_NORMAL,
-             .Priority = CSP_DMA_PRIORITY(SPI6_TX_DMA_PRIORITY)}};
-#endif /* SPI6_TX_DMA */
-
-/**
- * @brief SPI6 initialization.
- *
- * @param mode SPI mode. `SPI_MODE_MASTER` or `SPI_MODE_SLAVE`
- * @param clk_mode Clock mode.
- * @param data_size Data size. `SPI_DATASIZE_8BIT` or `SPI_DATASIZE_16BIT`
- * @param first_bit `SPI_FIRSTBIT_MSB` or `SPI_FIRSTBIT_LSB`
- * @return SPI init status.
- * @retval - 0: `SPI_INIT_OK`:       Success.
- * @retval - 1: `SPI_INIT_FAIL`:     SPI init failed.
- * @retval - 2: `SPI_INIT_DMA_FAIL`: SPI DMA init failed.
- * @retval - 3: `SPI_INITED`:        SPI is inited.
- */
-uint8_t spi6_init(uint32_t mode, spi_clk_mode_t clk_mode, uint32_t data_size,
-                  uint32_t first_bit) {
-
-    if (__HAL_RCC_SPI6_IS_CLK_ENABLED()) {
-        return SPI_INITED;
-    }
-
-    GPIO_InitTypeDef gpio_init_struct = {.Pull = GPIO_PULLUP,
-                                         .Speed = GPIO_SPEED_FREQ_HIGH};
-    spi6_handle.Init.Mode = mode;
-    spi6_handle.Init.CLKPhase = clk_mode & (1U << 0);
-    spi6_handle.Init.CLKPolarity = clk_mode & (1U << 1);
-    spi6_handle.Init.DataSize = data_size;
-    spi6_handle.Init.FirstBit = first_bit;
-
-    CSP_GPIO_CLK_ENABLE(SPI6_SCK_PORT);
-    gpio_init_struct.Pin = SPI6_SCK_PIN;
-    HAL_GPIO_Init(CSP_GPIO_PORT(SPI6_SCK_PORT), &gpio_init_struct);
-
-#if SPI6_MISO_ENABLE
-    CSP_GPIO_CLK_ENABLE(SPI6_MISO_PORT);
-    gpio_init_struct.Pin = SPI6_MISO_PIN;
-    HAL_GPIO_Init(CSP_GPIO_PORT(SPI6_MISO_PORT), &gpio_init_struct);
-#endif /* SPI6_MISO_ENABLE */
-
-#if SPI6_MOSI_ENABLE
-    CSP_GPIO_CLK_ENABLE(SPI6_MOSI_PORT);
-    gpio_init_struct.Pin = SPI6_MOSI_PIN;
-    HAL_GPIO_Init(CSP_GPIO_PORT(SPI6_MOSI_PORT), &gpio_init_struct);
-#endif /* SPI6_MOSI_ENABLE */
-
-#if SPI6_NSS_ENABLE
-    CSP_GPIO_CLK_ENABLE(SPI6_NSS_PORT);
-    gpio_init_struct.Pin = SPI6_NSS_PIN;
-    HAL_GPIO_Init(CSP_GPIO_PORT(SPI6_NSS_PORT), &gpio_init_struct);
-    if (mode == SPI_MODE_MASTER) {
-        spi6_handle.Init.NSS = SPI_NSS_HARD_OUTPUT;
-    } else if (mode == SPI_MODE_SLAVE) {
-        spi6_handle.Init.NSS = SPI_NSS_HARD_INPUT;
-    }
-#endif /* SPI6_NSS_ENABLE */
-
-    __HAL_RCC_SPI6_CLK_ENABLE();
-
-#if SPI6_RX_DMA
-    if (data_size == SPI_DATASIZE_8BIT) {
-        spi6_dmarx_handle.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-        spi6_dmarx_handle.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    } else if (data_size == SPI_DATASIZE_16BIT) {
-        spi6_dmarx_handle.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
-        spi6_dmarx_handle.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
-    }
-
-    CSP_DMA_CLK_ENABLE(SPI6_RX_DMA_NUMBER);
-
-    if (HAL_DMA_Init(&spi6_dmarx_handle) != HAL_OK) {
-        return SPI_INIT_DMA_FAIL;
-    }
-
-    __HAL_LINKDMA(&spi6_handle, hdmarx, spi6_dmarx_handle);
-
-    HAL_NVIC_SetPriority(
-        CSP_DMA_CHANNEL_IRQn(SPI6_RX_DMA_NUMBER, SPI6_RX_DMA_CHANNEL),
-        SPI6_RX_DMA_IT_PRIORITY, SPI6_RX_DMA_IT_SUB);
-    HAL_NVIC_EnableIRQ(
-        CSP_DMA_CHANNEL_IRQn(SPI6_RX_DMA_NUMBER, SPI6_RX_DMA_CHANNEL));
-
-#endif /* SPI6_RX_DMA */
-
-#if SPI6_TX_DMA
-    if (data_size == SPI_DATASIZE_8BIT) {
-        spi6_dmatx_handle.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-        spi6_dmatx_handle.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    } else if (data_size == SPI_DATASIZE_16BIT) {
-        spi6_dmatx_handle.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
-        spi6_dmatx_handle.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
-    }
-
-    CSP_DMA_CLK_ENABLE(SPI6_TX_DMA_NUMBER);
-
-    if (HAL_DMA_Init(&spi6_dmatx_handle) != HAL_OK) {
-        return SPI_INIT_DMA_FAIL;
-    }
-
-    __HAL_LINKDMA(&spi6_handle, hdmatx, spi6_dmatx_handle);
-
-    HAL_NVIC_SetPriority(
-        CSP_DMA_CHANNEL_IRQn(SPI6_TX_DMA_NUMBER, SPI6_TX_DMA_CHANNEL),
-        SPI6_TX_DMA_IT_PRIORITY, SPI6_TX_DMA_IT_SUB);
-    HAL_NVIC_EnableIRQ(
-        CSP_DMA_CHANNEL_IRQn(SPI6_TX_DMA_NUMBER, SPI6_TX_DMA_CHANNEL));
-
-#endif /* SPI6_TX_DMA */
-
-#if SPI6_IT_ENABLE
-    HAL_NVIC_SetPriority(SPI6_IRQn, SPI6_IT_PRIORITY, SPI6_IT_SUB);
-    HAL_NVIC_EnableIRQ(SPI6_IRQn);
-#endif /* SPI6_IT_ENABLE */
-
-    if (HAL_SPI_Init(&spi6_handle) != HAL_OK) {
-        return SPI_INIT_FAIL;
-    }
-
-    return SPI_INIT_OK;
-}
-
-#if SPI6_IT_ENABLE
-
-/**
- * @brief SPI6 ISR
- *
- */
-void SPI6_IRQHandler(void) {
-    HAL_SPI_IRQHandler(&spi6_handle);
-}
-
-#endif /* SPI6_IT_ENABLE */
-
-#if SPI6_RX_DMA
-
-/**
- * @brief SPI6 RX DMA ISR
- *
- */
-void SPI6_RX_DMA_IRQHandler(void) {
-    HAL_DMA_IRQHandler(&spi6_dmarx_handle);
-}
-
-#endif /* SPI6_RX_DMA */
-
-#if SPI6_TX_DMA
-
-/**
- * @brief SPI6 TX DMA ISR
- *
- */
-void SPI6_TX_DMA_IRQHandler(void) {
-    HAL_DMA_IRQHandler(&spi6_dmatx_handle);
-}
-
-#endif /* SPI6_TX_DMA */
-
-/**
- * @brief SPI6 deinitialization.
- *
- * @return SPI deinit status.
- * @retval - 0: `SPI_DEINIT_OK`:       Success.
- * @retval - 1: `SPI_DEINIT_FAIL`:     SPI deinit failed.
- * @retval - 2: `SPI_DEINIT_DMA_FAIL`: SPI DMA deinit failed.
- * @retval - 3: `SPI_NO_INIT`:         SPI is not init.
- */
-uint8_t spi6_deinit(void) {
-    if (__HAL_RCC_SPI6_IS_CLK_DISABLED()) {
-        return SPI_NO_INIT;
-    }
-
-    __HAL_RCC_SPI6_CLK_DISABLE();
-
-    HAL_GPIO_DeInit(CSP_GPIO_PORT(SPI6_SCK_PORT), SPI6_SCK_PIN);
-
-#if SPI6_MISO_ENABLE
-    HAL_GPIO_DeInit(CSP_GPIO_PORT(SPI6_MISO_PORT), SPI6_MOSI_PIN);
-#endif /* SPI6_MISO_ENABLE */
-
-#if SPI6_MOSI_ENABLE
-    HAL_GPIO_DeInit(CSP_GPIO_PORT(SPI6_MOSI_PORT), SPI6_MOSI_PIN);
-#endif /* SPI6_MOSI_ENABLE */
-
-#if SPI6_NSS_ENABLE
-    HAL_GPIO_DeInit(CSP_GPIO_PORT(SPI6_NSS_PORT), SPI6_NSS_PIN);
-#endif /* SPI6_NSS_ENABLE */
-
-#if SPI6_RX_DMA
-    HAL_DMA_Abort(&spi6_dmarx_handle);
-
-    if (HAL_DMA_DeInit(&spi6_dmarx_handle) != HAL_OK) {
-        return SPI_DEINIT_DMA_FAIL;
-    }
-
-    HAL_NVIC_DisableIRQ(
-        CSP_DMA_CHANNEL_IRQn(SPI6_RX_DMA_NUMBER, SPI6_RX_DMA_CHANNEL));
-    spi6_handle.hdmarx = NULL;
-#endif /* SPI6_RX_DMA */
-
-#if SPI6_TX_DMA
-    if (HAL_DMA_DeInit(&spi6_dmatx_handle) != HAL_OK) {
-        return SPI_DEINIT_DMA_FAIL;
-    }
-
-    HAL_NVIC_DisableIRQ(
-        CSP_DMA_CHANNEL_IRQn(SPI6_RX_DMA_NUMBER, SPI6_RX_DMA_CHANNEL));
-    spi6_handle.hdmatx = NULL;
-#endif /* SPI6_TX_DMA */
-
-#if SPI6_IT_ENABLE
-    HAL_NVIC_DisableIRQ(SPI6_IRQn);
-#endif /* SPI6_IT_ENABLE */
-
-    if (HAL_SPI_DeInit(&spi6_handle) != HAL_OK) {
-        return SPI_DEINIT_FAIL;
-    }
-
-    return SPI_DEINIT_OK;
-}
-
-#endif /* SPI6_ENABLE */
 
 /**
  * @}
@@ -1611,12 +816,12 @@ uint8_t spi6_deinit(void) {
  * @return Received byte.
  */
 uint8_t spi_rw_one_byte(SPI_HandleTypeDef *hspi, uint8_t byte) {
-    if (HAL_SPI_GetState(hspi) != HAL_SPI_STATE_READY) {
-        return 0;
-    }
+    // if (HAL_SPI_GetState(hspi) != HAL_SPI_STATE_READY) {
+    //     return 0;
+    // }
 
     uint8_t rx_data;
-    HAL_SPI_TransmitReceive(hspi, &byte, &rx_data, 1, 10);
+    HAL_SPI_TransmitReceive(hspi, &byte, &rx_data, 1, 1000);
 
     return rx_data;
 }
