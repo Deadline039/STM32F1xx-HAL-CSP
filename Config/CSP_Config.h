@@ -21,9 +21,9 @@
 #define USART1_IO_REMAP   0
 
 //   <q> Enable USART1 TX
-#define USART1_TX_ENABLE  0
+#define USART1_TX_ENABLE  1
 //   <q> Enable USART1 RX
-#define USART1_RX_ENABLE  0
+#define USART1_RX_ENABLE  1
 //   <q> Enable USART1 CTS
 #define USART1_CTS_ENABLE 0
 //   <q> Enable USART1 RTS

@@ -9,8 +9,8 @@
 #include "CSP_Config.h"
 
 #include "UART_STM32F1xx.h"
-#include "ring_fifo.h"
 
+#include "./ring_fifo/ring_fifo.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -1040,8 +1040,7 @@ uint8_t uart4_init(uint32_t baud_rate) {
     CSP_GPIO_CLK_ENABLE(UART4_TX_PORT);
     gpio_init_struct.Pin = UART4_TX_PIN;
     gpio_init_struct.Mode = GPIO_MODE_AF_PP;
-    HAL_GPIO_Init(CSP_GPIO_PORT(UART4_TX_PORT),
-                                   &gpio_init_struct);
+    HAL_GPIO_Init(CSP_GPIO_PORT(UART4_TX_PORT), &gpio_init_struct);
 #endif /* UART4_TX_ENABLE */
 
 #if UART4_RX_ENABLE
