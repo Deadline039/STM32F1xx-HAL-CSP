@@ -21,9 +21,9 @@
 #define USART1_IO_REMAP   0
 
 //   <q> Enable USART1 TX
-#define USART1_TX_ENABLE  1
+#define USART1_TX_ENABLE  0
 //   <q> Enable USART1 RX
-#define USART1_RX_ENABLE  1
+#define USART1_RX_ENABLE  0
 //   <q> Enable USART1 CTS
 #define USART1_CTS_ENABLE 0
 //   <q> Enable USART1 RTS
@@ -126,7 +126,7 @@
 // </e>
 
 // <e> USART2 (Universal synchronous asynchronous receiver transmitter)
-#define USART2_ENABLE             1
+#define USART2_ENABLE             0
 
 //   <o> USART2 IO Remap
 //        <0=>No remap (TX/PA2, RX/PA3, CTS/PA0, RTS/PA1)
@@ -134,9 +134,9 @@
 #define USART2_IO_REMAP           1
 
 //   <q> Enable USART2 TX
-#define USART2_TX_ENABLE          1
+#define USART2_TX_ENABLE          0
 //   <q> Enable USART2 RX
-#define USART2_RX_ENABLE          1
+#define USART2_RX_ENABLE          0
 //   <q> Enable USART2 CTS
 #define USART2_CTS_ENABLE         0
 //   <q> Enable USART2 RTS
@@ -473,7 +473,7 @@
 // </e>
 
 // <e> I2C1 (Inter-integrated Circuit Interface 1)
-#define I2C1_ENABLE       1
+#define I2C1_ENABLE       0
 
 //   <o> I2C1 IO Remap
 //        <0=>No remap   (SCL/PB6, SDA/PB7)
@@ -518,7 +518,7 @@
 //     <o5> DMA Rx Interrupt SubPriority <0-15>
 //     <i>  The Interrupt SubPriority of DMA Rx
 //   </e>
-#define I2C1_RX_DMA             1
+#define I2C1_RX_DMA             0
 #define I2C1_RX_DMA_NUMBER      1
 #define I2C1_RX_DMA_CHANNEL     7
 #define I2C1_RX_DMA_PRIORITY    0
@@ -537,7 +537,7 @@
 //     <o5> DMA Tx Interrupt SubPriority <0-15>
 //     <i>  The Interrupt SubPriority of DMA Tx
 //   </e>
-#define I2C1_TX_DMA             1
+#define I2C1_TX_DMA             0
 #define I2C1_TX_DMA_NUMBER      1
 #define I2C1_TX_DMA_CHANNEL     6
 #define I2C1_TX_DMA_PRIORITY    0
@@ -548,7 +548,7 @@
 
 // <e> I2C2 (Inter-integrated Circuit Interface 2)
 // <i> SCL/PB10, SDA/PB11
-#define I2C2_ENABLE             1
+#define I2C2_ENABLE             0
 
 #define I2C2_SCL_PORT           B
 #define I2C2_SCL_PIN            GPIO_PIN_10
@@ -578,7 +578,7 @@
 //     <o5> DMA Rx Interrupt SubPriority <0-15>
 //     <i>  The Interrupt SubPriority of DMA Rx
 //   </e>
-#define I2C2_RX_DMA             1
+#define I2C2_RX_DMA             0
 #define I2C2_RX_DMA_NUMBER      1
 #define I2C2_RX_DMA_CHANNEL     5
 #define I2C2_RX_DMA_PRIORITY    0
@@ -597,7 +597,7 @@
 //     <o5> DMA Tx Interrupt SubPriority <0-15>
 //     <i>  The Interrupt SubPriority of DMA Tx
 //   </e>
-#define I2C2_TX_DMA             1
+#define I2C2_TX_DMA             0
 #define I2C2_TX_DMA_NUMBER      1
 #define I2C2_TX_DMA_CHANNEL     4
 #define I2C2_TX_DMA_PRIORITY    0
@@ -607,7 +607,7 @@
 // </e>
 
 // <e> SPI1 (Serial Peripheral Interface 1)
-#define SPI1_ENABLE             1
+#define SPI1_ENABLE             0
 
 //   <o> SPI1 IO Remap
 //        <0=>No remap   (NSS/PA4,  SCK/PA5, MISO/PA6, MOSI/PA7)
@@ -617,41 +617,41 @@
 //   <q> Enable SPI1 NSS
 #define SPI1_NSS_ENABLE         0
 //   <q> Enable SPI1 MISO
-#define SPI1_MISO_ENABLE        1
+#define SPI1_MISO_ENABLE        0
 //   <q> Enable SPI1 MOSI
-#define SPI1_MOSI_ENABLE        1
+#define SPI1_MOSI_ENABLE        0
 
 #if (SPI1_IO_REMAP == 0)
 #define SPI1_AFIO_REMAP() __HAL_AFIO_REMAP_SPI1_DISABLE()
 #define SPI1_SCK_PORT     A
-#define SPI1_SCK_PIN      5
+#define SPI1_SCK_PIN      GPIO_PIN_5
 #if SPI1_NSS_ENABLE
 #define SPI1_NSS_PORT A
-#define SPI1_NSS_PIN  4
+#define SPI1_NSS_PIN  GPIO_PIN_4
 #endif
 #if SPI1_MISO_ENABLE
 #define SPI1_MISO_PORT A
-#define SPI1_MISO_PIN  6
+#define SPI1_MISO_PIN  GPIO_PIN_6
 #endif
 #if SPI1_MOSI_ENABLE
 #define SPI1_MOSI_PORT A
-#define SPI1_MOSI_PIN  7
+#define SPI1_MOSI_PIN  GPIO_PIN_7
 #endif
 #elif (SPI1_IO_REMAP == 1)
 #define SPI1_AFIO_REMAP() __HAL_AFIO_REMAP_SPI1_ENABLE()
 #define SPI1_SCK_PORT     B
-#define SPI1_SCK_PIN      3
+#define SPI1_SCK_PIN      GPIO_PIN_3
 #if SPI1_NSS_ENABLE
 #define SPI1_NSS_PORT A
-#define SPI1_NSS_PIN  15
+#define SPI1_NSS_PIN  GPIO_PIN_15
 #endif
 #if SPI1_MISO_ENABLE
 #define SPI1_MISO_PORT B
-#define SPI1_MISO_PIN  4
+#define SPI1_MISO_PIN  GPIO_PIN_4
 #endif
 #if SPI1_MOSI_ENABLE
 #define SPI1_MOSI_PORT B
-#define SPI1_MOSI_PIN  5
+#define SPI1_MOSI_PIN  GPIO_PIN_5
 #endif
 #else
 #error "Invalid SPI1 IO Remap Configuration! "
@@ -710,31 +710,31 @@
 
 // <e> SPI2 (Serial Peripheral Interface 2)
 // <i> SCK/PB13
-#define SPI2_ENABLE             1
+#define SPI2_ENABLE             0
 
 //   <q> Enable SPI2 NSS  (PB12)
-#define SPI2_NSS_ENABLE         1
+#define SPI2_NSS_ENABLE         0
 //   <q> Enable SPI2 MISO (PB14)
-#define SPI2_MISO_ENABLE        1
+#define SPI2_MISO_ENABLE        0
 //   <q> Enable SPI2 MOSI (PB15)
-#define SPI2_MOSI_ENABLE        1
+#define SPI2_MOSI_ENABLE        0
 
 #define SPI2_SCK_PORT           B
-#define SPI2_SCK_PIN            13
+#define SPI2_SCK_PIN            GPIO_PIN_13
 
 #if SPI2_NSS_ENABLE
 #define SPI2_NSS_PORT A
-#define SPI2_NSS_PIN  12
+#define SPI2_NSS_PIN  GPIO_PIN_12
 #endif
 
 #if SPI2_MISO_ENABLE
 #define SPI2_MISO_PORT B
-#define SPI2_MISO_PIN  14
+#define SPI2_MISO_PIN  GPIO_PIN_14
 #endif
 
 #if SPI2_MOSI_ENABLE
 #define SPI2_MOSI_PORT B
-#define SPI2_MOSI_PIN  15
+#define SPI2_MOSI_PIN  GPIO_PIN_15
 #endif
 
 //   <e> SPI2 Interrupt
@@ -797,11 +797,11 @@
 #define SPI3_IO_REMAP           0
 
 //   <q> Enable SPI3 NSS
-#define SPI3_NSS_ENABLE         1
+#define SPI3_NSS_ENABLE         0
 //   <q> Enable SPI3 MISO
-#define SPI3_MISO_ENABLE        1
+#define SPI3_MISO_ENABLE        0
 //   <q> Enable SPI3 MOSI
-#define SPI3_MOSI_ENABLE        1
+#define SPI3_MOSI_ENABLE        0
 
 #if (SPI3_IO_REMAP == 0)
 #ifdef AFIO_MAPR_SPI3_REMAP
@@ -810,18 +810,18 @@
 #define SPI3_AFIO_REMAP()
 #endif // AFIO_MAPR_SPI3_REMAP
 #define SPI3_SCK_PORT B
-#define SPI3_SCK_PIN  3
+#define SPI3_SCK_PIN  GPIO_PIN_3
 #if SPI3_NSS_ENABLE
 #define SPI3_NSS_PORT A
-#define SPI3_NSS_PIN  15
+#define SPI3_NSS_PIN  GPIO_PIN_15
 #endif
 #if SPI3_MISO_ENABLE
 #define SPI3_MISO_PORT B
-#define SPI3_MISO_PIN  4
+#define SPI3_MISO_PIN  GPIO_PIN_4
 #endif
 #if SPI3_MOSI_ENABLE
 #define SPI3_MOSI_PORT B
-#define SPI3_MOSI_PIN  5
+#define SPI3_MOSI_PIN  GPIO_PIN_5
 #endif
 #elif (SPI3_IO_REMAP == 1)
 #ifdef AFIO_MAPR_SPI3_REMAP
@@ -830,18 +830,18 @@
 #define SPI3_AFIO_REMAP()
 #endif // AFIO_MAPR_SPI3_REMAP
 #define SPI3_SCK_PORT C
-#define SPI3_SCK_PIN  10
+#define SPI3_SCK_PIN  GPIO_PIN_10
 #if SPI3_NSS_ENABLE
 #define SPI3_NSS_PORT A
-#define SPI3_NSS_PIN  4
+#define SPI3_NSS_PIN  GPIO_PIN_4
 #endif
 #if SPI3_MISO_ENABLE
 #define SPI3_MISO_PORT C
-#define SPI3_MISO_PIN  11
+#define SPI3_MISO_PIN  GPIO_PIN_11
 #endif
 #if SPI3_MOSI_ENABLE
 #define SPI3_MOSI_PORT C
-#define SPI3_MOSI_PIN  12
+#define SPI3_MOSI_PIN  GPIO_PIN_12
 #endif
 #else
 #error "Invalid SPI3 IO Remap Configuration! "
@@ -870,7 +870,7 @@
 //     <o5> DMA Rx Interrupt SubPriority <0-15>
 //     <i>  The Interrupt SubPriority of DMA Rx
 //   </e>
-#define SPI3_RX_DMA             1
+#define SPI3_RX_DMA             0
 #define SPI3_RX_DMA_NUMBER      2
 #define SPI3_RX_DMA_CHANNEL     1
 #define SPI3_RX_DMA_PRIORITY    0
@@ -889,7 +889,7 @@
 //     <o5> DMA Tx Interrupt SubPriority <0-15>
 //     <i>  The Interrupt SubPriority of DMA Tx
 //   </e>
-#define SPI3_TX_DMA             1
+#define SPI3_TX_DMA             0
 #define SPI3_TX_DMA_NUMBER      2
 #define SPI3_TX_DMA_CHANNEL     2
 #define SPI3_TX_DMA_PRIORITY    0
@@ -1194,7 +1194,7 @@
 // </e>
 
 // <e> RTC (Real Time Clock)
-#define RTC_ENABLE            1
+#define RTC_ENABLE            0
 
 //   <e> RTC Global Interrupt
 #define RTC_IT_ENABLE         0

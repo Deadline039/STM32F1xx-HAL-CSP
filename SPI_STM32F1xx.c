@@ -29,8 +29,7 @@ SPI_HandleTypeDef spi1_handle = {
 #if SPI1_RX_DMA
 static DMA_HandleTypeDef spi1_dmarx_handle = {
     .Instance = CSP_DMA_CHANNEL(SPI1_RX_DMA_NUMBER, SPI1_RX_DMA_CHANNEL),
-    .Init = {
-             .Direction = DMA_PERIPH_TO_MEMORY,
+    .Init = {.Direction = DMA_PERIPH_TO_MEMORY,
              .PeriphInc = DMA_PINC_DISABLE,
              .MemInc = DMA_MINC_ENABLE,
              .Mode = DMA_NORMAL,
@@ -40,8 +39,7 @@ static DMA_HandleTypeDef spi1_dmarx_handle = {
 #if SPI1_TX_DMA
 static DMA_HandleTypeDef spi1_dmatx_handle = {
     .Instance = CSP_DMA_CHANNEL(SPI1_TX_DMA_NUMBER, SPI1_TX_DMA_CHANNEL),
-    .Init = {
-             .Direction = DMA_MEMORY_TO_PERIPH,
+    .Init = {.Direction = DMA_MEMORY_TO_PERIPH,
              .PeriphInc = DMA_PINC_DISABLE,
              .MemInc = DMA_MINC_ENABLE,
              .Mode = DMA_NORMAL,
@@ -70,8 +68,7 @@ uint8_t spi1_init(uint32_t mode, spi_clk_mode_t clk_mode, uint32_t data_size,
 
     GPIO_InitTypeDef gpio_init_struct = {.Mode = GPIO_MODE_AF_PP,
                                          .Pull = GPIO_PULLUP,
-                                         .Speed = GPIO_SPEED_FREQ_HIGH
-                                         };
+                                         .Speed = GPIO_SPEED_FREQ_HIGH};
     spi1_handle.Init.Mode = mode;
     spi1_handle.Init.CLKPhase = clk_mode & (1U << 0);
     spi1_handle.Init.CLKPolarity = clk_mode & (1U << 1);
@@ -295,8 +292,7 @@ SPI_HandleTypeDef spi2_handle = {
 #if SPI2_RX_DMA
 static DMA_HandleTypeDef spi2_dmarx_handle = {
     .Instance = CSP_DMA_CHANNEL(SPI2_RX_DMA_NUMBER, SPI2_RX_DMA_CHANNEL),
-    .Init = {
-             .Direction = DMA_PERIPH_TO_MEMORY,
+    .Init = {.Direction = DMA_PERIPH_TO_MEMORY,
              .PeriphInc = DMA_PINC_DISABLE,
              .MemInc = DMA_MINC_ENABLE,
              .Mode = DMA_NORMAL,
@@ -306,8 +302,7 @@ static DMA_HandleTypeDef spi2_dmarx_handle = {
 #if SPI2_TX_DMA
 static DMA_HandleTypeDef spi2_dmatx_handle = {
     .Instance = CSP_DMA_CHANNEL(SPI2_TX_DMA_NUMBER, SPI2_TX_DMA_CHANNEL),
-    .Init = {
-             .Direction = DMA_MEMORY_TO_PERIPH,
+    .Init = {.Direction = DMA_MEMORY_TO_PERIPH,
              .PeriphInc = DMA_PINC_DISABLE,
              .MemInc = DMA_MINC_ENABLE,
              .Mode = DMA_NORMAL,
@@ -797,7 +792,6 @@ uint8_t spi3_deinit(void) {
 }
 
 #endif /* SPI3_ENABLE */
-
 
 /**
  * @}
