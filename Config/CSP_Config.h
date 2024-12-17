@@ -615,11 +615,11 @@
 #define SPI1_IO_REMAP           0
 
 //   <q> Enable SPI1 NSS
-#define SPI1_NSS_ENABLE         0
+#define SPI1_NSS_ENABLE         1
 //   <q> Enable SPI1 MISO
-#define SPI1_MISO_ENABLE        0
+#define SPI1_MISO_ENABLE        1
 //   <q> Enable SPI1 MOSI
-#define SPI1_MOSI_ENABLE        0
+#define SPI1_MOSI_ENABLE        1
 
 #if (SPI1_IO_REMAP == 0)
 #define SPI1_AFIO_REMAP() __HAL_AFIO_REMAP_SPI1_DISABLE()
@@ -710,14 +710,14 @@
 
 // <e> SPI2 (Serial Peripheral Interface 2)
 // <i> SCK/PB13
-#define SPI2_ENABLE             0
+#define SPI2_ENABLE             1
 
 //   <q> Enable SPI2 NSS  (PB12)
-#define SPI2_NSS_ENABLE         0
+#define SPI2_NSS_ENABLE         1
 //   <q> Enable SPI2 MISO (PB14)
-#define SPI2_MISO_ENABLE        0
+#define SPI2_MISO_ENABLE        1
 //   <q> Enable SPI2 MOSI (PB15)
-#define SPI2_MOSI_ENABLE        0
+#define SPI2_MOSI_ENABLE        1
 
 #define SPI2_SCK_PORT           B
 #define SPI2_SCK_PIN            GPIO_PIN_13
@@ -789,7 +789,7 @@
 // </e>
 
 // <e> SPI3 (Serial Peripheral Interface 3)
-#define SPI3_ENABLE             0
+#define SPI3_ENABLE             1
 
 //   <o> SPI3/I2S3 IO Remap (NSS->WS, MOSI->SD)
 //        <0=>No remap   (NSS/PA15, SCK/PB3,  MISO/PB4,  MOSI/PB5 )
@@ -797,17 +797,23 @@
 #define SPI3_IO_REMAP           0
 
 //   <q> Enable SPI3 NSS
-#define SPI3_NSS_ENABLE         0
+#define SPI3_NSS_ENABLE         1
 //   <q> Enable SPI3 MISO
-#define SPI3_MISO_ENABLE        0
+#define SPI3_MISO_ENABLE        1
 //   <q> Enable SPI3 MOSI
-#define SPI3_MOSI_ENABLE        0
+#define SPI3_MOSI_ENABLE        1
 
 #if (SPI3_IO_REMAP == 0)
 #ifdef AFIO_MAPR_SPI3_REMAP
-#define SPI3_AFIO_REMAP() __HAL_AFIO_REMAP_SPI3_ENABLE()
-#else
 #define SPI3_AFIO_REMAP()
+__HAL_AFIO_REMAP_SPI3_ENABLE();
+#else
+#define SPI3_AFIO_REMAP()                                                      \
+    do {                                                                       \
+        __HAL_RCC_AFIO_CLK_ENABLE();                                           \
+        __HAL_AFIO_REMAP_SWJ_NOJTAG();                                         \
+    } while (0)
+
 #endif // AFIO_MAPR_SPI3_REMAP
 #define SPI3_SCK_PORT B
 #define SPI3_SCK_PIN  GPIO_PIN_3
@@ -1194,7 +1200,7 @@
 // </e>
 
 // <e> RTC (Real Time Clock)
-#define RTC_ENABLE            0
+#define RTC_ENABLE            1
 
 //   <e> RTC Global Interrupt
 #define RTC_IT_ENABLE         0
