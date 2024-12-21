@@ -649,7 +649,7 @@ CAN_HandleTypeDef *can_get_handle(can_selected_t can_select) {
 }
 
 /**
- * @brief CAN Send message.
+ * @brief CAN send message.
  *
  * @param can_selected Specific which CAN to send message.
  * @param can_ide Specific standard ID or Extend ID.
@@ -657,11 +657,11 @@ CAN_HandleTypeDef *can_get_handle(can_selected_t can_select) {
  * @param len Specific message length.
  * @param msg Specific message content.
  * @return Send status.
- * @retval 0: Success.
- * @retval 1: Send error.
- * @retval 2: Timeout.
- * @retval 3: Parameter invalid.
- * @retval 4: This CAN is not initialized.
+ * @retval - 0: Success.
+ * @retval - 1: Send error.
+ * @retval - 2: Timeout.
+ * @retval - 3: Parameter invalid.
+ * @retval - 4: This CAN is not initialized.
  */
 uint8_t can_send_message(can_selected_t can_selected, uint32_t can_ide,
                          uint32_t id, uint8_t len, const uint8_t *msg) {
@@ -707,7 +707,7 @@ uint8_t can_send_message(can_selected_t can_selected, uint32_t can_ide,
 }
 
 /**
- * @brief CAN Send Remote message.
+ * @brief CAN send remote message.
  *
  * @param can_selected Specific which CAN to send message.
  * @param can_ide Specific standard ID or Extend ID.
@@ -715,11 +715,11 @@ uint8_t can_send_message(can_selected_t can_selected, uint32_t can_ide,
  * @param len Specific message length.
  * @param msg Specific message content.
  * @return Send status.
- * @retval 0: Success.
- * @retval 1: Send error.
- * @retval 2: Timeout.
- * @retval 3: Parameter invalid.
- * @retval 4: This CAN is not initialized.
+ * @retval - 0: Success.
+ * @retval - 1: Send error.
+ * @retval - 2: Timeout.
+ * @retval - 3: Parameter invalid.
+ * @retval - 4: This CAN is not initialized.
  */
 uint8_t can_send_remote(can_selected_t can_selected, uint32_t can_ide,
                         uint32_t id, uint8_t len, const uint8_t *msg) {
