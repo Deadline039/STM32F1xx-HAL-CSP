@@ -116,7 +116,7 @@ static uart_tx_buf_t usart1_tx_buf = {.buf_size = USART1_TX_DMA_BUF_SIZE};
  * @retval - 1: `UART_INIT_FAIL`:     UART init failed.
  * @retval - 2: `UART_INIT_DMA_FAIL`: UART DMA init failed.
  * @retval - 3: `UART_INIT_MEM_FAIL`: UART buffer memory init failed (It will
- *                                    dynamic allocate memroy when using DMA).
+ *                                    dynamic allocate memory when using DMA).
  * @retval - 4: `UART_INITED`:        This uart is inited.
  */
 uint8_t usart1_init(uint32_t baud_rate) {
@@ -418,7 +418,7 @@ static uart_tx_buf_t usart2_tx_buf = {.buf_size = USART2_TX_DMA_BUF_SIZE};
  * @retval - 1: `UART_INIT_FAIL`:     UART init failed.
  * @retval - 2: `UART_INIT_DMA_FAIL`: UART DMA init failed.
  * @retval - 3: `UART_INIT_MEM_FAIL`: UART buffer memory init failed (It will
- *                                    dynamic allocate memroy when using DMA).
+ *                                    dynamic allocate memory when using DMA).
  * @retval - 4: `UART_INITED`:        This uart is inited.
  */
 uint8_t usart2_init(uint32_t baud_rate) {
@@ -720,7 +720,7 @@ static uart_tx_buf_t usart3_tx_buf = {.buf_size = USART3_TX_DMA_BUF_SIZE};
  * @retval - 1: `UART_INIT_FAIL`:     UART init failed.
  * @retval - 2: `UART_INIT_DMA_FAIL`: UART DMA init failed.
  * @retval - 3: `UART_INIT_MEM_FAIL`: UART buffer memory init failed (It will
- *                                    dynamic allocate memroy when using DMA).
+ *                                    dynamic allocate memory when using DMA).
  * @retval - 4: `UART_INITED`:        This uart is inited.
  */
 uint8_t usart3_init(uint32_t baud_rate) {
@@ -1023,7 +1023,7 @@ static uart_tx_buf_t uart4_tx_buf = {.buf_size = UART4_TX_DMA_BUF_SIZE};
  * @retval - 1: `UART_INIT_FAIL`:     UART init failed.
  * @retval - 2: `UART_INIT_DMA_FAIL`: UART DMA init failed.
  * @retval - 3: `UART_INIT_MEM_FAIL`: UART buffer memory init failed (It will
- *                                    dynamic allocate memroy when using DMA).
+ *                                    dynamic allocate memory when using DMA).
  * @retval - 4: `UART_INITED`:        This uart is inited.
  */
 uint8_t uart4_init(uint32_t baud_rate) {
