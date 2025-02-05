@@ -1258,9 +1258,9 @@ extern "C" {
 #define CSP_DMA_CLK_ENABLE(x)       _CSP_DMA_CLK_ENABLE(x)
 
 /* CSP memory management functions. */
-#define CSP_MALLOC                  malloc
-#define CSP_FREE                    free
-#define CSP_REALLOC                 realloc
+#define CSP_MALLOC(x)              malloc(x)
+#define CSP_FREE(x)                free(x)
+#define CSP_REALLOC(p, x)          realloc(p, x)
 #include <stdlib.h>
 
 /* Devices Family header files.  */
