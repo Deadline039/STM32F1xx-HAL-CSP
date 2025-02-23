@@ -638,9 +638,14 @@
 #define SPI1_MOSI_PIN  GPIO_PIN_7
 #endif
 #elif (SPI1_IO_REMAP == 1)
-#define SPI1_AFIO_REMAP() __HAL_AFIO_REMAP_SPI1_ENABLE()
-#define SPI1_SCK_PORT     B
-#define SPI1_SCK_PIN      GPIO_PIN_3
+#define SPI1_AFIO_REMAP()                                                      \
+    do {                                                                       \
+        __HAL_RCC_AFIO_CLK_ENABLE();                                           \
+        __HAL_AFIO_REMAP_SWJ_NOJTAG();                                         \
+        __HAL_AFIO_REMAP_SPI1_ENABLE();                                        \
+    } while (0)
+#define SPI1_SCK_PORT B
+#define SPI1_SCK_PIN  GPIO_PIN_3
 #if SPI1_NSS_ENABLE
 #define SPI1_NSS_PORT A
 #define SPI1_NSS_PIN  GPIO_PIN_15
@@ -805,16 +810,15 @@
 
 #if (SPI3_IO_REMAP == 0)
 #ifdef AFIO_MAPR_SPI3_REMAP
-#define SPI3_AFIO_REMAP()
-__HAL_AFIO_REMAP_SPI3_ENABLE();
+#define SPI3_AFIO_REMAP() __HAL_AFIO_REMAP_SPI3_ENABLE();
 #else
 #define SPI3_AFIO_REMAP()                                                      \
     do {                                                                       \
         __HAL_RCC_AFIO_CLK_ENABLE();                                           \
         __HAL_AFIO_REMAP_SWJ_NOJTAG();                                         \
     } while (0)
-
 #endif // AFIO_MAPR_SPI3_REMAP
+
 #define SPI3_SCK_PORT B
 #define SPI3_SCK_PIN  GPIO_PIN_3
 #if SPI3_NSS_ENABLE
@@ -1258,9 +1262,9 @@ extern "C" {
 #define CSP_DMA_CLK_ENABLE(x)       _CSP_DMA_CLK_ENABLE(x)
 
 /* CSP memory management functions. */
-#define CSP_MALLOC(x)              malloc(x)
-#define CSP_FREE(x)                free(x)
-#define CSP_REALLOC(p, x)          realloc(p, x)
+#define CSP_MALLOC(x)               malloc(x)
+#define CSP_FREE(x)                 free(x)
+#define CSP_REALLOC(p, x)           realloc(p, x)
 #include <stdlib.h>
 
 /* Devices Family header files.  */
