@@ -630,7 +630,7 @@ uint8_t can_rate_calc(uint32_t baud_rate, uint32_t prop_delay,
  * @param can_selected Specific which can will to get.
  * @return The handle of CAN. return NULL which the CAN doesn't exist.
  */
-CAN_HandleTypeDef *can_get_handle(can_selected_t can_select) {
+CAN_HandleTypeDef *can_get_handle(can_selected_t can_selected) {
     switch (can_selected) {
 
 #if CAN1_ENABLE
