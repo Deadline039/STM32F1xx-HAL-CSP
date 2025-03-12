@@ -499,31 +499,6 @@ void HAL_CAN_MspDeInit(CAN_HandleTypeDef *hcan) {
 #endif /* CAN2_ENABLE_SCE_IT */
     }
 #endif /* CAN2_ENABLE */
-
-#if CAN3_ENABLE
-    if (hcan->Instance == CAN3) {
-        __HAL_RCC_CAN3_CLK_DISABLE();
-
-        HAL_GPIO_DeInit(CSP_GPIO_PORT(CAN3_RX_PORT), CAN3_RX_PIN);
-        HAL_GPIO_DeInit(CSP_GPIO_PORT(CAN3_TX_PORT), CAN3_TX_PIN);
-
-#if CAN3_ENABLE_TX_IT
-        HAL_NVIC_DisableIRQ(CAN3_TX_IRQn);
-#endif /* CAN3_ENABLE_TX_IT */
-
-#if CAN3_ENABLE_RX0_IT
-        HAL_NVIC_DisableIRQ(CAN3_RX0_IRQn);
-#endif /* CAN3_ENABLE_RX0_IT */
-
-#if CAN3_ENABLE_RX1_IT
-        HAL_NVIC_DisableIRQ(CAN3_RX1_IRQn);
-#endif /* CAN3_ENABLE_RX1_IT */
-
-#if CAN3_ENABLE_SCE_IT
-        HAL_NVIC_DisableIRQ(CAN3_SCE_IRQn);
-#endif /* CAN3_ENABLE_SCE_IT */
-    }
-#endif /* CAN3_ENABLE */
 }
 
 /**
