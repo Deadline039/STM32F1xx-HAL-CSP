@@ -373,8 +373,10 @@
 // <e> UART4 (Universal asynchronous receiver transmitter)
 #define UART4_ENABLE              0
 #ifndef DMA2_Channel5_IRQn
-#define DMA2_Channel5_IRQn DMA2_Channel4_5_IRQn
-#endif // !DMA2_Channel5_IRQn
+#define DMA2_Channel5_IRQn       DMA2_Channel4_5_IRQn
+#define DMA2_Channel5_IRQHandler DMA2_Channel4_5_IRQHandler
+#endif /* DMA2_Channel5_IRQn */
+
 
 //   <q> Enable UART4 TX (PC10)
 #define UART4_TX_ENABLE 1
