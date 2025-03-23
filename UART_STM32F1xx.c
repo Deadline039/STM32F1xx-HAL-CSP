@@ -1476,36 +1476,6 @@ static inline uart_rx_fifo_t *uart_rx_identify(UART_HandleTypeDef *huart) {
         }
 #endif /* UART5_RX_DMA */
 
-#if USART6_RX_DMA
-        case USART6_BASE: {
-            return &usart6_rx_fifo;
-        }
-#endif /* USART6_RX_DMA */
-
-#if UART7_RX_DMA
-        case UART7_BASE: {
-            return &uart7_rx_fifo;
-        }
-#endif /* UART7_RX_DMA */
-
-#if UART8_RX_DMA
-        case UART8_BASE: {
-            return &uart8_rx_fifo;
-        }
-#endif /* UART8_RX_DMA */
-
-#if UART9_RX_DMA
-        case UART9_BASE: {
-            return &uart9_rx_fifo;
-        }
-#endif /* UART9_RX_DMA */
-
-#if UART10_RX_DMA
-        case UART10_BASE: {
-            return &uart10_rx_fifo;
-        }
-#endif /* UART10_RX_DMA */
-
         default: {
         } break;
     }
@@ -1754,36 +1724,6 @@ static inline uart_tx_buf_t *uart_tx_identify(UART_HandleTypeDef *huart) {
             return &uart5_tx_buf;
         }
 #endif /* UART5_TX_DMA */
-
-#if USART6_TX_DMA
-        case USART6_BASE: {
-            return &usart6_tx_buf;
-        }
-#endif /* USART6_TX_DMA */
-
-#if UART7_TX_DMA
-        case UART7_BASE: {
-            return &uart7_tx_buf;
-        }
-#endif /* UART7_TX_DMA */
-
-#if UART8_TX_DMA
-        case UART8_BASE: {
-            return &uart8_tx_buf;
-        }
-#endif /* UART8_TX_DMA */
-
-#if UART9_TX_DMA
-        case UART9_BASE: {
-            return &uart9_tx_buf;
-        }
-#endif /* UART9_TX_DMA */
-
-#if UART10_TX_DMA
-        case UART10_BASE: {
-            return &uart10_tx_buf;
-        }
-#endif /* UART10_TX_DMA */
 
         default: {
         } break;
