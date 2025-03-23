@@ -810,9 +810,9 @@ uint8_t spi3_deinit(void) {
  * @return Received byte.
  */
 uint8_t spi_rw_one_byte(SPI_HandleTypeDef *hspi, uint8_t byte) {
-    // if (HAL_SPI_GetState(hspi) != HAL_SPI_STATE_READY) {
-    //     return 0;
-    // }
+    if (HAL_SPI_GetState(hspi) != HAL_SPI_STATE_READY) {
+        return 0;
+    }
 
     uint8_t rx_data;
     HAL_SPI_TransmitReceive(hspi, &byte, &rx_data, 1, 1000);
