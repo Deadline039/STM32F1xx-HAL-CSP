@@ -2,7 +2,7 @@
  * @file    I2C_STM32F1xx.c
  * @author  Deadline039
  * @brief   Chip Support Package of I2C on STM32F1xx
- * @version 1.0
+ * @version 3.3.0
  * @date    2024-10-22
  */
 
@@ -33,7 +33,7 @@ static DMA_HandleTypeDef i2c1_dmarx_handle = {
              .MemInc = DMA_MINC_ENABLE,
              .MemDataAlignment = DMA_MDATAALIGN_BYTE,
              .Mode = DMA_NORMAL,
-             .Priority = CSP_DMA_PRIORITY(I2C1_RX_DMA_PRIORITY)}};
+             .Priority = I2C1_RX_DMA_PRIORITY}};
 #endif /* I2C1_RX_DMA */
 
 #if I2C1_TX_DMA
@@ -45,7 +45,7 @@ static DMA_HandleTypeDef i2c1_dmatx_handle = {
              .MemInc = DMA_MINC_ENABLE,
              .MemDataAlignment = DMA_MDATAALIGN_BYTE,
              .Mode = DMA_NORMAL,
-             .Priority = CSP_DMA_PRIORITY(I2C1_TX_DMA_PRIORITY)}};
+             .Priority = I2C1_TX_DMA_PRIORITY}};
 #endif /* I2C1_TX_DMA */
 
 /**
@@ -190,6 +190,10 @@ uint8_t i2c1_deinit(void) {
     HAL_GPIO_DeInit(CSP_GPIO_PORT(I2C1_SCL_PORT), I2C1_SCL_PIN);
     HAL_GPIO_DeInit(CSP_GPIO_PORT(I2C1_SDA_PORT), I2C1_SDA_PIN);
 
+#if I2C1_IT_ENABLE
+    HAL_NVIC_DisableIRQ(I2C1_EV_IRQn);
+#endif /* I2C1_IT_ENABLE */
+
 #if I2C1_RX_DMA
     HAL_DMA_Abort(&i2c1_dmarx_handle);
     if (HAL_DMA_DeInit(&i2c1_dmarx_handle) != HAL_OK) {
@@ -248,7 +252,7 @@ static DMA_HandleTypeDef i2c2_dmarx_handle = {
              .MemInc = DMA_MINC_ENABLE,
              .MemDataAlignment = DMA_MDATAALIGN_BYTE,
              .Mode = DMA_NORMAL,
-             .Priority = CSP_DMA_PRIORITY(I2C2_RX_DMA_PRIORITY)}};
+             .Priority = I2C2_RX_DMA_PRIORITY}};
 #endif /* I2C2_RX_DMA */
 
 #if I2C2_TX_DMA
@@ -260,7 +264,7 @@ static DMA_HandleTypeDef i2c2_dmatx_handle = {
              .MemInc = DMA_MINC_ENABLE,
              .MemDataAlignment = DMA_MDATAALIGN_BYTE,
              .Mode = DMA_NORMAL,
-             .Priority = CSP_DMA_PRIORITY(I2C2_TX_DMA_PRIORITY)}};
+             .Priority = I2C2_TX_DMA_PRIORITY}};
 #endif /* I2C2_TX_DMA */
 
 /**
@@ -402,6 +406,10 @@ uint8_t i2c2_deinit(void) {
 
     HAL_GPIO_DeInit(CSP_GPIO_PORT(I2C2_SCL_PORT), I2C2_SCL_PIN);
     HAL_GPIO_DeInit(CSP_GPIO_PORT(I2C2_SDA_PORT), I2C2_SDA_PIN);
+
+#if I2C1_IT_ENABLE
+    HAL_NVIC_DisableIRQ(I2C1_EV_IRQn);
+#endif /* I2C1_IT_ENABLE */
 
 #if I2C2_RX_DMA
     HAL_DMA_Abort(&i2c2_dmarx_handle);
