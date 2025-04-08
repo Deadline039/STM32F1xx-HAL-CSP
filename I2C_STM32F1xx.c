@@ -51,7 +51,7 @@ static DMA_HandleTypeDef i2c1_dmatx_handle = {
 /**
  * @brief I2C1 initialization.
  *
- * @param clock_speed The speed of I2C communication. Unit: kHz.
+ * @param clock_speed The speed of I2C communication.
  * @param address The address of this device, 7-bit or 10-bit.
  * @param address_mode Specific the address length, this parameter can ref
  *                    `I2C_addressing_mode`.
@@ -63,7 +63,7 @@ static DMA_HandleTypeDef i2c1_dmatx_handle = {
  */
 uint8_t i2c1_init(uint32_t clock_speed, uint32_t address,
                   uint32_t address_mode) {
-    if (__HAL_RCC_I2C1_IS_CLK_ENABLED()) {
+    if (HAL_I2C_GetState(&i2c1_handle) != HAL_I2C_STATE_RESET) {
         return I2C_INITED;
     }
 
@@ -71,7 +71,7 @@ uint8_t i2c1_init(uint32_t clock_speed, uint32_t address,
                                          .Pull = GPIO_PULLUP,
                                          .Speed = GPIO_SPEED_FREQ_HIGH};
 
-    i2c1_handle.Init.ClockSpeed = clock_speed * 1000;
+    i2c1_handle.Init.ClockSpeed = clock_speed;
     i2c1_handle.Init.AddressingMode = address_mode;
     i2c1_handle.Init.OwnAddress1 = address;
 
@@ -181,7 +181,7 @@ void I2C1_TX_DMA_IRQHandler(void) {
  * @retval - 3: `I2C_NO_INIT`:         I2C is not init.
  */
 uint8_t i2c1_deinit(void) {
-    if (__HAL_RCC_I2C1_IS_CLK_DISABLED()) {
+    if (HAL_I2C_GetState(&i2c1_handle) == HAL_I2C_STATE_RESET) {
         return I2C_NO_INIT;
     }
 
@@ -270,7 +270,7 @@ static DMA_HandleTypeDef i2c2_dmatx_handle = {
 /**
  * @brief I2C2 initialization.
  *
- * @param clock_speed The speed of I2C communication. Unit: kHz.
+ * @param clock_speed The speed of I2C communication.
  * @param address The address of this device, 7-bit or 10-bit.
  * @param address_mode Specific the address length, this parameter can ref
  *                    `I2C_addressing_mode`.
@@ -282,7 +282,7 @@ static DMA_HandleTypeDef i2c2_dmatx_handle = {
  */
 uint8_t i2c2_init(uint32_t clock_speed, uint32_t address,
                   uint32_t address_mode) {
-    if (__HAL_RCC_I2C2_IS_CLK_ENABLED()) {
+    if (HAL_I2C_GetState(&i2c2_handle) != HAL_I2C_STATE_RESET) {
         return I2C_INITED;
     }
 
@@ -290,7 +290,7 @@ uint8_t i2c2_init(uint32_t clock_speed, uint32_t address,
                                          .Pull = GPIO_PULLUP,
                                          .Speed = GPIO_SPEED_FREQ_HIGH};
 
-    i2c2_handle.Init.ClockSpeed = clock_speed * 1000;
+    i2c2_handle.Init.ClockSpeed = clock_speed;
     i2c2_handle.Init.AddressingMode = address_mode;
     i2c2_handle.Init.OwnAddress1 = address;
 
@@ -398,7 +398,7 @@ void I2C2_TX_DMA_IRQHandler(void) {
  * @retval - 3: `I2C_NO_INIT`:         I2C is not init.
  */
 uint8_t i2c2_deinit(void) {
-    if (__HAL_RCC_I2C2_IS_CLK_DISABLED()) {
+    if (HAL_I2C_GetState(&i2c2_handle) == HAL_I2C_STATE_RESET) {
         return I2C_NO_INIT;
     }
 
@@ -408,7 +408,7 @@ uint8_t i2c2_deinit(void) {
     HAL_GPIO_DeInit(CSP_GPIO_PORT(I2C2_SDA_PORT), I2C2_SDA_PIN);
 
 #if I2C1_IT_ENABLE
-    HAL_NVIC_DisableIRQ(I2C2_EV_IRQn);
+    HAL_NVIC_DisableIRQ(I2C1_EV_IRQn);
 #endif /* I2C1_IT_ENABLE */
 
 #if I2C2_RX_DMA

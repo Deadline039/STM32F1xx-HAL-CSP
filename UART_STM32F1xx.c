@@ -120,7 +120,7 @@ static uart_tx_buf_t usart1_tx_buf = {.buf_size = USART1_TX_DMA_BUF_SIZE};
  * @retval - 4: `UART_INITED`:        This uart is inited.
  */
 uint8_t usart1_init(uint32_t baud_rate) {
-    if (__HAL_RCC_USART1_IS_CLK_ENABLED()) {
+    if (HAL_UART_GetState(&usart1_handle) != HAL_UART_STATE_RESET) {
         return UART_INITED;
     }
 
@@ -292,7 +292,7 @@ void USART1_TX_DMA_IRQHandler(void) {
  * @retval - 3: `UART_NO_INIT`:         UART is not init.
  */
 uint8_t usart1_deinit(void) {
-    if (__HAL_RCC_USART1_IS_CLK_DISABLED()) {
+    if (HAL_UART_GetState(&usart1_handle) == HAL_UART_STATE_RESET) {
         return UART_NO_INIT;
     }
 
@@ -422,7 +422,7 @@ static uart_tx_buf_t usart2_tx_buf = {.buf_size = USART2_TX_DMA_BUF_SIZE};
  * @retval - 4: `UART_INITED`:        This uart is inited.
  */
 uint8_t usart2_init(uint32_t baud_rate) {
-    if (__HAL_RCC_USART2_IS_CLK_ENABLED()) {
+    if (HAL_UART_GetState(&usart2_handle) != HAL_UART_STATE_RESET) {
         return UART_INITED;
     }
 
@@ -594,7 +594,7 @@ void USART2_TX_DMA_IRQHandler(void) {
  * @retval - 3: `UART_NO_INIT`:         UART is not init.
  */
 uint8_t usart2_deinit(void) {
-    if (__HAL_RCC_USART2_IS_CLK_DISABLED()) {
+    if (HAL_UART_GetState(&usart2_handle) == HAL_UART_STATE_READY) {
         return UART_NO_INIT;
     }
 
@@ -724,7 +724,7 @@ static uart_tx_buf_t usart3_tx_buf = {.buf_size = USART3_TX_DMA_BUF_SIZE};
  * @retval - 4: `UART_INITED`:        This uart is inited.
  */
 uint8_t usart3_init(uint32_t baud_rate) {
-    if (__HAL_RCC_USART3_IS_CLK_ENABLED()) {
+    if (HAL_UART_GetState(&usart3_handle) != HAL_UART_STATE_RESET) {
         return UART_INITED;
     }
 
@@ -897,7 +897,7 @@ void USART3_TX_DMA_IRQHandler(void) {
  * @retval - 3: `UART_NO_INIT`:         UART is not init.
  */
 uint8_t usart3_deinit(void) {
-    if (__HAL_RCC_USART3_IS_CLK_DISABLED()) {
+    if (HAL_UART_GetState(&usart3_handle) == HAL_USART_STATE_READY) {
         return UART_NO_INIT;
     }
 
@@ -1027,7 +1027,7 @@ static uart_tx_buf_t uart4_tx_buf = {.buf_size = UART4_TX_DMA_BUF_SIZE};
  * @retval - 4: `UART_INITED`:        This uart is inited.
  */
 uint8_t uart4_init(uint32_t baud_rate) {
-    if (__HAL_RCC_UART4_IS_CLK_ENABLED()) {
+    if (HAL_UART_GetState(&uart4_handle) != HAL_UART_STATE_RESET) {
         return UART_INITED;
     }
 
@@ -1179,7 +1179,7 @@ void UART4_TX_DMA_IRQHandler(void) {
  * @retval - 3: `UART_NO_INIT`:         UART is not init.
  */
 uint8_t uart4_deinit(void) {
-    if (__HAL_RCC_UART4_IS_CLK_DISABLED()) {
+    if (HAL_UART_GetState(&uart4_handle) == HAL_USART_STATE_READY) {
         return UART_NO_INIT;
     }
 
@@ -1264,7 +1264,7 @@ UART_HandleTypeDef uart5_handle = {.Instance = UART5,
  * @retval - 4: `UART_INITED`:        This uart is inited.
  */
 uint8_t uart5_init(uint32_t baud_rate) {
-    if (__HAL_RCC_UART5_IS_CLK_ENABLED()) {
+    if (HAL_UART_GetState(&uart5_handle) != HAL_UART_STATE_RESET) {
         return UART_INITED;
     }
 
@@ -1324,7 +1324,7 @@ void UART5_IRQHandler(void) {
  * @retval - 3: `UART_NO_INIT`:         UART is not init.
  */
 uint8_t uart5_deinit(void) {
-    if (__HAL_RCC_UART5_IS_CLK_DISABLED()) {
+    if (HAL_UART_GetState(&uart5_handle) == HAL_UART_STATE_RESET) {
         return UART_NO_INIT;
     }
 
@@ -1365,7 +1365,8 @@ uint8_t uart5_deinit(void) {
  *         array, not counting the terminating null character.
  */
 int uart_printf(UART_HandleTypeDef *huart, const char *__format, ...) {
-    int len;
+    int res;
+    uint16_t len;
     va_list ap;
 
     if (((huart->gState) & HAL_UART_STATE_READY) == 0) {
@@ -1378,8 +1379,10 @@ int uart_printf(UART_HandleTypeDef *huart, const char *__format, ...) {
         ;
 
     va_start(ap, __format);
-    len = vsnprintf(uart_buffer, sizeof(uart_buffer), __format, ap);
+    res = vsnprintf(uart_buffer, sizeof(uart_buffer), __format, ap);
     va_end(ap);
+
+    len = strlen(uart_buffer);
 
     if (huart->hdmatx != NULL) {
         HAL_UART_Transmit_DMA(huart, (uint8_t *)uart_buffer, len);
@@ -1387,7 +1390,7 @@ int uart_printf(UART_HandleTypeDef *huart, const char *__format, ...) {
         HAL_UART_Transmit(huart, (uint8_t *)uart_buffer, len, 1000);
     }
 
-    return len;
+    return res;
 }
 
 /**

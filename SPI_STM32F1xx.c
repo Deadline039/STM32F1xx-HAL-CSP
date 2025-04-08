@@ -62,7 +62,7 @@ static DMA_HandleTypeDef spi1_dmatx_handle = {
 uint8_t spi1_init(uint32_t mode, spi_clk_mode_t clk_mode, uint32_t data_size,
                   uint32_t first_bit) {
 
-    if (__HAL_RCC_SPI1_IS_CLK_ENABLED()) {
+    if (HAL_SPI_GetState(&spi1_handle) != HAL_SPI_STATE_RESET) {
         return SPI_INITED;
     }
 
@@ -214,7 +214,7 @@ void SPI1_TX_DMA_IRQHandler(void) {
  * @retval - 3: `SPI_NO_INIT`:         SPI is not init.
  */
 uint8_t spi1_deinit(void) {
-    if (__HAL_RCC_SPI1_IS_CLK_DISABLED()) {
+    if (HAL_SPI_GetState(&spi1_handle) == HAL_SPI_STATE_RESET) {
         return SPI_NO_INIT;
     }
 
@@ -325,7 +325,7 @@ static DMA_HandleTypeDef spi2_dmatx_handle = {
 uint8_t spi2_init(uint32_t mode, spi_clk_mode_t clk_mode, uint32_t data_size,
                   uint32_t first_bit) {
 
-    if (__HAL_RCC_SPI2_IS_CLK_ENABLED()) {
+    if (HAL_SPI_GetState(&spi2_handle) != HAL_SPI_STATE_RESET) {
         return SPI_INITED;
     }
 
@@ -475,7 +475,7 @@ void SPI2_TX_DMA_IRQHandler(void) {
  * @retval - 3: `SPI_NO_INIT`:         SPI is not init.
  */
 uint8_t spi2_deinit(void) {
-    if (__HAL_RCC_SPI2_IS_CLK_DISABLED()) {
+    if (HAL_SPI_GetState(&spi2_handle) == HAL_SPI_STATE_RESET) {
         return SPI_NO_INIT;
     }
 
@@ -586,7 +586,7 @@ static DMA_HandleTypeDef spi3_dmatx_handle = {
 uint8_t spi3_init(uint32_t mode, spi_clk_mode_t clk_mode, uint32_t data_size,
                   uint32_t first_bit) {
 
-    if (__HAL_RCC_SPI3_IS_CLK_ENABLED()) {
+    if (HAL_SPI_GetState(&spi3_handle) != HAL_SPI_STATE_RESET) {
         return SPI_INITED;
     }
 
@@ -738,7 +738,7 @@ void SPI3_TX_DMA_IRQHandler(void) {
  * @retval - 3: `SPI_NO_INIT`:         SPI is not init.
  */
 uint8_t spi3_deinit(void) {
-    if (__HAL_RCC_SPI3_IS_CLK_DISABLED()) {
+    if (HAL_SPI_GetState(&spi3_handle) == HAL_SPI_STATE_RESET) {
         return SPI_NO_INIT;
     }
 
