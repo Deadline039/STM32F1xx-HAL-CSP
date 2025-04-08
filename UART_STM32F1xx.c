@@ -1470,12 +1470,6 @@ static inline uart_rx_fifo_t *uart_rx_identify(UART_HandleTypeDef *huart) {
         }
 #endif /* UART4_RX_DMA */
 
-#if UART5_RX_DMA
-        case UART5_BASE: {
-            return &uart5_rx_fifo;
-        }
-#endif /* UART5_RX_DMA */
-
         default: {
         } break;
     }
@@ -1718,12 +1712,6 @@ static inline uart_tx_buf_t *uart_tx_identify(UART_HandleTypeDef *huart) {
             return &uart4_tx_buf;
         }
 #endif /* UART4_TX_DMA */
-
-#if UART5_TX_DMA
-        case UART5_BASE: {
-            return &uart5_tx_buf;
-        }
-#endif /* UART5_TX_DMA */
 
         default: {
         } break;
