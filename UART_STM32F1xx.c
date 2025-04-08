@@ -2,7 +2,7 @@
  * @file    UART_STM32F1xx.c
  * @author  Deadline039
  * @brief   Chip Support Package of USART on STM32F1xx
- * @version 1.0
+ * @version 3.3.0
  * @date    2024-10-22
  */
 
@@ -84,7 +84,7 @@ static DMA_HandleTypeDef usart1_dmarx_handle = {
              .Mode = DMA_CIRCULAR,
              .PeriphDataAlignment = DMA_PDATAALIGN_BYTE,
              .PeriphInc = DMA_PINC_DISABLE,
-             .Priority = CSP_DMA_PRIORITY(USART1_RX_DMA_PRIORITY)}};
+             .Priority = USART1_RX_DMA_PRIORITY}};
 
 static uart_rx_fifo_t usart1_rx_fifo = {.buf_size = USART1_RX_DMA_BUF_SIZE,
                                         .fifo_size = USART1_RX_DMA_FIFO_SIZE};
@@ -101,7 +101,7 @@ static DMA_HandleTypeDef usart1_dmatx_handle = {
              .Mode = DMA_NORMAL,
              .PeriphDataAlignment = DMA_PDATAALIGN_BYTE,
              .PeriphInc = DMA_PINC_DISABLE,
-             .Priority = CSP_DMA_PRIORITY(USART1_TX_DMA_PRIORITY)}};
+             .Priority = USART1_TX_DMA_PRIORITY}};
 
 static uart_tx_buf_t usart1_tx_buf = {.buf_size = USART1_TX_DMA_BUF_SIZE};
 
@@ -386,7 +386,7 @@ static DMA_HandleTypeDef usart2_dmarx_handle = {
              .Mode = DMA_CIRCULAR,
              .PeriphDataAlignment = DMA_PDATAALIGN_BYTE,
              .PeriphInc = DMA_PINC_DISABLE,
-             .Priority = CSP_DMA_PRIORITY(USART2_RX_DMA_PRIORITY)}};
+             .Priority = USART2_RX_DMA_PRIORITY}};
 
 static uart_rx_fifo_t usart2_rx_fifo = {.buf_size = USART2_RX_DMA_BUF_SIZE,
                                         .fifo_size = USART2_RX_DMA_FIFO_SIZE};
@@ -403,7 +403,7 @@ static DMA_HandleTypeDef usart2_dmatx_handle = {
              .Mode = DMA_NORMAL,
              .PeriphDataAlignment = DMA_PDATAALIGN_BYTE,
              .PeriphInc = DMA_PINC_DISABLE,
-             .Priority = CSP_DMA_PRIORITY(USART2_TX_DMA_PRIORITY)}};
+             .Priority = USART2_TX_DMA_PRIORITY}};
 
 static uart_tx_buf_t usart2_tx_buf = {.buf_size = USART2_TX_DMA_BUF_SIZE};
 
@@ -688,7 +688,7 @@ static DMA_HandleTypeDef usart3_dmarx_handle = {
              .Mode = DMA_CIRCULAR,
              .PeriphDataAlignment = DMA_PDATAALIGN_BYTE,
              .PeriphInc = DMA_PINC_DISABLE,
-             .Priority = CSP_DMA_PRIORITY(USART3_RX_DMA_PRIORITY)}};
+             .Priority = USART3_RX_DMA_PRIORITY}};
 
 static uart_rx_fifo_t usart3_rx_fifo = {.buf_size = USART3_RX_DMA_BUF_SIZE,
                                         .fifo_size = USART3_RX_DMA_FIFO_SIZE};
@@ -705,7 +705,7 @@ static DMA_HandleTypeDef usart3_dmatx_handle = {
              .Mode = DMA_NORMAL,
              .PeriphDataAlignment = DMA_PDATAALIGN_BYTE,
              .PeriphInc = DMA_PINC_DISABLE,
-             .Priority = CSP_DMA_PRIORITY(USART3_TX_DMA_PRIORITY)}};
+             .Priority = USART3_TX_DMA_PRIORITY}};
 
 static uart_tx_buf_t usart3_tx_buf = {.buf_size = USART3_TX_DMA_BUF_SIZE};
 
@@ -991,7 +991,7 @@ static DMA_HandleTypeDef uart4_dmarx_handle = {
              .Mode = DMA_CIRCULAR,
              .PeriphDataAlignment = DMA_PDATAALIGN_BYTE,
              .PeriphInc = DMA_PINC_DISABLE,
-             .Priority = CSP_DMA_PRIORITY(UART4_RX_DMA_PRIORITY)}};
+             .Priority = UART4_RX_DMA_PRIORITY}};
 
 static uart_rx_fifo_t uart4_rx_fifo = {.buf_size = UART4_RX_DMA_BUF_SIZE,
                                        .fifo_size = UART4_RX_DMA_FIFO_SIZE};
@@ -1008,7 +1008,7 @@ static DMA_HandleTypeDef uart4_dmatx_handle = {
              .Mode = DMA_NORMAL,
              .PeriphDataAlignment = DMA_PDATAALIGN_BYTE,
              .PeriphInc = DMA_PINC_DISABLE,
-             .Priority = CSP_DMA_PRIORITY(UART4_TX_DMA_PRIORITY)}};
+             .Priority = UART4_TX_DMA_PRIORITY}};
 
 static uart_tx_buf_t uart4_tx_buf = {.buf_size = UART4_TX_DMA_BUF_SIZE};
 

@@ -2,7 +2,7 @@
  * @file    RTC_STM32F1xx.h
  * @author  Deadline039
  * @brief   Chip Support Package of RTC on STM32F1xx
- * @version 1.0
+ * @version 3.3.0
  * @date    2024-08-30
  * @note    We used C time library to process the time. The hardware
  *          configuration reference the ST: AN3371.

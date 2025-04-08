@@ -2,7 +2,7 @@
  * @file    SPI_STM32F1xx.h
  * @author  Deadline039
  * @brief   Chip Support Package of SPI on STM32F1xx
- * @version 1.0
+ * @version 3.3.0
  * @date    2024-10-22
  */
 

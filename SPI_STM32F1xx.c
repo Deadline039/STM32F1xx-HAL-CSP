@@ -2,7 +2,7 @@
  * @file    SPI_STM32F1xx.c
  * @author  Deadline039
  * @brief   Chip Support Package of SPI on STM32F1xx
- * @version 1.0
+ * @version 3.3.0
  * @date    2024-10-22
  */
 
@@ -33,7 +33,7 @@ static DMA_HandleTypeDef spi1_dmarx_handle = {
              .PeriphInc = DMA_PINC_DISABLE,
              .MemInc = DMA_MINC_ENABLE,
              .Mode = DMA_NORMAL,
-             .Priority = CSP_DMA_PRIORITY(SPI1_RX_DMA_PRIORITY)}};
+             .Priority = SPI1_RX_DMA_PRIORITY}};
 #endif /* SPI1_RX_DMA */
 
 #if SPI1_TX_DMA
@@ -43,7 +43,7 @@ static DMA_HandleTypeDef spi1_dmatx_handle = {
              .PeriphInc = DMA_PINC_DISABLE,
              .MemInc = DMA_MINC_ENABLE,
              .Mode = DMA_NORMAL,
-             .Priority = CSP_DMA_PRIORITY(SPI1_TX_DMA_PRIORITY)}};
+             .Priority = SPI1_TX_DMA_PRIORITY}};
 #endif /* SPI1_TX_DMA */
 
 /**
@@ -296,7 +296,7 @@ static DMA_HandleTypeDef spi2_dmarx_handle = {
              .PeriphInc = DMA_PINC_DISABLE,
              .MemInc = DMA_MINC_ENABLE,
              .Mode = DMA_NORMAL,
-             .Priority = CSP_DMA_PRIORITY(SPI2_RX_DMA_PRIORITY)}};
+             .Priority = SPI2_RX_DMA_PRIORITY}};
 #endif /* SPI2_RX_DMA */
 
 #if SPI2_TX_DMA
@@ -306,7 +306,7 @@ static DMA_HandleTypeDef spi2_dmatx_handle = {
              .PeriphInc = DMA_PINC_DISABLE,
              .MemInc = DMA_MINC_ENABLE,
              .Mode = DMA_NORMAL,
-             .Priority = CSP_DMA_PRIORITY(SPI2_TX_DMA_PRIORITY)}};
+             .Priority = SPI2_TX_DMA_PRIORITY}};
 #endif /* SPI2_TX_DMA */
 
 /**
@@ -557,7 +557,7 @@ static DMA_HandleTypeDef spi3_dmarx_handle = {
              .PeriphInc = DMA_PINC_DISABLE,
              .MemInc = DMA_MINC_ENABLE,
              .Mode = DMA_NORMAL,
-             .Priority = CSP_DMA_PRIORITY(SPI3_RX_DMA_PRIORITY)}};
+             .Priority = SPI3_RX_DMA_PRIORITY}};
 #endif /* SPI3_RX_DMA */
 
 #if SPI3_TX_DMA
@@ -567,7 +567,7 @@ static DMA_HandleTypeDef spi3_dmatx_handle = {
              .PeriphInc = DMA_PINC_DISABLE,
              .MemInc = DMA_MINC_ENABLE,
              .Mode = DMA_NORMAL,
-             .Priority = CSP_DMA_PRIORITY(SPI3_TX_DMA_PRIORITY)}};
+             .Priority = SPI3_TX_DMA_PRIORITY}};
 #endif /* SPI3_TX_DMA */
 
 /**
