@@ -815,7 +815,7 @@ uint8_t spi_rw_one_byte(SPI_HandleTypeDef *hspi, uint8_t byte) {
     }
 
     uint8_t rx_data;
-    HAL_SPI_TransmitReceive(hspi, &byte, &rx_data, 1, 1000);
+    HAL_SPI_TransmitReceive(hspi, &byte, &rx_data, 1, SPI_RW_TIMEOUT);
 
     return rx_data;
 }
@@ -834,7 +834,7 @@ uint16_t spi_rw_two_byte(SPI_HandleTypeDef *hspi, uint16_t tx_data) {
 
     uint16_t rx_data;
     HAL_SPI_TransmitReceive(hspi, (uint8_t *)&tx_data, (uint8_t *)&rx_data, 2,
-                            10);
+                            SPI_RW_TIMEOUT);
 
     return rx_data;
 }

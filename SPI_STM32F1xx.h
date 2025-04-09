@@ -30,6 +30,8 @@ extern "C" {
 #define SPI_DEINIT_DMA_FAIL 2
 #define SPI_NO_INIT         3
 
+#define SPI_RW_TIMEOUT      1000
+
 /**
  * @}
  */
