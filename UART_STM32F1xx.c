@@ -1365,8 +1365,7 @@ uint8_t uart5_deinit(void) {
  *         array, not counting the terminating null character.
  */
 int uart_printf(UART_HandleTypeDef *huart, const char *__format, ...) {
-    int res;
-    uint16_t len;
+    int len;
     va_list ap;
 
     if (((huart->gState) & HAL_UART_STATE_READY) == 0) {
@@ -1379,10 +1378,8 @@ int uart_printf(UART_HandleTypeDef *huart, const char *__format, ...) {
         ;
 
     va_start(ap, __format);
-    res = vsnprintf(uart_buffer, sizeof(uart_buffer), __format, ap);
+    len = vsnprintf(uart_buffer, sizeof(uart_buffer), __format, ap);
     va_end(ap);
-
-    len = strlen(uart_buffer);
 
     if (huart->hdmatx != NULL) {
         HAL_UART_Transmit_DMA(huart, (uint8_t *)uart_buffer, len);
@@ -1390,7 +1387,7 @@ int uart_printf(UART_HandleTypeDef *huart, const char *__format, ...) {
         HAL_UART_Transmit(huart, (uint8_t *)uart_buffer, len, 1000);
     }
 
-    return res;
+    return len;
 }
 
 /**
