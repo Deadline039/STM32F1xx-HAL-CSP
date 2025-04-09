@@ -56,10 +56,10 @@ static DMA_HandleTypeDef i2c1_dmatx_handle = {
  * @param address_mode Specific the address length, this parameter can ref
  *                    `I2C_addressing_mode`.
  * @return I2C init status.
- * @retval - 0: `I2C_INIT_OK`:       Success.
- * @retval - 1: `I2C_INIT_FAIL`:     I2C init failed.
- * @retval - 2: `I2C_INIT_DMA_FAIL`: I2C DMA init failed.
- * @retval - 3: `I2C_INITED`:        I2C is inited.
+ *  @retval - 0: `I2C_INIT_OK`:       Success.
+ *  @retval - 1: `I2C_INIT_FAIL`:     I2C init failed.
+ *  @retval - 2: `I2C_INIT_DMA_FAIL`: I2C DMA init failed.
+ *  @retval - 3: `I2C_INITED`:        I2C is inited.
  */
 uint8_t i2c1_init(uint32_t clock_speed, uint32_t address,
                   uint32_t address_mode) {
@@ -175,10 +175,10 @@ void I2C1_TX_DMA_IRQHandler(void) {
  * @brief I2C1 deinitialization.
  *
  * @return I2C1 deinit status.
- * @retval - 0: `I2C_DEINIT_OK`:       Success.
- * @retval - 1: `I2C_DEINIT_FAIL`:     I2C deinit failed.
- * @retval - 2: `I2C_DEINIT_DMA_FAIL`: I2C DMA deinit failed.
- * @retval - 3: `I2C_NO_INIT`:         I2C is not init.
+ *  @retval - 0: `I2C_DEINIT_OK`:       Success.
+ *  @retval - 1: `I2C_DEINIT_FAIL`:     I2C deinit failed.
+ *  @retval - 2: `I2C_DEINIT_DMA_FAIL`: I2C DMA deinit failed.
+ *  @retval - 3: `I2C_NO_INIT`:         I2C is not init.
  */
 uint8_t i2c1_deinit(void) {
     if (HAL_I2C_GetState(&i2c1_handle) == HAL_I2C_STATE_RESET) {
@@ -275,10 +275,10 @@ static DMA_HandleTypeDef i2c2_dmatx_handle = {
  * @param address_mode Specific the address length, this parameter can ref
  *                    `I2C_addressing_mode`.
  * @return I2C init status.
- * @retval - 0: `I2C_INIT_OK`:       Success.
- * @retval - 1: `I2C_INIT_FAIL`:     I2C init failed.
- * @retval - 2: `I2C_INIT_DMA_FAIL`: I2C DMA init failed.
- * @retval - 3: `I2C_INITED`:        I2C is inited.
+ *  @retval - 0: `I2C_INIT_OK`:       Success.
+ *  @retval - 1: `I2C_INIT_FAIL`:     I2C init failed.
+ *  @retval - 2: `I2C_INIT_DMA_FAIL`: I2C DMA init failed.
+ *  @retval - 3: `I2C_INITED`:        I2C is inited.
  */
 uint8_t i2c2_init(uint32_t clock_speed, uint32_t address,
                   uint32_t address_mode) {
@@ -392,10 +392,10 @@ void I2C2_TX_DMA_IRQHandler(void) {
  * @brief I2C2 deinitialization.
  *
  * @return I2C2 deinit status.
- * @retval - 0: `I2C_DEINIT_OK`:       Success.
- * @retval - 1: `I2C_DEINIT_FAIL`:     I2C deinit failed.
- * @retval - 2: `I2C_DEINIT_DMA_FAIL`: I2C DMA deinit failed.
- * @retval - 3: `I2C_NO_INIT`:         I2C is not init.
+ *  @retval - 0: `I2C_DEINIT_OK`:       Success.
+ *  @retval - 1: `I2C_DEINIT_FAIL`:     I2C deinit failed.
+ *  @retval - 2: `I2C_DEINIT_DMA_FAIL`: I2C DMA deinit failed.
+ *  @retval - 3: `I2C_NO_INIT`:         I2C is not init.
  */
 uint8_t i2c2_deinit(void) {
     if (HAL_I2C_GetState(&i2c2_handle) == HAL_I2C_STATE_RESET) {

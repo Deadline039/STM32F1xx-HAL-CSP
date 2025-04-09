@@ -20,10 +20,10 @@ RTC_HandleTypeDef rtc_handle;
  * @brief RTC initialization.
  *
  * @return RTC init status:
- * @retval - 0: `RTC_INIT_OK`:      Success.
- * @retval - 1: `RTC_INIT_FAIL`:    RTC init failed.
- * @retval - 2: `RTC_INIT_RESET`:   RTC clock is reseted.
- * @retval - 3: `RTC_INITED`:       RTC is inited.
+ *  @retval - 0: `RTC_INIT_OK`:      Success.
+ *  @retval - 1: `RTC_INIT_FAIL`:    RTC init failed.
+ *  @retval - 2: `RTC_INIT_RESET`:   RTC clock is reseted.
+ *  @retval - 3: `RTC_INITED`:       RTC is inited.
  */
 uint8_t rtc_init(void) {
     if (HAL_RTC_GetState(&rtc_handle) != HAL_RTC_STATE_RESET) {
@@ -59,9 +59,9 @@ uint8_t rtc_init(void) {
  * @brief RTC deinit
  *
  * @return RTC deinit status:
- * @retval - 0: `RTC_DEINIT_OK`:    Success.
- * @retval - 1: `RTC_DEINIT_FAIL`:  RTC deinit failed.
- * @retval - 3: `RTC_NO_INIT`:      RTC is not init.
+ *  @retval - 0: `RTC_DEINIT_OK`:    Success.
+ *  @retval - 1: `RTC_DEINIT_FAIL`:  RTC deinit failed.
+ *  @retval - 3: `RTC_NO_INIT`:      RTC is not init.
  */
 uint8_t rtc_deinit(void) {
     if (HAL_RTC_GetState(&rtc_handle) == HAL_RTC_STATE_RESET) {
@@ -177,8 +177,8 @@ void RTC_Alarm_IRQHandler(void) {
  * @param month Month
  * @param day Day
  * @return Weekday:
- * @retval - 0:     Sunday
- * @retval - 1 ~ 6: Monday to Saturday.
+ *  @retval - 0:     Sunday
+ *  @retval - 1 ~ 6: Monday to Saturday.
  * @note Use Kim Larsen calculation formula. You can
  *       see: https://www.cnblogs.com/fengbohello/p/3264300.html
  */
