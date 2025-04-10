@@ -407,9 +407,9 @@ uint8_t i2c2_deinit(void) {
     HAL_GPIO_DeInit(CSP_GPIO_PORT(I2C2_SCL_PORT), I2C2_SCL_PIN);
     HAL_GPIO_DeInit(CSP_GPIO_PORT(I2C2_SDA_PORT), I2C2_SDA_PIN);
 
-#if I2C1_IT_ENABLE
+#if I2C2_IT_ENABLE
     HAL_NVIC_DisableIRQ(I2C2_EV_IRQn);
-#endif /* I2C1_IT_ENABLE */
+#endif /* I2C2_IT_ENABLE */
 
 #if I2C2_RX_DMA
     HAL_DMA_Abort(&i2c2_dmarx_handle);
