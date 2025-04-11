@@ -897,7 +897,7 @@ void USART3_TX_DMA_IRQHandler(void) {
  *  @retval - 3: `UART_NO_INIT`:         UART is not init.
  */
 uint8_t usart3_deinit(void) {
-    if (HAL_UART_GetState(&usart3_handle) == HAL_USART_STATE_READY) {
+    if (HAL_UART_GetState(&usart3_handle) == HAL_UART_STATE_READY) {
         return UART_NO_INIT;
     }
 
@@ -1179,7 +1179,7 @@ void UART4_TX_DMA_IRQHandler(void) {
  *  @retval - 3: `UART_NO_INIT`:         UART is not init.
  */
 uint8_t uart4_deinit(void) {
-    if (HAL_UART_GetState(&uart4_handle) == HAL_USART_STATE_READY) {
+    if (HAL_UART_GetState(&uart4_handle) == HAL_UART_STATE_READY) {
         return UART_NO_INIT;
     }
 
