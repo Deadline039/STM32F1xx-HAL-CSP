@@ -2,7 +2,7 @@
  * @file    CSP_Config.h
  * @author  Deadline039
  * @brief   The CSP configuration of STM32F1xx.
- * @version 3.3.0
+ * @version 3.3.1
  * @date    2024-10-22
  * @note    Reference the CMSIS RTE Devices.
  */
@@ -13,7 +13,9 @@
 #define __CSP_CONFIG_H
 
 // <e> USART1 (Universal synchronous asynchronous receiver transmitter)
-#define USART1_ENABLE     1
+#define USART1_ENABLE 1
+
+#if USART1_ENABLE
 
 //   <o> USART1 IO Remap
 //        <0=>No remap (TX/PA9, RX/PA10, CTS/PA11, RTS/PA12)
@@ -131,24 +133,28 @@
 #define USART1_TX_DMA_BUF_SIZE    256
 //   </e>
 
+#endif /* USART1_ENABLE */
+
 // </e>
 
 // <e> USART2 (Universal synchronous asynchronous receiver transmitter)
-#define USART2_ENABLE             0
+#define USART2_ENABLE 0
+
+#if USART2_ENABLE
 
 //   <o> USART2 IO Remap
 //        <0=>No remap (TX/PA2, RX/PA3, CTS/PA0, RTS/PA1)
 //        <1=>Remap    (TX/PD5, RX/PD6, CTS/PD3, RTS/PD4)
-#define USART2_IO_REMAP           1
+#define USART2_IO_REMAP   1
 
 //   <q> Enable USART2 TX
-#define USART2_TX_ENABLE          1
+#define USART2_TX_ENABLE  1
 //   <q> Enable USART2 RX
-#define USART2_RX_ENABLE          1
+#define USART2_RX_ENABLE  1
 //   <q> Enable USART2 CTS
-#define USART2_CTS_ENABLE         0
+#define USART2_CTS_ENABLE 0
 //   <q> Enable USART2 RTS
-#define USART2_RTS_ENABLE         0
+#define USART2_RTS_ENABLE 0
 
 #if (USART2_IO_REMAP == 0)
 #define USART2_AFIO_REMAP() __HAL_AFIO_REMAP_USART2_DISABLE()
@@ -252,25 +258,29 @@
 #define USART2_TX_DMA_BUF_SIZE    256
 //   </e>
 
+#endif /* USART2_ENABLE */
+
 // </e>
 
 // <e> USART3 (Universal synchronous asynchronous receiver transmitter)
-#define USART3_ENABLE             0
+#define USART3_ENABLE 0
+
+#if USART3_ENABLE
 
 //   <o> USART3 IO Remap
 //        <0=>No remap        (TX/PB10, RX/PB11, CTS/PB13, RTS/PB14)
 //        <1=>Partial Remap   (TX/PC10, RX/PC11, CTS/PB13, RTS/PB14)
 //        <2=>Full Remap      (TX/PD8,  RX/PD9,  CTS/PD11, RTS/PD12)
-#define USART3_IO_REMAP           1
+#define USART3_IO_REMAP   1
 
 //   <q> Enable USART3 TX
-#define USART3_TX_ENABLE          1
+#define USART3_TX_ENABLE  1
 //   <q> Enable USART3 RX
-#define USART3_RX_ENABLE          1
+#define USART3_RX_ENABLE  1
 //   <q> Enable USART3 CTS
-#define USART3_CTS_ENABLE         0
+#define USART3_CTS_ENABLE 0
 //   <q> Enable USART3 RTS
-#define USART3_RTS_ENABLE         0
+#define USART3_RTS_ENABLE 0
 
 #if (USART3_IO_REMAP == 0)
 #define USART3_AFIO_REMAP() __HAL_AFIO_REMAP_USART3_DISABLE()
@@ -392,10 +402,15 @@
 #define USART3_TX_DMA_BUF_SIZE    256
 //   </e>
 
+#endif /* USART3_ENABLE */
+
 // </e>
 
 // <e> UART4 (Universal asynchronous receiver transmitter)
-#define UART4_ENABLE              0
+#define UART4_ENABLE 0
+
+#if UART4_ENABLE
+
 #ifndef DMA2_Channel5_IRQn
 #define DMA2_Channel5_IRQn       DMA2_Channel4_5_IRQn
 #define DMA2_Channel5_IRQHandler DMA2_Channel4_5_IRQHandler
@@ -477,10 +492,14 @@
 #define UART4_TX_DMA_BUF_SIZE    256
 //   </e>
 
+#endif /* UART4_ENABLE */
+
 // </e>
 
 // <e> UART5 (Universal synchronous asynchronous receiver transmitter)
 #define UART5_ENABLE             0
+
+#if UART5_ENABLE
 
 //   <q> Enable UART5 TX (PC12)
 #define UART5_TX_ENABLE          1
@@ -503,10 +522,14 @@
 //   <i> The Interrupt SubPriority of UART5
 #define UART5_IT_SUB      3
 
+#endif /* UART5_ENABLE */
+
 // </e>
 
 // <e> I2C1 (Inter-integrated Circuit Interface 1)
 #define I2C1_ENABLE       0
+
+#if I2C1_ENABLE
 
 //   <o> I2C1 IO Remap
 //        <0=>No remap   (SCL/PB6, SDA/PB7)
@@ -521,10 +544,10 @@
 #define I2C1_SDA_PIN      GPIO_PIN_7
 #elif (I2C1_IO_REMAP == 1)
 #define I2C1_AFIO_REMAP() __HAL_AFIO_REMAP_I2C1_ENABLE()
-#define I2C1_SCL_PORT B
-#define I2C1_SCL_PIN  GPIO_PIN_8
-#define I2C1_SDA_PORT B
-#define I2C1_SDA_PIN  GPIO_PIN_9
+#define I2C1_SCL_PORT     B
+#define I2C1_SCL_PIN      GPIO_PIN_8
+#define I2C1_SDA_PORT     B
+#define I2C1_SDA_PIN      GPIO_PIN_9
 #else
 #error "Invalid I2C1 IO Remap Configuration! "
 #endif
@@ -586,11 +609,15 @@
 #define I2C1_TX_DMA_IT_SUB      4
 //   </e>
 
+#endif /* I2C1_ENABLE */
+
 // </e>
 
 // <e> I2C2 (Inter-integrated Circuit Interface 2)
 // <i> SCL/PB10, SDA/PB11
 #define I2C2_ENABLE             0
+
+#if I2C2_ENABLE
 
 #define I2C2_SCL_PORT           B
 #define I2C2_SCL_PIN            GPIO_PIN_10
@@ -654,10 +681,14 @@
 #define I2C2_TX_DMA_IT_SUB      4
 //   </e>
 
+#endif /* I2C2_ENABLE */
+
 // </e>
 
 // <e> SPI1 (Serial Peripheral Interface 1)
 #define SPI1_ENABLE             0
+
+#if SPI1_ENABLE
 
 //   <o> SPI1 IO Remap
 //        <0=>No remap   (NSS/PA4,  SCK/PA5, MISO/PA6, MOSI/PA7)
@@ -769,11 +800,15 @@
 #define SPI1_TX_DMA_IT_SUB      4
 //   </e>
 
+#endif /* SPI1_ENABLE */
+
 // </e>
 
 // <e> SPI2 (Serial Peripheral Interface 2)
 // <i> SCK/PB13
 #define SPI2_ENABLE             0
+
+#if SPI2_ENABLE
 
 //   <q> Enable SPI2 NSS  (PB12)
 #define SPI2_NSS_ENABLE         0
@@ -857,10 +892,14 @@
 #define SPI2_TX_DMA_IT_SUB      4
 //   </e>
 
+#endif /* SPI2_ENABLE */
+
 // </e>
 
 // <e> SPI3 (Serial Peripheral Interface 3)
 #define SPI3_ENABLE             0
+
+#if SPI3_ENABLE
 
 //   <o> SPI3/I2S3 IO Remap (NSS->WS, MOSI->SD)
 //        <0=>No remap   (NSS/PA15, SCK/PB3,  MISO/PB4,  MOSI/PB5 )
@@ -980,10 +1019,14 @@
 #define SPI3_TX_DMA_IT_SUB      4
 //   </e>
 
+#endif /* SPI3_ENABLE */
+
 // </e>
 
 // <e> CAN1 (Controller Area Network 1)
 #define CAN1_ENABLE             0
+
+#if CAN1_ENABLE
 
 //   <o> CAN1 IO Remap
 //        <1=>Remap1 (RX/PA11, TX/PA12)
@@ -1053,17 +1096,19 @@
 #define CAN1_SCE_IT_SUB      3
 //   </e>
 
+#endif /* CAN1_ENABLE */
+
 // </e>
 
-#if defined(CAN2)
-
 // <e> CAN2 (Controller Area Network 2)
-#define CAN2_ENABLE   0
+#define CAN2_ENABLE          0
+
+#if CAN2_ENABLE
 
 //   <o> CAN2 IO Remap
 //        <0=>No Remap (RX/PB5,  TX/PB6)
 //        <1=>Remap    (RX/PB12, TX/PB13)
-#define CAN2_IO_REMAP 0
+#define CAN2_IO_REMAP        0
 
 #if (CAN2_IO_REMAP == 0)
 #define CAN2_AFIO_REMAP() __HAL_AFIO_REMAP_CAN2_DISABLE()
@@ -1121,22 +1166,24 @@
 #define CAN2_SCE_IT_SUB      3
 //   </e>
 
-#endif
+#endif /* CAN2_ENABLE */
 
 // </e>
 
 // <e> ETH (Ethernet Interface)
-#define ETH_ENABLE   0
+#define ETH_ENABLE           0
+
+#if ETH_ENABLE
 
 //   <o> ETH IO Remap
 //   <0=>No remap (RX_DV-CRS_DV/PA7, RXD0/PC4, RXD1/PC5,  RXD2/PB0, RXD3/PB1)
 //   <1=>Remap    (RX_DV-CRS_DV/PD8, RXD0/PD9, RXD1/PD10, RXD2/PD11,RXD3/PD12)
-#define ETH_IO_REMAP 0
+#define ETH_IO_REMAP         0
 
 //   <q> MII (Media Independent Interface)
 //   <i> TX/PC3,     TXD0/PB12,  TXD1/PB13, TXD2/PC2, TXD3/PB8,
 //   <i> TX_EN/PB11, RX_CLK/PA1, RX_ER/PB10, CRS/PA0, COL/PA3
-#define ETH_MII      0
+#define ETH_MII              0
 
 #if ETH_MII
 
@@ -1275,10 +1322,14 @@
 //   <o> Reference 25MHz Clock generation on MCO pin <0=>Disabled <1=>Enabled
 #define ETH_REF_CLOCK_ID      1
 
+#endif /* ETH_ENABLE */
+
 // </e>
 
 // <e> RTC (Real Time Clock)
 #define RTC_ENABLE            0
+
+#if RTC_ENABLE
 
 //   <e> RTC Global Interrupt
 #define RTC_IT_ENABLE         0
@@ -1299,6 +1350,8 @@
 //      <i> The Interrupt SubPriority of RTC Alarm
 #define RTC_ALARM_IT_SUB      3
 //   </e>
+
+#endif /* RTC_ENABLE */
 
 // </e>
 
