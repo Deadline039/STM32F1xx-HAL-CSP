@@ -3,7 +3,7 @@
  * @file    RTC_STM32F1xx.c
  * @author  Deadline039
  * @brief   Chip Support Package of RTC on STM32F1xx
- * @version 3.3.0
+ * @version 3.3.1
  * @date    2024-08-30
  */
 
