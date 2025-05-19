@@ -2,7 +2,7 @@
  * @file    CSP_Config.h
  * @author  Deadline039
  * @brief   The CSP configuration of STM32F1xx.
- * @version 3.3.1
+ * @version 3.3.2
  * @date    2024-10-22
  * @note    Reference the CMSIS RTE Devices.
  */

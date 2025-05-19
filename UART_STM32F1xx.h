@@ -2,7 +2,7 @@
  * @file    UART_STM32F1xx.h
  * @author  Deadline039
  * @brief   Chip Support Package of UART on STM32F1xx
- * @version 3.3.1
+ * @version 3.3.2
  * @date    2024-10-22
  */
 
