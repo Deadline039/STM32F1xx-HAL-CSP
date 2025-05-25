@@ -2,7 +2,7 @@
  * @file    CAN_STM32F1xx.h
  * @author  Deadline039
  * @brief   Chip Support Package of CAN on STM32F1xx
- * @version 3.3.2
+ * @version 3.3.3
  * @date    2024-10-22
  * @note    The calculation formula of CAN rate reference to NXP
  *          Application Note: CAN Bit Timing Requirements (AN1798)
